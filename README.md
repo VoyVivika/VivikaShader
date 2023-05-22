@@ -1,4 +1,5 @@
 # VoyVivika's Divorce Shaders
+![Shader Preview](https://github.com/VoyVivika/DivorceShaders/blob/main/README%20ASSETS/Unity_Xwahnfhmvv.gif?raw=true)
 The Divorce Shaders are a Suite of Shaders created by VoyVivika in Unity3D with the Amplify Shader Editor, it's designed to essentially be "Standard Shader with some more Bells and Whistles". I made these for my Personal Avatar after N3X15 told me to be part of the *"Not Using Poiyomi Gang."*
 ## Features
 - Light AudioLink Support (Optional)
