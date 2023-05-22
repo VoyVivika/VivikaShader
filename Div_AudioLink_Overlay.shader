@@ -15,7 +15,7 @@ Shader "VoyVivika/DivorceShaders/Div AudioLink Overlay"
 		_RimPower("Rim Power", Range( 0 , 10)) = 2.07
 		_RimEnergy("Rim Energy", Range( 0 , 1)) = 0.345
 		_RimBaseColorStrength("Rim Base Color Strength", Range( 0 , 1)) = 1
-		[ToggleUI]_DiscardUVTile00("Discard UV Tile 0,0", Float) = 0
+		[Header(UV Tile Discard)][ToggleUI]_DiscardUVTile00("Discard UV Tile 0,0", Range( 0 , 1)) = 0
 		[ToggleUI]_DiscardUVTile01("Discard UV Tile 0,1", Float) = 0
 		[ToggleUI]_DiscardUVTile02("Discard UV Tile 0,2", Float) = 0
 		[ToggleUI]_DiscardUVTile03("Discard UV Tile 0,3", Float) = 0
@@ -31,6 +31,12 @@ Shader "VoyVivika/DivorceShaders/Div AudioLink Overlay"
 		[ToggleUI]_DiscardUVTile31("Discard UV Tile 3,1", Float) = 0
 		[ToggleUI]_DiscardUVTile32("Discard UV Tile 3,2", Float) = 0
 		[ToggleUI]_DiscardUVTile33("Discard UV Tile 3,3", Float) = 0
+		[Header(UV Range Discard)][Header(X and Y are Start UVs)][Header(Z and W are End UVs)]_UVRangeDiscard1Range("UV Range Discard 1 Range", Vector) = (0,0,1,1)
+		[ToggleUI]_UVRangeDiscard1("UV Range Discard 1", Float) = 0
+		_UVRangeDiscard2Range("UV Range Discard 2 Range", Vector) = (0,0,1,1)
+		[ToggleUI]_UVRangeDiscard2("UV Range Discard 2", Float) = 0
+		_UVRangeDiscard3Range("UV Range Discard 3 Range", Vector) = (0,0,1,1)
+		[ToggleUI]_UVRangeDiscard3("UV Range Discard 3", Float) = 0
 		[HideInInspector] _texcoord( "", 2D ) = "white" {}
 		[HideInInspector] __dirty( "", Int ) = 1
 	}
@@ -76,6 +82,12 @@ Shader "VoyVivika/DivorceShaders/Div AudioLink Overlay"
 		uniform float _DiscardUVTile31;
 		uniform float _DiscardUVTile32;
 		uniform float _DiscardUVTile33;
+		uniform float _UVRangeDiscard1;
+		uniform float4 _UVRangeDiscard1Range;
+		uniform float _UVRangeDiscard2;
+		uniform float4 _UVRangeDiscard2Range;
+		uniform float _UVRangeDiscard3;
+		uniform float4 _UVRangeDiscard3Range;
 		uniform sampler2D _normalMap;
 		uniform float4 _normalMap_ST;
 		uniform sampler2D _mainTex;
@@ -170,7 +182,7 @@ Shader "VoyVivika/DivorceShaders/Div AudioLink Overlay"
 			if( break9_g1.x > break11_g1.x )
 				ifLocalVar1_g1 = ifLocalVar14_g1;
 			float ifLocalVar18_g1 = 0;
-			if( (( _DiscardUVTile00 )?( 1.0 ):( 0.0 )) == 1.0 )
+			if( _DiscardUVTile00 == 1.0 )
 				ifLocalVar18_g1 = ifLocalVar1_g1;
 			float2 break9_g2 = DiscardUV200;
 			float2 temp_output_24_0_g2 = floor( float2( 0,0 ) );
@@ -458,7 +470,71 @@ Shader "VoyVivika/DivorceShaders/Div AudioLink Overlay"
 			if( (( _DiscardUVTile33 )?( 1.0 ):( 0.0 )) == 1.0 )
 				ifLocalVar18_g13 = ifLocalVar1_g13;
 			float UVTileDiscard192 = ( ( ifLocalVar18_g1 + ifLocalVar18_g2 + ifLocalVar18_g3 + ifLocalVar18_g4 ) + ( ifLocalVar18_g5 + ifLocalVar18_g6 + ifLocalVar18_g7 + ifLocalVar18_g8 ) + ( ifLocalVar18_g9 + ifLocalVar18_g10 + ifLocalVar18_g11 + ifLocalVar18_g12 ) + ( ifLocalVar18_g16 + ifLocalVar18_g15 + ifLocalVar18_g14 + ifLocalVar18_g13 ) );
-			float3 temp_cast_0 = (UVTileDiscard192).xxx;
+			float2 break9_g17 = DiscardUV200;
+			float4 break245 = _UVRangeDiscard1Range;
+			float2 appendResult247 = (float2(break245.x , break245.y));
+			float2 break11_g17 = appendResult247;
+			float2 appendResult248 = (float2(break245.z , break245.w));
+			float2 break13_g17 = appendResult248;
+			float ifLocalVar16_g17 = 0;
+			if( break11_g17.y < break13_g17.y )
+				ifLocalVar16_g17 = ( 0.0 / 0.0 );
+			float ifLocalVar15_g17 = 0;
+			if( break9_g17.x < break13_g17.x )
+				ifLocalVar15_g17 = ifLocalVar16_g17;
+			float ifLocalVar14_g17 = 0;
+			if( break9_g17.y > break11_g17.y )
+				ifLocalVar14_g17 = ifLocalVar15_g17;
+			float ifLocalVar1_g17 = 0;
+			if( break9_g17.x > break11_g17.x )
+				ifLocalVar1_g17 = ifLocalVar14_g17;
+			float ifLocalVar18_g17 = 0;
+			if( (( _UVRangeDiscard1 )?( 1.0 ):( 0.0 )) == 1.0 )
+				ifLocalVar18_g17 = ifLocalVar1_g17;
+			float2 break9_g18 = DiscardUV200;
+			float4 break252 = _UVRangeDiscard2Range;
+			float2 appendResult253 = (float2(break252.x , break252.y));
+			float2 break11_g18 = appendResult253;
+			float2 appendResult254 = (float2(break252.z , break252.w));
+			float2 break13_g18 = appendResult254;
+			float ifLocalVar16_g18 = 0;
+			if( break11_g18.y < break13_g18.y )
+				ifLocalVar16_g18 = ( 0.0 / 0.0 );
+			float ifLocalVar15_g18 = 0;
+			if( break9_g18.x < break13_g18.x )
+				ifLocalVar15_g18 = ifLocalVar16_g18;
+			float ifLocalVar14_g18 = 0;
+			if( break9_g18.y > break11_g18.y )
+				ifLocalVar14_g18 = ifLocalVar15_g18;
+			float ifLocalVar1_g18 = 0;
+			if( break9_g18.x > break11_g18.x )
+				ifLocalVar1_g18 = ifLocalVar14_g18;
+			float ifLocalVar18_g18 = 0;
+			if( (( _UVRangeDiscard2 )?( 1.0 ):( 0.0 )) == 1.0 )
+				ifLocalVar18_g18 = ifLocalVar1_g18;
+			float2 break9_g19 = DiscardUV200;
+			float4 break259 = _UVRangeDiscard3Range;
+			float2 appendResult260 = (float2(break259.x , break259.y));
+			float2 break11_g19 = appendResult260;
+			float2 appendResult261 = (float2(break259.z , break259.w));
+			float2 break13_g19 = appendResult261;
+			float ifLocalVar16_g19 = 0;
+			if( break11_g19.y < break13_g19.y )
+				ifLocalVar16_g19 = ( 0.0 / 0.0 );
+			float ifLocalVar15_g19 = 0;
+			if( break9_g19.x < break13_g19.x )
+				ifLocalVar15_g19 = ifLocalVar16_g19;
+			float ifLocalVar14_g19 = 0;
+			if( break9_g19.y > break11_g19.y )
+				ifLocalVar14_g19 = ifLocalVar15_g19;
+			float ifLocalVar1_g19 = 0;
+			if( break9_g19.x > break11_g19.x )
+				ifLocalVar1_g19 = ifLocalVar14_g19;
+			float ifLocalVar18_g19 = 0;
+			if( (( _UVRangeDiscard3 )?( 1.0 ):( 0.0 )) == 1.0 )
+				ifLocalVar18_g19 = ifLocalVar1_g19;
+			float UVRangeDiscard267 = ( ifLocalVar18_g17 + ifLocalVar18_g18 + ifLocalVar18_g19 );
+			float3 temp_cast_0 = (( UVTileDiscard192 + UVRangeDiscard267 )).xxx;
 			v.vertex.xyz += temp_cast_0;
 			v.vertex.w = 1;
 		}
@@ -616,7 +692,7 @@ Shader "VoyVivika/DivorceShaders/Div AudioLink Overlay"
 }
 /*ASEBEGIN
 Version=19105
-Node;AmplifyShaderEditor.CommentaryNode;220;2051.233,-3370.865;Inherit;False;962.8354;715.8684;Comment;7;0;33;36;32;95;92;193;Output;1,1,1,1;0;0
+Node;AmplifyShaderEditor.CommentaryNode;220;2051.233,-3370.865;Inherit;False;962.8354;715.8684;Comment;9;0;33;36;32;95;92;193;268;269;Output;1,1,1,1;0;0
 Node;AmplifyShaderEditor.CommentaryNode;201;-55.94421,-697.3302;Inherit;False;503.0845;214.413;Comment;2;200;199;Discard UV;1,1,1,1;0;0
 Node;AmplifyShaderEditor.CommentaryNode;107;-23.66935,-4536.875;Inherit;False;903.0725;942.8996;Comment;14;85;84;83;82;81;80;79;78;76;77;75;74;73;71;AudioLink Emission;1,1,1,1;0;0
 Node;AmplifyShaderEditor.CommentaryNode;106;-112.9787,-5381.73;Inherit;False;1183.572;355.2229;Comment;5;57;69;68;70;45;AudioLink Treble;1,1,1,1;0;0
@@ -700,9 +776,8 @@ Node;AmplifyShaderEditor.RegisterLocalVarNode;67;879.6917,-5819.153;Inherit;Fals
 Node;AmplifyShaderEditor.FunctionNode;124;-747.4884,-5834.831;Inherit;False;IsAudioLink;-1;;13;e83fef6181013ba4bacf30a3d9a31d37;0;0;1;FLOAT;0
 Node;AmplifyShaderEditor.ConditionalIfNode;125;-536.8116,-5774.364;Inherit;False;False;5;0;FLOAT;0;False;1;FLOAT;1;False;2;FLOAT;0;False;3;FLOAT3;0,0,0;False;4;FLOAT3;0,0,0;False;1;FLOAT3;0
 Node;AmplifyShaderEditor.RegisterLocalVarNode;85;675.2438,-4163.689;Inherit;False;AL_Final;-1;True;1;0;COLOR;0,0,0,0;False;1;COLOR;0
-Node;AmplifyShaderEditor.CommentaryNode;138;924.1055,-995.565;Inherit;False;3964.762;1737.559;Comment;42;191;225;224;192;223;222;216;215;214;213;212;211;210;209;205;206;208;207;204;203;202;198;186;185;184;183;180;173;172;171;170;167;164;163;162;161;160;159;154;149;143;141;UV Tile Discard;1,1,1,1;0;0
+Node;AmplifyShaderEditor.CommentaryNode;138;924.1055,-995.565;Inherit;False;3964.762;1737.559;Comment;42;191;225;224;192;223;222;216;215;214;213;212;211;210;209;205;206;208;207;204;203;202;198;186;185;184;183;180;173;172;171;170;167;164;163;162;161;160;159;154;149;141;270;UV Tile Discard;1,1,1,1;0;0
 Node;AmplifyShaderEditor.ToggleSwitchNode;141;990.0652,-360.4861;Inherit;False;Property;_DiscardUVTile01;Discard UV Tile 0,1;12;0;Create;True;0;0;0;False;0;False;0;False;2;0;FLOAT;0;False;1;FLOAT;1;False;1;FLOAT;0
-Node;AmplifyShaderEditor.ToggleSwitchNode;143;990.8054,-582.2604;Inherit;False;Property;_DiscardUVTile00;Discard UV Tile 0,0;11;0;Create;True;0;0;0;False;0;False;0;False;2;0;FLOAT;0;False;1;FLOAT;1;False;1;FLOAT;0
 Node;AmplifyShaderEditor.SimpleAddOpNode;149;1574.041,-29.37679;Inherit;False;4;4;0;FLOAT;0;False;1;FLOAT;0;False;2;FLOAT;0;False;3;FLOAT;0;False;1;FLOAT;0
 Node;AmplifyShaderEditor.SimpleAddOpNode;154;2361.4,4.925166;Inherit;False;4;4;0;FLOAT;0;False;1;FLOAT;0;False;2;FLOAT;0;False;3;FLOAT;0;False;1;FLOAT;0
 Node;AmplifyShaderEditor.ToggleSwitchNode;159;1754.841,-567.1594;Inherit;False;Property;_DiscardUVTile10;Discard UV Tile 1,0;15;0;Create;True;0;0;0;False;0;False;0;False;2;0;FLOAT;0;False;1;FLOAT;1;False;1;FLOAT;0
@@ -748,8 +823,7 @@ Node;AmplifyShaderEditor.StandardSurfaceOutputNode;0;2759.068,-3220.523;Float;Fa
 Node;AmplifyShaderEditor.GetLocalVarNode;33;2286.262,-3320.865;Inherit;False;26;mainTex;1;0;OBJECT;;False;1;COLOR;0
 Node;AmplifyShaderEditor.GetLocalVarNode;36;2297.222,-3237.719;Inherit;False;35;normalMap;1;0;OBJECT;;False;1;FLOAT3;0
 Node;AmplifyShaderEditor.GetLocalVarNode;32;2301.754,-3145.94;Inherit;False;29;EmissionFinal;1;0;OBJECT;;False;1;COLOR;0
-Node;AmplifyShaderEditor.BreakToComponentsNode;95;2282.518,-3022.374;Inherit;True;COLOR;1;0;COLOR;0,0,0,0;False;16;FLOAT;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4;FLOAT;5;FLOAT;6;FLOAT;7;FLOAT;8;FLOAT;9;FLOAT;10;FLOAT;11;FLOAT;12;FLOAT;13;FLOAT;14;FLOAT;15
-Node;AmplifyShaderEditor.GetLocalVarNode;193;2468.81,-2770.997;Inherit;False;192;UVTileDiscard;1;0;OBJECT;;False;1;FLOAT;0
+Node;AmplifyShaderEditor.BreakToComponentsNode;95;2282.518,-3022.374;Inherit;False;COLOR;1;0;COLOR;0,0,0,0;False;16;FLOAT;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4;FLOAT;5;FLOAT;6;FLOAT;7;FLOAT;8;FLOAT;9;FLOAT;10;FLOAT;11;FLOAT;12;FLOAT;13;FLOAT;14;FLOAT;15
 Node;AmplifyShaderEditor.WireNode;225;1676.254,-711.4808;Inherit;False;1;0;FLOAT;0;False;1;FLOAT;0
 Node;AmplifyShaderEditor.RegisterLocalVarNode;192;4647.759,-868.7963;Inherit;False;UVTileDiscard;-1;True;1;0;FLOAT;0;False;1;FLOAT;0
 Node;AmplifyShaderEditor.SimpleAddOpNode;191;4344.228,-842.1623;Inherit;False;4;4;0;FLOAT;0;False;1;FLOAT;0;False;2;FLOAT;0;False;3;FLOAT;0;False;1;FLOAT;0
@@ -781,6 +855,34 @@ Node;AmplifyShaderEditor.SamplerNode;25;-1835.004,-2418.635;Inherit;True;Propert
 Node;AmplifyShaderEditor.FractNode;49;-1440.809,-4759.045;Inherit;False;1;0;FLOAT;0;False;1;FLOAT;0
 Node;AmplifyShaderEditor.SimpleTimeNode;48;-1600.04,-4757.258;Inherit;False;1;0;FLOAT;0.1;False;1;FLOAT;0
 Node;AmplifyShaderEditor.RangedFloatNode;243;-1786.835,-4764.416;Inherit;False;Property;_ALTimeScale;AL Time Scale;4;0;Create;True;0;0;0;False;0;False;0;0.1;0;0;0;1;FLOAT;0
+Node;AmplifyShaderEditor.CommentaryNode;244;5665.53,-1084.681;Inherit;False;1473.337;1437.826;Comment;23;267;266;265;264;263;262;261;260;259;258;257;256;255;254;253;252;251;250;249;248;247;246;245;UV Range Discard;1,1,1,1;0;0
+Node;AmplifyShaderEditor.BreakToComponentsNode;245;5975.529,-792.7888;Inherit;False;FLOAT4;1;0;FLOAT4;0,0,0,0;False;16;FLOAT;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4;FLOAT;5;FLOAT;6;FLOAT;7;FLOAT;8;FLOAT;9;FLOAT;10;FLOAT;11;FLOAT;12;FLOAT;13;FLOAT;14;FLOAT;15
+Node;AmplifyShaderEditor.DynamicAppendNode;247;6108.968,-816.7595;Inherit;False;FLOAT2;4;0;FLOAT;0;False;1;FLOAT;0;False;2;FLOAT;0;False;3;FLOAT;0;False;1;FLOAT2;0
+Node;AmplifyShaderEditor.DynamicAppendNode;248;6108.968,-720.7596;Inherit;False;FLOAT2;4;0;FLOAT;0;False;1;FLOAT;0;False;2;FLOAT;0;False;3;FLOAT;0;False;1;FLOAT2;0
+Node;AmplifyShaderEditor.GetLocalVarNode;249;6067.578,-892.1313;Inherit;False;200;DiscardUV;1;0;OBJECT;;False;1;FLOAT2;0
+Node;AmplifyShaderEditor.FunctionNode;250;6292.487,-915.9605;Inherit;False;UV Range Discard;-1;;17;59eaa82e4bf18fa44b47aa07cd25b8a2;0;4;21;FLOAT;0;False;6;FLOAT2;0,0;False;10;FLOAT2;0,0;False;12;FLOAT2;0,0;False;1;FLOAT;0
+Node;AmplifyShaderEditor.BreakToComponentsNode;252;6005.116,-342.5569;Inherit;False;FLOAT4;1;0;FLOAT4;0,0,0,0;False;16;FLOAT;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4;FLOAT;5;FLOAT;6;FLOAT;7;FLOAT;8;FLOAT;9;FLOAT;10;FLOAT;11;FLOAT;12;FLOAT;13;FLOAT;14;FLOAT;15
+Node;AmplifyShaderEditor.DynamicAppendNode;253;6138.553,-366.5276;Inherit;False;FLOAT2;4;0;FLOAT;0;False;1;FLOAT;0;False;2;FLOAT;0;False;3;FLOAT;0;False;1;FLOAT2;0
+Node;AmplifyShaderEditor.DynamicAppendNode;254;6138.553,-270.5276;Inherit;False;FLOAT2;4;0;FLOAT;0;False;1;FLOAT;0;False;2;FLOAT;0;False;3;FLOAT;0;False;1;FLOAT2;0
+Node;AmplifyShaderEditor.GetLocalVarNode;255;6097.163,-441.8993;Inherit;False;200;DiscardUV;1;0;OBJECT;;False;1;FLOAT2;0
+Node;AmplifyShaderEditor.FunctionNode;256;6322.072,-465.7282;Inherit;False;UV Range Discard;-1;;18;59eaa82e4bf18fa44b47aa07cd25b8a2;0;4;21;FLOAT;0;False;6;FLOAT2;0,0;False;10;FLOAT2;0,0;False;12;FLOAT2;0,0;False;1;FLOAT;0
+Node;AmplifyShaderEditor.Vector4Node;258;5745.116,-345.5569;Inherit;False;Property;_UVRangeDiscard2Range;UV Range Discard 2 Range;29;0;Create;True;0;0;0;False;0;False;0,0,1,1;0,0,1,1;0;5;FLOAT4;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
+Node;AmplifyShaderEditor.BreakToComponentsNode;259;6068.03,144.1448;Inherit;False;FLOAT4;1;0;FLOAT4;0,0,0,0;False;16;FLOAT;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4;FLOAT;5;FLOAT;6;FLOAT;7;FLOAT;8;FLOAT;9;FLOAT;10;FLOAT;11;FLOAT;12;FLOAT;13;FLOAT;14;FLOAT;15
+Node;AmplifyShaderEditor.DynamicAppendNode;260;6201.468,120.1747;Inherit;False;FLOAT2;4;0;FLOAT;0;False;1;FLOAT;0;False;2;FLOAT;0;False;3;FLOAT;0;False;1;FLOAT2;0
+Node;AmplifyShaderEditor.DynamicAppendNode;261;6201.468,216.1747;Inherit;False;FLOAT2;4;0;FLOAT;0;False;1;FLOAT;0;False;2;FLOAT;0;False;3;FLOAT;0;False;1;FLOAT2;0
+Node;AmplifyShaderEditor.GetLocalVarNode;262;6160.077,44.80279;Inherit;False;200;DiscardUV;1;0;OBJECT;;False;1;FLOAT2;0
+Node;AmplifyShaderEditor.FunctionNode;263;6384.986,20.97381;Inherit;False;UV Range Discard;-1;;19;59eaa82e4bf18fa44b47aa07cd25b8a2;0;4;21;FLOAT;0;False;6;FLOAT2;0,0;False;10;FLOAT2;0,0;False;12;FLOAT2;0,0;False;1;FLOAT;0
+Node;AmplifyShaderEditor.Vector4Node;264;5808.031,141.1448;Inherit;False;Property;_UVRangeDiscard3Range;UV Range Discard 3 Range;31;0;Create;True;0;0;0;False;0;False;0,0,1,1;0,0,1,1;0;5;FLOAT4;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
+Node;AmplifyShaderEditor.SimpleAddOpNode;266;6692.469,-484.9842;Inherit;False;3;3;0;FLOAT;0;False;1;FLOAT;0;False;2;FLOAT;0;False;1;FLOAT;0
+Node;AmplifyShaderEditor.RegisterLocalVarNode;267;6904.867,-437.2843;Inherit;False;UVRangeDiscard;-1;True;1;0;FLOAT;0;False;1;FLOAT;0
+Node;AmplifyShaderEditor.SimpleAddOpNode;268;2616.94,-2783.048;Inherit;False;2;2;0;FLOAT;0;False;1;FLOAT;0;False;1;FLOAT;0
+Node;AmplifyShaderEditor.GetLocalVarNode;193;2351.81,-2859.997;Inherit;False;192;UVTileDiscard;1;0;OBJECT;;False;1;FLOAT;0
+Node;AmplifyShaderEditor.GetLocalVarNode;269;2358.94,-2746.048;Inherit;False;267;UVRangeDiscard;1;0;OBJECT;;False;1;FLOAT;0
+Node;AmplifyShaderEditor.Vector4Node;246;5715.53,-795.7888;Inherit;False;Property;_UVRangeDiscard1Range;UV Range Discard 1 Range;27;1;[Header];Create;True;3;UV Range Discard;X and Y are Start UVs;Z and W are End UVs;0;0;False;0;False;0,0,1,1;0,0,1,1;0;5;FLOAT4;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
+Node;AmplifyShaderEditor.RangedFloatNode;270;977.1765,-689.3776;Inherit;False;Property;_DiscardUVTile00;Discard UV Tile 0,0;11;2;[Header];[ToggleUI];Create;True;1;UV Tile Discard;0;0;False;0;False;0;0;0;1;0;1;FLOAT;0
+Node;AmplifyShaderEditor.ToggleSwitchNode;251;6009.912,-1034.681;Inherit;False;Property;_UVRangeDiscard1;UV Range Discard 1;28;0;Create;True;0;0;0;False;0;False;0;False;2;0;FLOAT;0;False;1;FLOAT;1;False;1;FLOAT;0
+Node;AmplifyShaderEditor.ToggleSwitchNode;257;6039.498,-584.4487;Inherit;False;Property;_UVRangeDiscard2;UV Range Discard 2;30;0;Create;True;0;0;0;False;0;False;0;False;2;0;FLOAT;0;False;1;FLOAT;1;False;1;FLOAT;0
+Node;AmplifyShaderEditor.ToggleSwitchNode;265;6103.412,-97.74685;Inherit;False;Property;_UVRangeDiscard3;UV Range Discard 3;32;0;Create;True;0;0;0;False;0;False;0;False;2;0;FLOAT;0;False;1;FLOAT;1;False;1;FLOAT;0
 WireConnection;35;0;34;0
 WireConnection;50;0;49;0
 WireConnection;26;0;25;0
@@ -868,7 +970,7 @@ WireConnection;0;1;36;0
 WireConnection;0;2;32;0
 WireConnection;0;3;95;0
 WireConnection;0;4;95;1
-WireConnection;0;11;193;0
+WireConnection;0;11;268;0
 WireConnection;95;0;92;0
 WireConnection;225;0;149;0
 WireConnection;192;0;191;0
@@ -880,7 +982,7 @@ WireConnection;223;0;167;0
 WireConnection;222;0;180;0
 WireConnection;224;0;154;0
 WireConnection;200;0;199;0
-WireConnection;227;21;143;0
+WireConnection;227;21;270;0
 WireConnection;227;6;198;0
 WireConnection;228;21;141;0
 WireConnection;228;6;202;0
@@ -914,5 +1016,38 @@ WireConnection;242;21;183;0
 WireConnection;242;6;213;0
 WireConnection;49;0;48;0
 WireConnection;48;0;243;0
+WireConnection;245;0;246;0
+WireConnection;247;0;245;0
+WireConnection;247;1;245;1
+WireConnection;248;0;245;2
+WireConnection;248;1;245;3
+WireConnection;250;21;251;0
+WireConnection;250;6;249;0
+WireConnection;250;10;247;0
+WireConnection;250;12;248;0
+WireConnection;252;0;258;0
+WireConnection;253;0;252;0
+WireConnection;253;1;252;1
+WireConnection;254;0;252;2
+WireConnection;254;1;252;3
+WireConnection;256;21;257;0
+WireConnection;256;6;255;0
+WireConnection;256;10;253;0
+WireConnection;256;12;254;0
+WireConnection;259;0;264;0
+WireConnection;260;0;259;0
+WireConnection;260;1;259;1
+WireConnection;261;0;259;2
+WireConnection;261;1;259;3
+WireConnection;263;21;265;0
+WireConnection;263;6;262;0
+WireConnection;263;10;260;0
+WireConnection;263;12;261;0
+WireConnection;266;0;250;0
+WireConnection;266;1;256;0
+WireConnection;266;2;263;0
+WireConnection;267;0;266;0
+WireConnection;268;0;193;0
+WireConnection;268;1;269;0
 ASEEND*/
-//CHKSM=80F680DB41645A392208CE4AB3630663708DDA37
+//CHKSM=9E7FE67C69D96B9ABE9EF1BBD9A30B1CFD9B5660
