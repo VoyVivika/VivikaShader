@@ -1,17 +1,22 @@
 # VoyVivika's Divorce Shaders
 ![Shader Preview](https://github.com/VoyVivika/DivorceShaders/blob/main/README%20ASSETS/Unity_Xwahnfhmvv.gif?raw=true)
 
-[Avatar Showcased is my Personal Edit of Murdoc the Rat by Skully Hellfire](https://skullyhellfire.gumroad.com/l/skullysmurdoc)
+[3D  Model Showcased is my Personal Edit of Murdoc the Rat by Skully Hellfire](https://skullyhellfire.gumroad.com/l/skullysmurdoc)
 
-The Divorce Shaders are a Suite of Shaders created by VoyVivika in Unity3D with the Amplify Shader Editor, it's designed to essentially be "Standard Shader with some more Bells and Whistles". I made these for my Personal Avatar after N3X15 told me to be part of the *"Not Using Poiyomi Gang."*
+The Divorce Shaders are a Suite of Shaders created by VoyVivika in Unity3D with the Amplify Shader Editor. I made these for my Personal ChilloutVR Avatar after N3X15 told me to be part of the *"Not Using Poiyomi Gang."*, ended up being a fun project of experimenting with Shaders Honestly.
 ## Features
 - AudioLink Support
+	- Requires AudioLink to be Present in the Project, [You can get it here!](https://github.com/llealloo/vrc-udon-audio-link)
 	- Emission Mask with 4 Colors that Represent each Band, the Colors Combine Together to Become White.
 	- If AudioLink is Absent, the Bass Band Emission will remain on.
 - Vertex UV Tile Discard
 - Vertex UV Range Discard
 	- In the Shader this is stored as a Vector 4. X and Y are the starting UVs, Z and W are the ending UVs
 - Rim Lighting
+- 3 Lighting Types
+	- Standard (Acts like Unity Standard Shader)
+	- Flat (Attempts to remain Flat Lit while also Respecting Lighting)
+	- Test (This Mode is Subject to Change)
 ### MultiMap
 MultiMap is a Texture which contains multiple maps in 1
 Currently the Spec for the Divorce Shader Multi-Map is
