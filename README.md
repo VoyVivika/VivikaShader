@@ -5,6 +5,7 @@ The Divorce Shaders are a Suite of Shaders created by VoyVivika in Unity3D with 
 ## Features
 - AudioLink Support
 	- Emission Mask with 4 Colors that Represent each Band, the Colors Combine Together to Become White.
+	- If AudioLink is Absent, the Bass Band Emission will remain on.
 - Vertex UV Tile Discard
 - Rim Lighting
 ### MultiMap
@@ -14,4 +15,5 @@ Currently the Spec for the Divorce Shader Multi-Map is
 - Green Channel = Smoothness
 ## Why are they called "Divorce Shaders"
 *In short: I thought it'd be funny.*
+
 I made a Prop in ChilloutVR that's literally just a jpeg of a Divorce Agreement Document, then I said to a friend "I'm going to make the Divorce Shaders" so I decided to give that name to these Shaders.
