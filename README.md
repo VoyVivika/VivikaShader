@@ -13,10 +13,9 @@ The Divorce Shaders are a Suite of Shaders created by VoyVivika in Unity3D with 
 - Vertex UV Range Discard
 	- In the Shader this is stored as a Vector 4. X and Y are the starting UVs, Z and W are the ending UVs
 - Rim Lighting
-- 3 Lighting Types
+- 2 Lighting Types
 	- Standard (Acts like Unity Standard Shader)
 	- Flat (Attempts to remain Flat Lit while also Respecting Lighting)
-	- Test (This Mode is Subject to Change)
 ### MultiMap
 MultiMap is a Texture which contains multiple maps in 1
 Currently the Spec for the Divorce Shader Multi-Map is
