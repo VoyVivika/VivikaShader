@@ -24,9 +24,13 @@ Currently the Spec for the Divorce Shader Multi-Map is
 ## Amplify Functions
 This Repo contains some Amplify Shader Editor Functions useful for Shader Creators, namely:
 - UV Range Discard
-	- Discards Vertices in a UV Range
+	- Returns NaN if the supplied UV is in the Supplied UV Range, otherwise Returns 0.
 - UV Tile Discard
-	- Discards Vertices in the Specified UV Tile (Supplied UV Tile is Floored and is increased by 1 for the Range)
+	- Returns NaN if the supplied UV is on the Supplied UV Tile, otherwise Returns 0.
+- UV Range Check
+	- Returns 1 if the supplied UV is in the Supplied UV Range, otherwise Returns 0.
+- UV Tile Check
+	- Returns 1 if the supplied UV is on the Supplied UV Tile, otherwise Returns 0.
 ## Why are they called "Divorce Shaders"
 *In short: I thought it'd be funny.*
 
