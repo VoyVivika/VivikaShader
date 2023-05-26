@@ -15,7 +15,8 @@ The Divorce Shaders are a Suite of Shaders created by VoyVivika in Unity3D with 
 - Rim Lighting
 - 2 Lighting Types
 	- Standard (Acts like Unity Standard Shader)
-	- Flat (Attempts to remain Flat Lit while also Respecting Lighting)
+	- Flat Lit (Attempts to be Lit uniformly across the Mesh)
+	- Flat Shade (Attempts to include a stylized shadowing)
 ### MultiMap
 MultiMap is a Texture which contains multiple maps in 1
 Currently the Spec for the Divorce Shader Multi-Map is
