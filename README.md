@@ -21,6 +21,9 @@ MultiMap is a Texture which contains multiple maps in 1
 Currently the Spec for the Divorce Shader Multi-Map is
 - Red Channel = Metalic
 - Green Channel = Smoothness
+### Texture Ramp (Toon Lighting)
+- Left is Darkest, Right is Lightest
+- For best results on your Texture Ramp switch the Wrap Mode from "Repeat" to "Clamp"
 ## Amplify Functions
 This Repo contains some Amplify Shader Editor Functions useful for Shader Creators, namely:
 - UV Range Discard
