@@ -67,7 +67,7 @@ Shader "VoyVivika/VivikaShader"
 		#include "UnityCG.cginc"
 		#include "Lighting.cginc"
 		#pragma target 3.0
-		#include "Assets/AudioLink/Shaders/AudioLink.cginc"
+		#include "Assets\Voy\Shader\DivorceShader\DivorceShaders\Libs\AudioLink\AudioLink.cginc"
 		#ifdef UNITY_PASS_SHADOWCASTER
 			#undef INTERNAL_DATA
 			#undef WorldReflectionVector
@@ -99,10 +99,10 @@ Shader "VoyVivika/VivikaShader"
 			UnityGIInput GIData;
 		};
 
-		uniform sampler2D _MainTex;
-		uniform sampler2D _EmissionMap;
 		uniform float4 _EmissionColor;
+		uniform sampler2D _MainTex;
 		uniform sampler2D _BumpMap;
+		uniform sampler2D _EmissionMap;
 		uniform float _UVRangeDiscard1;
 		uniform float4 _UVRangeDiscard1Range;
 		uniform float _UVRangeDiscard2;
@@ -152,7 +152,7 @@ Shader "VoyVivika/VivikaShader"
 		uniform float4 _MultiMap_ST;
 
 
-		float IfAudioLinkv2Exists1_g308(  )
+		float IfAudioLinkv2Exists1_g315(  )
 		{
 			int w = 0; 
 			int h; 
@@ -183,25 +183,25 @@ Shader "VoyVivika/VivikaShader"
 			return float3( abs(q.z + (q.w - q.y) / (6.0 * d + e)), d / (q.x + e), q.x);
 		}
 
-		inline float AudioLinkData3_g309( int Band, int Delay )
+		inline float AudioLinkData3_g312( int Band, int Delay )
 		{
 			return AudioLinkData( ALPASS_AUDIOLINK + uint2( Delay, Band ) ).rrrr;
 		}
 
 
-		inline float AudioLinkData3_g60( int Band, int Delay )
+		inline float AudioLinkData3_g313( int Band, int Delay )
 		{
 			return AudioLinkData( ALPASS_AUDIOLINK + uint2( Delay, Band ) ).rrrr;
 		}
 
 
-		inline float AudioLinkData3_g12( int Band, int Delay )
+		inline float AudioLinkData3_g311( int Band, int Delay )
 		{
 			return AudioLinkData( ALPASS_AUDIOLINK + uint2( Delay, Band ) ).rrrr;
 		}
 
 
-		inline float AudioLinkData3_g11( int Band, int Delay )
+		inline float AudioLinkData3_g314( int Band, int Delay )
 		{
 			return AudioLinkData( ALPASS_AUDIOLINK + uint2( Delay, Band ) ).rrrr;
 		}
@@ -368,47 +368,47 @@ Shader "VoyVivika/VivikaShader"
 			s303.Normal = normalize( WorldNormalVector( i , normalMap1002 ) );
 			float2 uv_AL_Mask = i.uv_texcoord * _AL_Mask_ST.xy + _AL_Mask_ST.zw;
 			float4 ALMask39 = tex2D( _AL_Mask, uv_AL_Mask );
-			float localIfAudioLinkv2Exists1_g308 = IfAudioLinkv2Exists1_g308();
+			float localIfAudioLinkv2Exists1_g315 = IfAudioLinkv2Exists1_g315();
 			float4 color42 = IsGammaSpace() ? float4(1,0,0,1) : float4(1,0,0,1);
 			float3 hsvTorgb4_g307 = RGBToHSV( color42.rgb );
 			float mulTime48 = _Time.y * _ALTimeScale;
 			float Time50 = frac( mulTime48 );
 			float3 hsvTorgb8_g307 = HSVToRGB( float3(( hsvTorgb4_g307.x + Time50 ),( hsvTorgb4_g307.y + 0.0 ),( hsvTorgb4_g307.z + 0.0 )) );
 			float3 temp_output_194_0 = saturate( hsvTorgb8_g307 );
-			int Band3_g309 = 0;
+			int Band3_g312 = 0;
 			float clampResult982 = clamp( (0.0 + (i.uv3_texcoord3.y - 0.0) * (_ALUVDelayMaxDelay - 0.0) / (_ALDelayVPosition - 0.0)) , 0.0 , 127.0 );
 			float2 appendResult986 = (float2(_ALDelayUPosition , _ALDelayVPosition));
-			float2 break18_g306 = appendResult986;
-			float2 break20_g306 = i.uv3_texcoord3;
-			float temp_output_10_0_g306 = ( break18_g306.x - break20_g306.x );
-			float temp_output_11_0_g306 = ( break18_g306.y - break20_g306.y );
-			float clampResult27_g306 = clamp( sqrt( ( ( temp_output_10_0_g306 * temp_output_10_0_g306 ) + ( temp_output_11_0_g306 * temp_output_11_0_g306 ) ) ) , 0.0 , 1.0 );
-			float clampResult987 = clamp( (0.0 + (clampResult27_g306 - 0.0) * (_ALUVDelayMaxDelay - 0.0) / (1.0 - 0.0)) , 0.0 , 127.0 );
+			float2 break18_g310 = appendResult986;
+			float2 break20_g310 = i.uv3_texcoord3;
+			float temp_output_10_0_g310 = ( break18_g310.x - break20_g310.x );
+			float temp_output_11_0_g310 = ( break18_g310.y - break20_g310.y );
+			float clampResult27_g310 = clamp( sqrt( ( ( temp_output_10_0_g310 * temp_output_10_0_g310 ) + ( temp_output_11_0_g310 * temp_output_11_0_g310 ) ) ) , 0.0 , 1.0 );
+			float clampResult987 = clamp( (0.0 + (clampResult27_g310 - 0.0) * (_ALUVDelayMaxDelay - 0.0) / (1.0 - 0.0)) , 0.0 , 127.0 );
 			float in_ALDelay991 = round( ( _ALUVToggle == 1.0 ? (127.0 + (clampResult982 - 0.0) * (0.0 - 127.0) / (127.0 - 0.0)) : ( _ALUVToggle == 2.0 ? clampResult987 : 0.0 ) ) );
-			int Delay3_g309 = (int)in_ALDelay991;
-			float localAudioLinkData3_g309 = AudioLinkData3_g309( Band3_g309 , Delay3_g309 );
-			float3 ALC_Bass61 = ( localIfAudioLinkv2Exists1_g308 == 1.0 ? ( temp_output_194_0 * localAudioLinkData3_g309 ) : temp_output_194_0 );
+			int Delay3_g312 = (int)in_ALDelay991;
+			float localAudioLinkData3_g312 = AudioLinkData3_g312( Band3_g312 , Delay3_g312 );
+			float3 ALC_Bass61 = ( localIfAudioLinkv2Exists1_g315 == 1.0 ? ( temp_output_194_0 * localAudioLinkData3_g312 ) : temp_output_194_0 );
 			float4 color44 = IsGammaSpace() ? float4(0,0.8196079,0,1) : float4(0,0.637597,0,1);
 			float3 hsvTorgb4_g59 = RGBToHSV( color44.rgb );
 			float3 hsvTorgb8_g59 = HSVToRGB( float3(( hsvTorgb4_g59.x + Time50 ),( hsvTorgb4_g59.y + 0.0 ),( hsvTorgb4_g59.z + 0.0 )) );
-			int Band3_g60 = 2;
-			int Delay3_g60 = (int)in_ALDelay991;
-			float localAudioLinkData3_g60 = AudioLinkData3_g60( Band3_g60 , Delay3_g60 );
-			float3 ALC_HighMid67 = ( saturate( hsvTorgb8_g59 ) * localAudioLinkData3_g60 );
+			int Band3_g313 = 2;
+			int Delay3_g313 = (int)in_ALDelay991;
+			float localAudioLinkData3_g313 = AudioLinkData3_g313( Band3_g313 , Delay3_g313 );
+			float3 ALC_HighMid67 = ( saturate( hsvTorgb8_g59 ) * localAudioLinkData3_g313 );
 			float4 color43 = IsGammaSpace() ? float4(1,0.9294118,0,1) : float4(1,0.8468735,0,1);
 			float3 hsvTorgb4_g38 = RGBToHSV( color43.rgb );
 			float3 hsvTorgb8_g38 = HSVToRGB( float3(( hsvTorgb4_g38.x + Time50 ),( hsvTorgb4_g38.y + 0.0 ),( hsvTorgb4_g38.z + 0.0 )) );
-			int Band3_g12 = 1;
-			int Delay3_g12 = (int)in_ALDelay991;
-			float localAudioLinkData3_g12 = AudioLinkData3_g12( Band3_g12 , Delay3_g12 );
-			float3 ALC_LowMid64 = ( saturate( hsvTorgb8_g38 ) * localAudioLinkData3_g12 );
+			int Band3_g311 = 1;
+			int Delay3_g311 = (int)in_ALDelay991;
+			float localAudioLinkData3_g311 = AudioLinkData3_g311( Band3_g311 , Delay3_g311 );
+			float3 ALC_LowMid64 = ( saturate( hsvTorgb8_g38 ) * localAudioLinkData3_g311 );
 			float4 color45 = IsGammaSpace() ? float4(0,0,1,1) : float4(0,0,1,1);
 			float3 hsvTorgb4_g37 = RGBToHSV( color45.rgb );
 			float3 hsvTorgb8_g37 = HSVToRGB( float3(( hsvTorgb4_g37.x + Time50 ),( hsvTorgb4_g37.y + 0.0 ),( hsvTorgb4_g37.z + 0.0 )) );
-			int Band3_g11 = 3;
-			int Delay3_g11 = (int)in_ALDelay991;
-			float localAudioLinkData3_g11 = AudioLinkData3_g11( Band3_g11 , Delay3_g11 );
-			float3 ALC_Treble70 = ( saturate( hsvTorgb8_g37 ) * localAudioLinkData3_g11 );
+			int Band3_g314 = 3;
+			int Delay3_g314 = (int)in_ALDelay991;
+			float localAudioLinkData3_g314 = AudioLinkData3_g314( Band3_g314 , Delay3_g314 );
+			float3 ALC_Treble70 = ( saturate( hsvTorgb8_g37 ) * localAudioLinkData3_g314 );
 			float4 AL_Final85 = ( _EnableAudioLink * ( ( ALMask39 * float4( ALC_Bass61 , 0.0 ) ) + ( ALMask39 * float4( ALC_HighMid67 , 0.0 ) ) + ( ALMask39 * float4( ALC_LowMid64 , 0.0 ) ) + ( ALMask39 * float4( ALC_Treble70 , 0.0 ) ) ) );
 			float2 uv_Emission = i.uv_texcoord * _Emission_ST.xy + _Emission_ST.zw;
 			float4 Emission119 = ( tex2D( _Emission, uv_Emission ) * _EmissionStrength );
@@ -459,47 +459,47 @@ Shader "VoyVivika/VivikaShader"
 			o.Albedo = mainTex26.rgb;
 			float2 uv_AL_Mask = i.uv_texcoord * _AL_Mask_ST.xy + _AL_Mask_ST.zw;
 			float4 ALMask39 = tex2D( _AL_Mask, uv_AL_Mask );
-			float localIfAudioLinkv2Exists1_g308 = IfAudioLinkv2Exists1_g308();
+			float localIfAudioLinkv2Exists1_g315 = IfAudioLinkv2Exists1_g315();
 			float4 color42 = IsGammaSpace() ? float4(1,0,0,1) : float4(1,0,0,1);
 			float3 hsvTorgb4_g307 = RGBToHSV( color42.rgb );
 			float mulTime48 = _Time.y * _ALTimeScale;
 			float Time50 = frac( mulTime48 );
 			float3 hsvTorgb8_g307 = HSVToRGB( float3(( hsvTorgb4_g307.x + Time50 ),( hsvTorgb4_g307.y + 0.0 ),( hsvTorgb4_g307.z + 0.0 )) );
 			float3 temp_output_194_0 = saturate( hsvTorgb8_g307 );
-			int Band3_g309 = 0;
+			int Band3_g312 = 0;
 			float clampResult982 = clamp( (0.0 + (i.uv3_texcoord3.y - 0.0) * (_ALUVDelayMaxDelay - 0.0) / (_ALDelayVPosition - 0.0)) , 0.0 , 127.0 );
 			float2 appendResult986 = (float2(_ALDelayUPosition , _ALDelayVPosition));
-			float2 break18_g306 = appendResult986;
-			float2 break20_g306 = i.uv3_texcoord3;
-			float temp_output_10_0_g306 = ( break18_g306.x - break20_g306.x );
-			float temp_output_11_0_g306 = ( break18_g306.y - break20_g306.y );
-			float clampResult27_g306 = clamp( sqrt( ( ( temp_output_10_0_g306 * temp_output_10_0_g306 ) + ( temp_output_11_0_g306 * temp_output_11_0_g306 ) ) ) , 0.0 , 1.0 );
-			float clampResult987 = clamp( (0.0 + (clampResult27_g306 - 0.0) * (_ALUVDelayMaxDelay - 0.0) / (1.0 - 0.0)) , 0.0 , 127.0 );
+			float2 break18_g310 = appendResult986;
+			float2 break20_g310 = i.uv3_texcoord3;
+			float temp_output_10_0_g310 = ( break18_g310.x - break20_g310.x );
+			float temp_output_11_0_g310 = ( break18_g310.y - break20_g310.y );
+			float clampResult27_g310 = clamp( sqrt( ( ( temp_output_10_0_g310 * temp_output_10_0_g310 ) + ( temp_output_11_0_g310 * temp_output_11_0_g310 ) ) ) , 0.0 , 1.0 );
+			float clampResult987 = clamp( (0.0 + (clampResult27_g310 - 0.0) * (_ALUVDelayMaxDelay - 0.0) / (1.0 - 0.0)) , 0.0 , 127.0 );
 			float in_ALDelay991 = round( ( _ALUVToggle == 1.0 ? (127.0 + (clampResult982 - 0.0) * (0.0 - 127.0) / (127.0 - 0.0)) : ( _ALUVToggle == 2.0 ? clampResult987 : 0.0 ) ) );
-			int Delay3_g309 = (int)in_ALDelay991;
-			float localAudioLinkData3_g309 = AudioLinkData3_g309( Band3_g309 , Delay3_g309 );
-			float3 ALC_Bass61 = ( localIfAudioLinkv2Exists1_g308 == 1.0 ? ( temp_output_194_0 * localAudioLinkData3_g309 ) : temp_output_194_0 );
+			int Delay3_g312 = (int)in_ALDelay991;
+			float localAudioLinkData3_g312 = AudioLinkData3_g312( Band3_g312 , Delay3_g312 );
+			float3 ALC_Bass61 = ( localIfAudioLinkv2Exists1_g315 == 1.0 ? ( temp_output_194_0 * localAudioLinkData3_g312 ) : temp_output_194_0 );
 			float4 color44 = IsGammaSpace() ? float4(0,0.8196079,0,1) : float4(0,0.637597,0,1);
 			float3 hsvTorgb4_g59 = RGBToHSV( color44.rgb );
 			float3 hsvTorgb8_g59 = HSVToRGB( float3(( hsvTorgb4_g59.x + Time50 ),( hsvTorgb4_g59.y + 0.0 ),( hsvTorgb4_g59.z + 0.0 )) );
-			int Band3_g60 = 2;
-			int Delay3_g60 = (int)in_ALDelay991;
-			float localAudioLinkData3_g60 = AudioLinkData3_g60( Band3_g60 , Delay3_g60 );
-			float3 ALC_HighMid67 = ( saturate( hsvTorgb8_g59 ) * localAudioLinkData3_g60 );
+			int Band3_g313 = 2;
+			int Delay3_g313 = (int)in_ALDelay991;
+			float localAudioLinkData3_g313 = AudioLinkData3_g313( Band3_g313 , Delay3_g313 );
+			float3 ALC_HighMid67 = ( saturate( hsvTorgb8_g59 ) * localAudioLinkData3_g313 );
 			float4 color43 = IsGammaSpace() ? float4(1,0.9294118,0,1) : float4(1,0.8468735,0,1);
 			float3 hsvTorgb4_g38 = RGBToHSV( color43.rgb );
 			float3 hsvTorgb8_g38 = HSVToRGB( float3(( hsvTorgb4_g38.x + Time50 ),( hsvTorgb4_g38.y + 0.0 ),( hsvTorgb4_g38.z + 0.0 )) );
-			int Band3_g12 = 1;
-			int Delay3_g12 = (int)in_ALDelay991;
-			float localAudioLinkData3_g12 = AudioLinkData3_g12( Band3_g12 , Delay3_g12 );
-			float3 ALC_LowMid64 = ( saturate( hsvTorgb8_g38 ) * localAudioLinkData3_g12 );
+			int Band3_g311 = 1;
+			int Delay3_g311 = (int)in_ALDelay991;
+			float localAudioLinkData3_g311 = AudioLinkData3_g311( Band3_g311 , Delay3_g311 );
+			float3 ALC_LowMid64 = ( saturate( hsvTorgb8_g38 ) * localAudioLinkData3_g311 );
 			float4 color45 = IsGammaSpace() ? float4(0,0,1,1) : float4(0,0,1,1);
 			float3 hsvTorgb4_g37 = RGBToHSV( color45.rgb );
 			float3 hsvTorgb8_g37 = HSVToRGB( float3(( hsvTorgb4_g37.x + Time50 ),( hsvTorgb4_g37.y + 0.0 ),( hsvTorgb4_g37.z + 0.0 )) );
-			int Band3_g11 = 3;
-			int Delay3_g11 = (int)in_ALDelay991;
-			float localAudioLinkData3_g11 = AudioLinkData3_g11( Band3_g11 , Delay3_g11 );
-			float3 ALC_Treble70 = ( saturate( hsvTorgb8_g37 ) * localAudioLinkData3_g11 );
+			int Band3_g314 = 3;
+			int Delay3_g314 = (int)in_ALDelay991;
+			float localAudioLinkData3_g314 = AudioLinkData3_g314( Band3_g314 , Delay3_g314 );
+			float3 ALC_Treble70 = ( saturate( hsvTorgb8_g37 ) * localAudioLinkData3_g314 );
 			float4 AL_Final85 = ( _EnableAudioLink * ( ( ALMask39 * float4( ALC_Bass61 , 0.0 ) ) + ( ALMask39 * float4( ALC_HighMid67 , 0.0 ) ) + ( ALMask39 * float4( ALC_LowMid64 , 0.0 ) ) + ( ALMask39 * float4( ALC_Treble70 , 0.0 ) ) ) );
 			float2 uv_Emission = i.uv_texcoord * _Emission_ST.xy + _Emission_ST.zw;
 			float4 Emission119 = ( tex2D( _Emission, uv_Emission ) * _EmissionStrength );
@@ -612,10 +612,10 @@ Node;AmplifyShaderEditor.CommentaryNode;732;4078.449,-1883.351;Inherit;False;626
 Node;AmplifyShaderEditor.CommentaryNode;220;2051.233,-3370.865;Inherit;False;962.8354;715.8684;Comment;8;0;33;36;32;95;92;193;332;Output;1,1,1,1;0;0
 Node;AmplifyShaderEditor.CommentaryNode;201;-55.94421,-697.3302;Inherit;False;503.0845;214.413;Comment;2;200;199;Discard UV;1,1,1,1;0;0
 Node;AmplifyShaderEditor.CommentaryNode;107;-23.66935,-4536.875;Inherit;False;1258.848;948.373;Comment;16;85;84;83;82;81;80;79;78;76;77;75;74;73;71;415;416;AudioLink Emission;1,1,1,1;0;0
-Node;AmplifyShaderEditor.CommentaryNode;106;-112.9787,-5381.73;Inherit;False;1183.572;355.2229;Comment;5;57;69;68;70;45;AudioLink Treble;1,1,1,1;0;0
-Node;AmplifyShaderEditor.CommentaryNode;105;-86.35403,-5893.254;Inherit;False;1188.215;403.241;Comment;6;67;65;66;56;44;197;AudioLink HighMid;1,1,1,1;0;0
-Node;AmplifyShaderEditor.CommentaryNode;104;-1337.905,-5407.259;Inherit;False;1137.62;367.6456;Comment;5;64;63;62;55;43;AudioLink LowMid;1,1,1,1;0;0
-Node;AmplifyShaderEditor.CommentaryNode;103;-1337.02,-5897.206;Inherit;False;1176.516;390.1733;Comment;9;42;61;41;124;58;51;417;194;995;AudioLink Bass;1,1,1,1;0;0
+Node;AmplifyShaderEditor.CommentaryNode;106;-112.9787,-5381.73;Inherit;False;1183.572;355.2229;Comment;5;57;69;70;45;1011;AudioLink Treble;1,1,1,1;0;0
+Node;AmplifyShaderEditor.CommentaryNode;105;-86.35403,-5893.254;Inherit;False;1188.215;403.241;Comment;6;67;66;56;44;197;1010;AudioLink HighMid;1,1,1,1;0;0
+Node;AmplifyShaderEditor.CommentaryNode;104;-1337.905,-5407.259;Inherit;False;1137.62;367.6456;Comment;7;64;63;55;43;1008;996;196;AudioLink LowMid;1,1,1,1;0;0
+Node;AmplifyShaderEditor.CommentaryNode;103;-1337.02,-5897.206;Inherit;False;1176.516;390.1733;Comment;9;42;61;58;51;417;194;995;1009;1012;AudioLink Bass;1,1,1,1;0;0
 Node;AmplifyShaderEditor.CommentaryNode;72;-1818.04,-4819.045;Inherit;False;712.9634;194.3457;Comment;4;243;48;49;50;Time;1,1,1,1;0;0
 Node;AmplifyShaderEditor.CommentaryNode;37;-7417.041,-1620.861;Inherit;False;859.9141;343.3768;Comment;3;737;34;1002;Normal Map;1,1,1,1;0;0
 Node;AmplifyShaderEditor.CommentaryNode;31;-636.0011,-1983.635;Inherit;False;737.2792;402.4306;Comment;5;29;86;28;30;122;Emission Combination;1,1,1,1;0;0
@@ -655,9 +655,7 @@ Node;AmplifyShaderEditor.DotProductOpNode;10;-2398.068,-404.9769;Inherit;True;2;
 Node;AmplifyShaderEditor.NormalizeNode;9;-2568.881,-243.393;Inherit;False;False;1;0;FLOAT3;0,0,0;False;1;FLOAT3;0
 Node;AmplifyShaderEditor.RangedFloatNode;87;-1893.711,-79.22301;Inherit;False;Property;_RimEnergy;Rim Energy;18;0;Create;True;0;0;0;False;0;False;0.345;0.25;0;1;0;1;FLOAT;0
 Node;AmplifyShaderEditor.RegisterLocalVarNode;61;-367.5052,-5782.771;Inherit;False;ALC_Bass;-1;True;1;0;FLOAT3;0,0,0;False;1;FLOAT3;0
-Node;AmplifyShaderEditor.FunctionNode;68;343.0645,-5166.744;Inherit;False;4BandAmplitude;-1;;11;f5073bb9076c4e24481a28578c80bed5;0;2;2;INT;3;False;4;INT;0;False;1;FLOAT;0
 Node;AmplifyShaderEditor.ColorNode;43;-1294.715,-5338.324;Inherit;False;Constant;_AL_LowMid;AL_LowMid;6;0;Create;True;0;0;0;False;0;False;1,0.9294118,0,1;0,0,0,0;True;0;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
-Node;AmplifyShaderEditor.FunctionNode;62;-919.6196,-5182.47;Inherit;False;4BandAmplitude;-1;;12;f5073bb9076c4e24481a28578c80bed5;0;2;2;INT;1;False;4;INT;0;False;1;FLOAT;0
 Node;AmplifyShaderEditor.SimpleMultiplyOpNode;63;-644.6395,-5299.407;Inherit;True;2;2;0;FLOAT3;0,0,0;False;1;FLOAT;1;False;1;FLOAT3;0
 Node;AmplifyShaderEditor.RegisterLocalVarNode;64;-415.1543,-5306.091;Inherit;False;ALC_LowMid;-1;True;1;0;FLOAT3;0,0,0;False;1;FLOAT3;0
 Node;AmplifyShaderEditor.SimpleMultiplyOpNode;66;665.2375,-5831.361;Inherit;True;2;2;0;FLOAT3;0,0,0;False;1;FLOAT;1;False;1;FLOAT3;0
@@ -665,7 +663,7 @@ Node;AmplifyShaderEditor.CommentaryNode;138;1465.541,-1401.771;Inherit;False;323
 Node;AmplifyShaderEditor.FunctionNode;195;343.6559,-5323.875;Inherit;False;HueShift;-1;;37;09c7357f8ce789c46a405a6704ca8341;0;4;14;COLOR;0,0,0,0;False;15;FLOAT;0;False;16;FLOAT;0;False;17;FLOAT;0;False;1;FLOAT3;0
 Node;AmplifyShaderEditor.FunctionNode;196;-907.4175,-5335.405;Inherit;False;HueShift;-1;;38;09c7357f8ce789c46a405a6704ca8341;0;4;14;COLOR;0,0,0,0;False;15;FLOAT;0;False;16;FLOAT;0;False;17;FLOAT;0;False;1;FLOAT3;0
 Node;AmplifyShaderEditor.CommentaryNode;217;4137.307,-4147.085;Inherit;False;420.8079;185;Comment;2;219;218;Declare NaN;1,1,1,1;0;0
-Node;AmplifyShaderEditor.StandardSurfaceOutputNode;0;2759.068,-3220.523;Float;False;True;-1;2;ASEMaterialInspector;0;0;CustomLighting;VoyVivika/VivikaShader;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;Off;0;False;;0;False;;False;0;False;;0;False;;False;0;Opaque;0.5;True;True;0;False;Opaque;;Geometry;All;12;all;True;True;True;True;0;False;;False;0;False;;255;False;;255;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;False;2;15;10;25;False;0.5;True;3;1;False;;10;False;;0;0;False;;0;False;;0;False;;0;False;;0;False;0;0,0,0,0;VertexOffset;True;False;Cylindrical;False;True;Relative;0;;-1;-1;-1;-1;0;False;0;0;False;;-1;0;False;;1;Include;Assets/AudioLink/Shaders/AudioLink.cginc;False;;Custom;False;0;0;;0;0;False;0.1;False;;0;False;;False;15;0;FLOAT3;0,0,0;False;1;FLOAT3;0,0,0;False;2;FLOAT3;0,0,0;False;3;FLOAT3;0,0,0;False;4;FLOAT;0;False;6;FLOAT3;0,0,0;False;7;FLOAT3;0,0,0;False;8;FLOAT;0;False;9;FLOAT;0;False;10;FLOAT;0;False;13;FLOAT3;0,0,0;False;11;FLOAT3;0,0,0;False;12;FLOAT3;0,0,0;False;14;FLOAT4;0,0,0,0;False;15;FLOAT3;0,0,0;False;0
+Node;AmplifyShaderEditor.StandardSurfaceOutputNode;0;2759.068,-3220.523;Float;False;True;-1;2;ASEMaterialInspector;0;0;CustomLighting;VoyVivika/VivikaShader;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;Off;0;False;;0;False;;False;0;False;;0;False;;False;0;Opaque;0.5;True;True;0;False;Opaque;;Geometry;All;12;all;True;True;True;True;0;False;;False;0;False;;255;False;;255;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;False;2;15;10;25;False;0.5;True;3;1;False;;10;False;;0;0;False;;0;False;;0;False;;0;False;;0;False;0;0,0,0,0;VertexOffset;True;False;Cylindrical;False;True;Relative;0;;-1;-1;-1;-1;0;False;0;0;False;;-1;0;False;;1;Include;Assets\Voy\Shader\DivorceShader\DivorceShaders\Libs\AudioLink\AudioLink.cginc;False;;Custom;False;0;0;;0;0;False;0.1;False;;0;False;;False;15;0;FLOAT3;0,0,0;False;1;FLOAT3;0,0,0;False;2;FLOAT3;0,0,0;False;3;FLOAT3;0,0,0;False;4;FLOAT;0;False;6;FLOAT3;0,0,0;False;7;FLOAT3;0,0,0;False;8;FLOAT;0;False;9;FLOAT;0;False;10;FLOAT;0;False;13;FLOAT3;0,0,0;False;11;FLOAT3;0,0,0;False;12;FLOAT3;0,0,0;False;14;FLOAT4;0,0,0,0;False;15;FLOAT3;0,0,0;False;0
 Node;AmplifyShaderEditor.GetLocalVarNode;36;2297.222,-3237.719;Inherit;False;-1;;1;0;OBJECT;;False;1;FLOAT3;0
 Node;AmplifyShaderEditor.GetLocalVarNode;32;2301.754,-3145.94;Inherit;False;29;EmissionFinal;1;0;OBJECT;;False;1;COLOR;0
 Node;AmplifyShaderEditor.BreakToComponentsNode;95;2282.518,-3022.374;Inherit;False;COLOR;1;0;COLOR;0,0,0,0;False;16;FLOAT;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4;FLOAT;5;FLOAT;6;FLOAT;7;FLOAT;8;FLOAT;9;FLOAT;10;FLOAT;11;FLOAT;12;FLOAT;13;FLOAT;14;FLOAT;15
@@ -682,7 +680,6 @@ Node;AmplifyShaderEditor.CommentaryNode;412;1032.46,-8782.894;Inherit;False;1054
 Node;AmplifyShaderEditor.RegisterLocalVarNode;85;992.705,-4166.425;Inherit;False;AL_Final;-1;True;1;0;COLOR;0,0,0,0;False;1;COLOR;0
 Node;AmplifyShaderEditor.SimpleMultiplyOpNode;416;787.8911,-4176.061;Inherit;False;2;2;0;FLOAT;0;False;1;COLOR;0,0,0,0;False;1;COLOR;0
 Node;AmplifyShaderEditor.FunctionNode;197;368.8238,-5818.455;Inherit;False;HueShift;-1;;59;09c7357f8ce789c46a405a6704ca8341;0;4;14;COLOR;0,0,0,0;False;15;FLOAT;0;False;16;FLOAT;0;False;17;FLOAT;0;False;1;FLOAT3;0
-Node;AmplifyShaderEditor.FunctionNode;65;362.9142,-5666.229;Inherit;False;4BandAmplitude;-1;;60;f5073bb9076c4e24481a28578c80bed5;0;2;2;INT;2;False;4;INT;0;False;1;FLOAT;0
 Node;AmplifyShaderEditor.RangedFloatNode;415;478.4037,-4285.905;Half;False;Property;_EnableAudioLink;Enable AudioLink;6;1;[ToggleUI];Create;True;0;0;0;False;0;False;0;0;0;1;0;1;FLOAT;0
 Node;AmplifyShaderEditor.SamplerNode;91;-795.4411,-2748.33;Inherit;True;Property;_MultiMap;MultiMap;5;0;Create;True;0;0;0;False;0;False;-1;01e8d4996fddd0a448744957657de587;8f7ec713eeedd83419b567b646c54ea6;True;0;False;black;Auto;False;Object;-1;Auto;Texture2D;8;0;SAMPLER2D;;False;1;FLOAT2;0,0;False;2;FLOAT;0;False;3;FLOAT2;0,0;False;4;FLOAT2;0,0;False;5;FLOAT;1;False;6;FLOAT;0;False;7;SAMPLERSTATE;;False;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
 Node;AmplifyShaderEditor.GetLocalVarNode;86;-594.7267,-1906.872;Inherit;False;85;AL_Final;1;0;OBJECT;;False;1;COLOR;0
@@ -885,9 +882,7 @@ Node;AmplifyShaderEditor.ColorNode;42;-1324.543,-5838.206;Inherit;False;Constant
 Node;AmplifyShaderEditor.GetLocalVarNode;51;-1122.875,-5728.916;Inherit;False;50;Time;1;0;OBJECT;;False;1;FLOAT;0
 Node;AmplifyShaderEditor.FunctionNode;194;-940.552,-5793.013;Inherit;False;HueShift;-1;;307;09c7357f8ce789c46a405a6704ca8341;0;4;14;COLOR;0,0,0,0;False;15;FLOAT;0;False;16;FLOAT;0;False;17;FLOAT;0;False;1;FLOAT3;0
 Node;AmplifyShaderEditor.Compare;417;-508.5048,-5784.281;Inherit;False;0;4;0;FLOAT;0;False;1;FLOAT;1;False;2;FLOAT3;0,0,0;False;3;FLOAT3;0,0,0;False;1;FLOAT3;0
-Node;AmplifyShaderEditor.FunctionNode;124;-698.4884,-5850.831;Inherit;False;IsAudioLink;-1;;308;e83fef6181013ba4bacf30a3d9a31d37;0;0;1;FLOAT;0
 Node;AmplifyShaderEditor.SimpleMultiplyOpNode;58;-673.7633,-5653.359;Inherit;False;2;2;0;FLOAT3;0,0,0;False;1;FLOAT;1;False;1;FLOAT3;0
-Node;AmplifyShaderEditor.FunctionNode;41;-929.972,-5630.569;Inherit;False;4BandAmplitude;-1;;309;f5073bb9076c4e24481a28578c80bed5;0;2;2;INT;0;False;4;INT;0;False;1;FLOAT;0
 Node;AmplifyShaderEditor.ColorNode;45;-77.97868,-5324.461;Inherit;False;Constant;_AL_Treble;AL_Treble;6;0;Create;True;0;0;0;False;0;False;0,0,1,1;0,0,0,0;True;0;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
 Node;AmplifyShaderEditor.GetLocalVarNode;57;134.7981,-5255.021;Inherit;False;50;Time;1;0;OBJECT;;False;1;FLOAT;0
 Node;AmplifyShaderEditor.ColorNode;44;-43.51395,-5829.144;Inherit;False;Constant;_AL_HighMid;AL_HighMid;6;0;Create;True;0;0;0;False;0;False;0,0.8196079,0,1;0,0,0,0;True;0;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
@@ -905,7 +900,7 @@ Node;AmplifyShaderEditor.Compare;989;-3671.589,-7175.018;Inherit;False;0;4;0;FLO
 Node;AmplifyShaderEditor.Compare;988;-3827.589,-7046.018;Inherit;False;0;4;0;FLOAT;0;False;1;FLOAT;2;False;2;FLOAT;0;False;3;FLOAT;0;False;1;FLOAT;0
 Node;AmplifyShaderEditor.ClampOpNode;987;-3996.749,-6984.151;Inherit;False;3;0;FLOAT;0;False;1;FLOAT;0;False;2;FLOAT;127;False;1;FLOAT;0
 Node;AmplifyShaderEditor.TFHCRemapNode;993;-4182.676,-6978.27;Inherit;False;5;0;FLOAT;0;False;1;FLOAT;0;False;2;FLOAT;1;False;3;FLOAT;0;False;4;FLOAT;127;False;1;FLOAT;0
-Node;AmplifyShaderEditor.FunctionNode;992;-4436.91,-7009.754;Inherit;False;Distance;-1;;306;5a463ec6a2137ce40abfe8c530112fe4;0;2;17;FLOAT2;0,0;False;19;FLOAT2;0,0;False;1;FLOAT;0
+Node;AmplifyShaderEditor.FunctionNode;992;-4436.91,-7009.754;Inherit;False;Distance;-1;;310;5a463ec6a2137ce40abfe8c530112fe4;0;2;17;FLOAT2;0,0;False;19;FLOAT2;0,0;False;1;FLOAT;0
 Node;AmplifyShaderEditor.RangedFloatNode;984;-4023.295,-7106.654;Inherit;False;Property;_ALUVToggle;Delay for AL;8;1;[Enum];Create;False;0;3;None;0;UV Vertical;1;Distance;2;0;True;0;False;0;2;0;0;0;1;FLOAT;0
 Node;AmplifyShaderEditor.DynamicAppendNode;986;-4642.764,-7008.358;Inherit;False;FLOAT2;4;0;FLOAT;0.5;False;1;FLOAT;0;False;2;FLOAT;0;False;3;FLOAT;0;False;1;FLOAT2;0
 Node;AmplifyShaderEditor.TFHCRemapNode;981;-4405.206,-7349.577;Inherit;False;5;0;FLOAT;0;False;1;FLOAT;0;False;2;FLOAT;1;False;3;FLOAT;0;False;4;FLOAT;127;False;1;FLOAT;0
@@ -926,10 +921,15 @@ Node;AmplifyShaderEditor.ColorNode;1005;-8196.402,-4343.939;Inherit;False;Proper
 Node;AmplifyShaderEditor.TexturePropertyNode;1003;-8202.402,-4736.937;Inherit;True;Property;_MainTex;Fallback Albedo;42;2;[Header];[SingleLineTexture];Create;False;1;Standard Fallbacks;0;0;True;0;False;None;None;False;white;Auto;Texture2D;-1;0;2;SAMPLER2D;0;SAMPLERSTATE;1
 Node;AmplifyShaderEditor.TexturePropertyNode;1006;-8190.174,-4154.961;Inherit;True;Property;_BumpMap;Fallback Normal Map;45;1;[SingleLineTexture];Create;False;0;0;0;True;0;False;None;None;False;bump;Auto;Texture2D;-1;0;2;SAMPLER2D;0;SAMPLERSTATE;1
 Node;AmplifyShaderEditor.TexturePropertyNode;1004;-8200.402,-4541.937;Inherit;True;Property;_EmissionMap;Fallback Emission Map;43;1;[SingleLineTexture];Create;False;0;0;0;True;0;False;None;None;False;white;Auto;Texture2D;-1;0;2;SAMPLER2D;0;SAMPLERSTATE;1
+Node;AmplifyShaderEditor.FunctionNode;1008;-913.0733,-5171.95;Inherit;False;4BandAmplitude;-1;;311;54e9597243c613f4e9d8abb2df35c1e0;0;2;2;INT;1;False;4;INT;0;False;1;FLOAT;0
+Node;AmplifyShaderEditor.FunctionNode;1009;-953.2563,-5640.145;Inherit;False;4BandAmplitude;-1;;312;54e9597243c613f4e9d8abb2df35c1e0;0;2;2;INT;0;False;4;INT;0;False;1;FLOAT;0
+Node;AmplifyShaderEditor.FunctionNode;1010;368.6584,-5617.326;Inherit;False;4BandAmplitude;-1;;313;54e9597243c613f4e9d8abb2df35c1e0;0;2;2;INT;2;False;4;INT;0;False;1;FLOAT;0
+Node;AmplifyShaderEditor.FunctionNode;1011;331.6262,-5142.257;Inherit;False;4BandAmplitude;-1;;314;54e9597243c613f4e9d8abb2df35c1e0;0;2;2;INT;3;False;4;INT;0;False;1;FLOAT;0
+Node;AmplifyShaderEditor.FunctionNode;1012;-703.3434,-5833.161;Inherit;False;IsAudioLink;-1;;315;ff5333ab7aa196b46b61532e86c1a947;0;0;1;FLOAT;0
 WireConnection;50;0;49;0
 WireConnection;90;0;91;0
 WireConnection;69;0;195;0
-WireConnection;69;1;68;0
+WireConnection;69;1;1011;0
 WireConnection;70;0;69;0
 WireConnection;74;0;71;0
 WireConnection;74;1;73;0
@@ -956,13 +956,11 @@ WireConnection;10;0;8;0
 WireConnection;10;1;9;0
 WireConnection;9;0;7;0
 WireConnection;61;0;417;0
-WireConnection;68;4;997;0
-WireConnection;62;4;996;0
 WireConnection;63;0;196;0
-WireConnection;63;1;62;0
+WireConnection;63;1;1008;0
 WireConnection;64;0;63;0
 WireConnection;66;0;197;0
-WireConnection;66;1;65;0
+WireConnection;66;1;1010;0
 WireConnection;195;14;45;0
 WireConnection;195;15;57;0
 WireConnection;196;14;43;0
@@ -979,7 +977,6 @@ WireConnection;416;0;415;0
 WireConnection;416;1;84;0
 WireConnection;197;14;44;0
 WireConnection;197;15;56;0
-WireConnection;65;4;998;0
 WireConnection;30;0;86;0
 WireConnection;30;1;122;0
 WireConnection;30;2;28;0
@@ -1177,12 +1174,11 @@ WireConnection;424;0;922;0
 WireConnection;991;0;985;0
 WireConnection;194;14;42;0
 WireConnection;194;15;51;0
-WireConnection;417;0;124;0
+WireConnection;417;0;1012;0
 WireConnection;417;2;58;0
 WireConnection;417;3;194;0
 WireConnection;58;0;194;0
-WireConnection;58;1;41;0
-WireConnection;41;4;995;0
+WireConnection;58;1;1009;0
 WireConnection;67;0;66;0
 WireConnection;983;0;982;0
 WireConnection;982;0;981;0
@@ -1206,5 +1202,9 @@ WireConnection;8;1;4;0
 WireConnection;1002;0;34;0
 WireConnection;352;0;353;0
 WireConnection;34;0;737;0
+WireConnection;1008;4;996;0
+WireConnection;1009;4;995;0
+WireConnection;1010;4;998;0
+WireConnection;1011;4;997;0
 ASEEND*/
-//CHKSM=265D578AF46F2E8E44AA7568BC9C2CA0366D1586
+//CHKSM=565B53E2928536FFF90E438B46699C423220A7C4

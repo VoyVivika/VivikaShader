@@ -1,14 +1,13 @@
 # VoyVivika's Personal Shader
-![Shader Preview](https://github.com/VoyVivika/DivorceShaders/blob/main/README%20ASSETS/Unity_Xwahnfhmvv.gif?raw=true)
+![Shader Preview](https://github.com/VoyVivika/VivikaShader/blob/main/README%20ASSETS/Unity_Xwahnfhmvv.gif?raw=true)
 
 [3D  Model Showcased is my Personal Edit of Murdoc the Rat by Skully Hellfire](https://skullyhellfire.gumroad.com/l/skullysmurdoc)
 
 The Vivika Shader (Formerly the "Divorce Shader" after an inside joke) is a Shader created by VoyVivika in Unity3D with the Amplify Shader Editor. I made these for my Personal ChilloutVR Avatars with some in-game encouragement from N3X15, ended up being a fun project for experimenting with Amplify Shaders Honestly, figured out how UV Discarding worked (and it's honestly a personal favorite feature despite not using it very much).
 ## Features
-- AudioLink Support (NOT OPTIONAL)
-	- Requires DomNomNom's ChilloutVR Specific Fork of AudioLink to be Present in the Project, [You can get it here!](https://github.com/DomNomNomVR/cvr-audio-link/)
-		- This is specifically for the AudioLink.cginc file.
-		- May also want to keep the Amplify Folder if you intend on Editing the Shader in Amplify.
+- AudioLink Support
+	- AudioLink.cginc Included along with the Amplify Functions as permitted by the AudioLink License.
+		- Using the [ChilloutVR Specific Fork by DomNomNom](https://github.com/DomNomNomVR/cvr-audio-link)
 	- Emission Mask with 4 Colors that Represent each Band, the Colors Combine Together to Become White.
 	- If AudioLink is Absent in the Enviornment, the Bass Band Emission will remain on.
 	- UV Based Delay
@@ -52,3 +51,7 @@ This Repo contains some Amplify Shader Editor Functions useful for Shader Creato
 	- Returns 1 if the supplied UV is in the Supplied UV Range, otherwise Returns 0.
 - UV Tile Check
 	- Returns 1 if the supplied UV is on the Supplied UV Tile, otherwise Returns 0.
+# Third-Party Licenses
+Please Note if these links are incorrect they will be corrected in a later commit after the mistake is corrected.
+- Hue Shift - https://github.com/VoyVivika/VivikaShader/blob/main/Functions/ThirdParty/HueShift/LICENSE.txt
+- AudioLink - https://github.com/VoyVivika/VivikaShader/blob/main/Libs/AudioLink/LICENSE.txt
