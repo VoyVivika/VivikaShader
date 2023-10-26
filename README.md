@@ -5,7 +5,7 @@
 
 The Vivika Shader (Formerly the "Divorce Shader" after an inside joke) is a Shader created by VoyVivika in Unity3D with the Amplify Shader Editor. I made these for my Personal ChilloutVR Avatars with some in-game encouragement from N3X15, ended up being a fun project for experimenting with Amplify Shaders Honestly, figured out how UV Discarding worked (and it's honestly a personal favorite feature despite not using it very much).
 ## Features
-- AudioLink Support
+- AudioLink Support (NOT OPTIONAL)
 	- Requires DomNomNom's ChilloutVR Specific Fork of AudioLink to be Present in the Project, [You can get it here!](https://github.com/DomNomNomVR/cvr-audio-link/)
 		- This is specifically for the AudioLink.cginc file.
 		- May also want to keep the Amplify Folder if you intend on Editing the Shader in Amplify.
