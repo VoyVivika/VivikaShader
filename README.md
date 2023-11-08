@@ -17,7 +17,7 @@ This Shader only officially supports the Unity Built-in Render Pipeline, it does
 	- UV Based Delay
 		- Three Modes
 			- Off (None at all)
-			- UV Vertial (From the Top of the UV Map to the Bottom)
+			- UV Vertical (From the Top of the UV Map to the Bottom)
 			- Distance (Distance out from a Position)
 		- This uses UV Map 3 on your Model
 - UV Based Vertex Discarding
