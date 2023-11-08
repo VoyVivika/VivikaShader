@@ -4,6 +4,10 @@
 [3D  Model Showcased is my Personal Edit of Murdoc the Rat by Skully Hellfire](https://skullyhellfire.gumroad.com/l/skullysmurdoc)
 
 The Vivika Shader (Formerly the "Divorce Shader" after an inside joke) is a Shader created by VoyVivika in Unity3D with the Amplify Shader Editor. I made these for my Personal ChilloutVR Avatars with some in-game encouragement from N3X15, ended up being a fun project for experimenting with Amplify Shaders Honestly, figured out how UV Discarding worked (and it's honestly a personal favorite feature despite not using it very much).
+
+# Please Note:
+This Shader only officially supports the Unity Built-in Render Pipeline, it does not support LWRP, URP, or HDRP at this time.
+
 ## Features
 - AudioLink Support
 	- AudioLink.cginc Included along with the Amplify Functions as permitted by the AudioLink License.
@@ -27,10 +31,21 @@ The Vivika Shader (Formerly the "Divorce Shader" after an inside joke) is a Shad
 			- This uses a Vector 4
 				- X and Y are the Starting UVs (Example: 1.0, 1.0)
 				- Z and W are the Ending UVs (Example: 2.0, 2.0)
+- Video Player Decal
+	- Supports both ChilloutVR & VRChat in Select Worlds
+		- in VRChat, Worlds with Newer Versions of ProTV
+			- in VRChat, to support this use newer versions of ProTV, Otherwise, please look for resources related to Udon. I am personally dedicated to creating content for ChilloutVR.
+		- in ChilloutVR, my world the Viviklub Supports This.
+			- to Support This in ChilloutVR:
+				1. in your world, add a Component called `CVR Global Shader Updater`
+				2. Enable "Update Texture"
+				3. Drag and Drop the Render Texture being used by a `CVR Video Player` Components
+				4. Set the Property Name to `_Udon_VideoTex`
 - Rim Lighting
-- 2 Lighting Types
+- 3 Lighting Types
 	- Standard (Acts like Unity Standard Shader)
-	- Toon (Stylized Lighting, I'm currently demotivated to work on this)
+	- Toon (Stylized Lighting, may be buggy, deprecated, replaced by wrapped)
+	- Wrapped (A Less Realistic Lighting Mode with the intent of having less harsh, smoother, flatter lighting.)
 ### MultiMap
 MultiMap is a Texture which contains multiple maps in a Single RGB Texture intended for use with DXT1 Encoded Textures
 Currently the Spec for the Divorce Shader Multi-Map is
@@ -51,6 +66,9 @@ This Repo contains some Amplify Shader Editor Functions useful for Shader Creato
 	- Returns 1 if the supplied UV is in the Supplied UV Range, otherwise Returns 0.
 - UV Tile Check
 	- Returns 1 if the supplied UV is on the Supplied UV Tile, otherwise Returns 0.
+- Decal
+	- A Function to assist in the creation of Decals (Textures that get added on top of the existing Albedo map)
+	- A variant also exists to create a variant that does not include rotation
 # Third-Party Licenses
 Please Note if these links are incorrect they will be corrected in a later commit after the mistake is corrected.
 - Hue Shift - https://github.com/VoyVivika/VivikaShader/blob/main/Functions/ThirdParty/HueShift/LICENSE.txt
