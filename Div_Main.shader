@@ -158,97 +158,97 @@ Shader "VoyVivika/VivikaShader"
 		uniform float _LightingType;
 
 
-		float MyCustomExpression1_g387( float A, float B )
+		float AND1_g387( float A, float B )
 		{
 			return A && B;
 		}
 
 
-		float MyCustomExpression1_g361( float A, float B )
+		float AND1_g361( float A, float B )
 		{
 			return A && B;
 		}
 
 
-		float MyCustomExpression1_g363( float A, float B )
+		float AND1_g363( float A, float B )
 		{
 			return A && B;
 		}
 
 
-		float MyCustomExpression1_g365( float A, float B )
+		float AND1_g365( float A, float B )
 		{
 			return A && B;
 		}
 
 
-		float MyCustomExpression1_g357( float A, float B )
+		float AND1_g357( float A, float B )
 		{
 			return A && B;
 		}
 
 
-		float MyCustomExpression1_g367( float A, float B )
+		float AND1_g367( float A, float B )
 		{
 			return A && B;
 		}
 
 
-		float MyCustomExpression1_g381( float A, float B )
+		float AND1_g381( float A, float B )
 		{
 			return A && B;
 		}
 
 
-		float MyCustomExpression1_g383( float A, float B )
+		float AND1_g383( float A, float B )
 		{
 			return A && B;
 		}
 
 
-		float MyCustomExpression1_g359( float A, float B )
+		float AND1_g359( float A, float B )
 		{
 			return A && B;
 		}
 
 
-		float MyCustomExpression1_g375( float A, float B )
+		float AND1_g375( float A, float B )
 		{
 			return A && B;
 		}
 
 
-		float MyCustomExpression1_g377( float A, float B )
+		float AND1_g377( float A, float B )
 		{
 			return A && B;
 		}
 
 
-		float MyCustomExpression1_g379( float A, float B )
+		float AND1_g379( float A, float B )
 		{
 			return A && B;
 		}
 
 
-		float MyCustomExpression1_g385( float A, float B )
+		float AND1_g385( float A, float B )
 		{
 			return A && B;
 		}
 
 
-		float MyCustomExpression1_g369( float A, float B )
+		float AND1_g369( float A, float B )
 		{
 			return A && B;
 		}
 
 
-		float MyCustomExpression1_g371( float A, float B )
+		float AND1_g371( float A, float B )
 		{
 			return A && B;
 		}
 
 
-		float MyCustomExpression1_g373( float A, float B )
+		float AND1_g373( float A, float B )
 		{
 			return A && B;
 		}
@@ -330,83 +330,83 @@ Shader "VoyVivika/VivikaShader"
 			float2 DiscardUV200 = v.texcoord1.xy;
 			float2 break61_g386 = DiscardUV200;
 			float B1_g387 = ( step( break63_g386.x , break61_g386.x ) * step( break61_g386.x , ( break63_g386.x + 0.9999999 ) ) * step( break63_g386.y , break61_g386.y ) * step( break61_g386.y , ( break63_g386.y + 0.9999999 ) ) );
-			float localMyCustomExpression1_g387 = MyCustomExpression1_g387( A1_g387 , B1_g387 );
+			float localAND1_g387 = AND1_g387( A1_g387 , B1_g387 );
 			float A1_g361 = _DiscardUVTile01;
 			float2 break63_g360 = floor( float2( 0,1 ) );
 			float2 break61_g360 = DiscardUV200;
 			float B1_g361 = ( step( break63_g360.x , break61_g360.x ) * step( break61_g360.x , ( break63_g360.x + 0.9999999 ) ) * step( break63_g360.y , break61_g360.y ) * step( break61_g360.y , ( break63_g360.y + 0.9999999 ) ) );
-			float localMyCustomExpression1_g361 = MyCustomExpression1_g361( A1_g361 , B1_g361 );
+			float localAND1_g361 = AND1_g361( A1_g361 , B1_g361 );
 			float A1_g363 = _DiscardUVTile02;
 			float2 break63_g362 = floor( float2( 0,2 ) );
 			float2 break61_g362 = DiscardUV200;
 			float B1_g363 = ( step( break63_g362.x , break61_g362.x ) * step( break61_g362.x , ( break63_g362.x + 0.9999999 ) ) * step( break63_g362.y , break61_g362.y ) * step( break61_g362.y , ( break63_g362.y + 0.9999999 ) ) );
-			float localMyCustomExpression1_g363 = MyCustomExpression1_g363( A1_g363 , B1_g363 );
+			float localAND1_g363 = AND1_g363( A1_g363 , B1_g363 );
 			float A1_g365 = _DiscardUVTile03;
 			float2 break63_g364 = floor( float2( 0,3 ) );
 			float2 break61_g364 = DiscardUV200;
 			float B1_g365 = ( step( break63_g364.x , break61_g364.x ) * step( break61_g364.x , ( break63_g364.x + 0.9999999 ) ) * step( break63_g364.y , break61_g364.y ) * step( break61_g364.y , ( break63_g364.y + 0.9999999 ) ) );
-			float localMyCustomExpression1_g365 = MyCustomExpression1_g365( A1_g365 , B1_g365 );
+			float localAND1_g365 = AND1_g365( A1_g365 , B1_g365 );
 			float A1_g357 = _DiscardUVTile10;
 			float2 break63_g356 = floor( float2( 1,0 ) );
 			float2 break61_g356 = DiscardUV200;
 			float B1_g357 = ( step( break63_g356.x , break61_g356.x ) * step( break61_g356.x , ( break63_g356.x + 0.9999999 ) ) * step( break63_g356.y , break61_g356.y ) * step( break61_g356.y , ( break63_g356.y + 0.9999999 ) ) );
-			float localMyCustomExpression1_g357 = MyCustomExpression1_g357( A1_g357 , B1_g357 );
+			float localAND1_g357 = AND1_g357( A1_g357 , B1_g357 );
 			float A1_g367 = _DiscardUVTile11;
 			float2 break63_g366 = floor( float2( 1,1 ) );
 			float2 break61_g366 = DiscardUV200;
 			float B1_g367 = ( step( break63_g366.x , break61_g366.x ) * step( break61_g366.x , ( break63_g366.x + 0.9999999 ) ) * step( break63_g366.y , break61_g366.y ) * step( break61_g366.y , ( break63_g366.y + 0.9999999 ) ) );
-			float localMyCustomExpression1_g367 = MyCustomExpression1_g367( A1_g367 , B1_g367 );
+			float localAND1_g367 = AND1_g367( A1_g367 , B1_g367 );
 			float A1_g381 = _DiscardUVTile12;
 			float2 break63_g380 = floor( float2( 1,2 ) );
 			float2 break61_g380 = DiscardUV200;
 			float B1_g381 = ( step( break63_g380.x , break61_g380.x ) * step( break61_g380.x , ( break63_g380.x + 0.9999999 ) ) * step( break63_g380.y , break61_g380.y ) * step( break61_g380.y , ( break63_g380.y + 0.9999999 ) ) );
-			float localMyCustomExpression1_g381 = MyCustomExpression1_g381( A1_g381 , B1_g381 );
+			float localAND1_g381 = AND1_g381( A1_g381 , B1_g381 );
 			float A1_g383 = _DiscardUVTile13;
 			float2 break63_g382 = floor( float2( 1,3 ) );
 			float2 break61_g382 = DiscardUV200;
 			float B1_g383 = ( step( break63_g382.x , break61_g382.x ) * step( break61_g382.x , ( break63_g382.x + 0.9999999 ) ) * step( break63_g382.y , break61_g382.y ) * step( break61_g382.y , ( break63_g382.y + 0.9999999 ) ) );
-			float localMyCustomExpression1_g383 = MyCustomExpression1_g383( A1_g383 , B1_g383 );
+			float localAND1_g383 = AND1_g383( A1_g383 , B1_g383 );
 			float A1_g359 = _DiscardUVTile20;
 			float2 break63_g358 = floor( float2( 2,0 ) );
 			float2 break61_g358 = DiscardUV200;
 			float B1_g359 = ( step( break63_g358.x , break61_g358.x ) * step( break61_g358.x , ( break63_g358.x + 0.9999999 ) ) * step( break63_g358.y , break61_g358.y ) * step( break61_g358.y , ( break63_g358.y + 0.9999999 ) ) );
-			float localMyCustomExpression1_g359 = MyCustomExpression1_g359( A1_g359 , B1_g359 );
+			float localAND1_g359 = AND1_g359( A1_g359 , B1_g359 );
 			float A1_g375 = _DiscardUVTile21;
 			float2 break63_g374 = floor( float2( 2,1 ) );
 			float2 break61_g374 = DiscardUV200;
 			float B1_g375 = ( step( break63_g374.x , break61_g374.x ) * step( break61_g374.x , ( break63_g374.x + 0.9999999 ) ) * step( break63_g374.y , break61_g374.y ) * step( break61_g374.y , ( break63_g374.y + 0.9999999 ) ) );
-			float localMyCustomExpression1_g375 = MyCustomExpression1_g375( A1_g375 , B1_g375 );
+			float localAND1_g375 = AND1_g375( A1_g375 , B1_g375 );
 			float A1_g377 = _DiscardUVTile22;
 			float2 break63_g376 = floor( float2( 2,2 ) );
 			float2 break61_g376 = DiscardUV200;
 			float B1_g377 = ( step( break63_g376.x , break61_g376.x ) * step( break61_g376.x , ( break63_g376.x + 0.9999999 ) ) * step( break63_g376.y , break61_g376.y ) * step( break61_g376.y , ( break63_g376.y + 0.9999999 ) ) );
-			float localMyCustomExpression1_g377 = MyCustomExpression1_g377( A1_g377 , B1_g377 );
+			float localAND1_g377 = AND1_g377( A1_g377 , B1_g377 );
 			float A1_g379 = _DiscardUVTile23;
 			float2 break63_g378 = floor( float2( 2,3 ) );
 			float2 break61_g378 = DiscardUV200;
 			float B1_g379 = ( step( break63_g378.x , break61_g378.x ) * step( break61_g378.x , ( break63_g378.x + 0.9999999 ) ) * step( break63_g378.y , break61_g378.y ) * step( break61_g378.y , ( break63_g378.y + 0.9999999 ) ) );
-			float localMyCustomExpression1_g379 = MyCustomExpression1_g379( A1_g379 , B1_g379 );
+			float localAND1_g379 = AND1_g379( A1_g379 , B1_g379 );
 			float A1_g385 = _DiscardUVTile30;
 			float2 break63_g384 = floor( float2( 3,0 ) );
 			float2 break61_g384 = DiscardUV200;
 			float B1_g385 = ( step( break63_g384.x , break61_g384.x ) * step( break61_g384.x , ( break63_g384.x + 0.9999999 ) ) * step( break63_g384.y , break61_g384.y ) * step( break61_g384.y , ( break63_g384.y + 0.9999999 ) ) );
-			float localMyCustomExpression1_g385 = MyCustomExpression1_g385( A1_g385 , B1_g385 );
+			float localAND1_g385 = AND1_g385( A1_g385 , B1_g385 );
 			float A1_g369 = _DiscardUVTile31;
 			float2 break63_g368 = floor( float2( 3,1 ) );
 			float2 break61_g368 = DiscardUV200;
 			float B1_g369 = ( step( break63_g368.x , break61_g368.x ) * step( break61_g368.x , ( break63_g368.x + 0.9999999 ) ) * step( break63_g368.y , break61_g368.y ) * step( break61_g368.y , ( break63_g368.y + 0.9999999 ) ) );
-			float localMyCustomExpression1_g369 = MyCustomExpression1_g369( A1_g369 , B1_g369 );
+			float localAND1_g369 = AND1_g369( A1_g369 , B1_g369 );
 			float A1_g371 = _DiscardUVTile32;
 			float2 break63_g370 = floor( float2( 3,2 ) );
 			float2 break61_g370 = DiscardUV200;
 			float B1_g371 = ( step( break63_g370.x , break61_g370.x ) * step( break61_g370.x , ( break63_g370.x + 0.9999999 ) ) * step( break63_g370.y , break61_g370.y ) * step( break61_g370.y , ( break63_g370.y + 0.9999999 ) ) );
-			float localMyCustomExpression1_g371 = MyCustomExpression1_g371( A1_g371 , B1_g371 );
+			float localAND1_g371 = AND1_g371( A1_g371 , B1_g371 );
 			float A1_g373 = _DiscardUVTile33;
 			float2 break63_g372 = floor( float2( 3,3 ) );
 			float2 break61_g372 = DiscardUV200;
 			float B1_g373 = ( step( break63_g372.x , break61_g372.x ) * step( break61_g372.x , ( break63_g372.x + 0.9999999 ) ) * step( break63_g372.y , break61_g372.y ) * step( break61_g372.y , ( break63_g372.y + 0.9999999 ) ) );
-			float localMyCustomExpression1_g373 = MyCustomExpression1_g373( A1_g373 , B1_g373 );
-			float UVTileDiscard192 = ( ( ( localMyCustomExpression1_g387 == 1.0 ? ( 0.0 / 0.0 ) : 0.0 ) + ( localMyCustomExpression1_g361 == 1.0 ? ( 0.0 / 0.0 ) : 0.0 ) + ( localMyCustomExpression1_g363 == 1.0 ? ( 0.0 / 0.0 ) : 0.0 ) + ( localMyCustomExpression1_g365 == 1.0 ? ( 0.0 / 0.0 ) : 0.0 ) ) + ( ( localMyCustomExpression1_g357 == 1.0 ? ( 0.0 / 0.0 ) : 0.0 ) + ( localMyCustomExpression1_g367 == 1.0 ? ( 0.0 / 0.0 ) : 0.0 ) + ( localMyCustomExpression1_g381 == 1.0 ? ( 0.0 / 0.0 ) : 0.0 ) + ( localMyCustomExpression1_g383 == 1.0 ? ( 0.0 / 0.0 ) : 0.0 ) ) + ( ( localMyCustomExpression1_g359 == 1.0 ? ( 0.0 / 0.0 ) : 0.0 ) + ( localMyCustomExpression1_g375 == 1.0 ? ( 0.0 / 0.0 ) : 0.0 ) + ( localMyCustomExpression1_g377 == 1.0 ? ( 0.0 / 0.0 ) : 0.0 ) + ( localMyCustomExpression1_g379 == 1.0 ? ( 0.0 / 0.0 ) : 0.0 ) ) + ( ( localMyCustomExpression1_g385 == 1.0 ? ( 0.0 / 0.0 ) : 0.0 ) + ( localMyCustomExpression1_g369 == 1.0 ? ( 0.0 / 0.0 ) : 0.0 ) + ( localMyCustomExpression1_g371 == 1.0 ? ( 0.0 / 0.0 ) : 0.0 ) + ( localMyCustomExpression1_g373 == 1.0 ? ( 0.0 / 0.0 ) : 0.0 ) ) );
+			float localAND1_g373 = AND1_g373( A1_g373 , B1_g373 );
+			float UVTileDiscard192 = ( ( ( localAND1_g387 == 1.0 ? ( 0.0 / 0.0 ) : 0.0 ) + ( localAND1_g361 == 1.0 ? ( 0.0 / 0.0 ) : 0.0 ) + ( localAND1_g363 == 1.0 ? ( 0.0 / 0.0 ) : 0.0 ) + ( localAND1_g365 == 1.0 ? ( 0.0 / 0.0 ) : 0.0 ) ) + ( ( localAND1_g357 == 1.0 ? ( 0.0 / 0.0 ) : 0.0 ) + ( localAND1_g367 == 1.0 ? ( 0.0 / 0.0 ) : 0.0 ) + ( localAND1_g381 == 1.0 ? ( 0.0 / 0.0 ) : 0.0 ) + ( localAND1_g383 == 1.0 ? ( 0.0 / 0.0 ) : 0.0 ) ) + ( ( localAND1_g359 == 1.0 ? ( 0.0 / 0.0 ) : 0.0 ) + ( localAND1_g375 == 1.0 ? ( 0.0 / 0.0 ) : 0.0 ) + ( localAND1_g377 == 1.0 ? ( 0.0 / 0.0 ) : 0.0 ) + ( localAND1_g379 == 1.0 ? ( 0.0 / 0.0 ) : 0.0 ) ) + ( ( localAND1_g385 == 1.0 ? ( 0.0 / 0.0 ) : 0.0 ) + ( localAND1_g369 == 1.0 ? ( 0.0 / 0.0 ) : 0.0 ) + ( localAND1_g371 == 1.0 ? ( 0.0 / 0.0 ) : 0.0 ) + ( localAND1_g373 == 1.0 ? ( 0.0 / 0.0 ) : 0.0 ) ) );
 			float UVDiscard730 = UVTileDiscard192;
 			float3 temp_cast_0 = (UVDiscard730).xxx;
 			v.vertex.xyz += temp_cast_0;
@@ -1454,4 +1454,4 @@ WireConnection;2229;21;270;0
 WireConnection;2229;6;198;0
 WireConnection;2229;10;629;0
 ASEEND*/
-//CHKSM=6C5DCD1D374FDA99652387B0FC4D797684A9ADE9
+//CHKSM=7FD100968C516DFC095906F5768475B0553770FD
