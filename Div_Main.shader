@@ -158,97 +158,97 @@ Shader "VoyVivika/VivikaShader"
 		uniform float _LightingType;
 
 
-		float AND1_g387( float A, float B )
+		float AND1_g419( float A, float B )
 		{
 			return A && B;
 		}
 
 
-		float AND1_g361( float A, float B )
+		float AND1_g393( float A, float B )
 		{
 			return A && B;
 		}
 
 
-		float AND1_g363( float A, float B )
+		float AND1_g395( float A, float B )
 		{
 			return A && B;
 		}
 
 
-		float AND1_g365( float A, float B )
+		float AND1_g397( float A, float B )
 		{
 			return A && B;
 		}
 
 
-		float AND1_g357( float A, float B )
+		float AND1_g389( float A, float B )
 		{
 			return A && B;
 		}
 
 
-		float AND1_g367( float A, float B )
+		float AND1_g399( float A, float B )
 		{
 			return A && B;
 		}
 
 
-		float AND1_g381( float A, float B )
+		float AND1_g413( float A, float B )
 		{
 			return A && B;
 		}
 
 
-		float AND1_g383( float A, float B )
+		float AND1_g415( float A, float B )
 		{
 			return A && B;
 		}
 
 
-		float AND1_g359( float A, float B )
+		float AND1_g391( float A, float B )
 		{
 			return A && B;
 		}
 
 
-		float AND1_g375( float A, float B )
+		float AND1_g407( float A, float B )
 		{
 			return A && B;
 		}
 
 
-		float AND1_g377( float A, float B )
+		float AND1_g409( float A, float B )
 		{
 			return A && B;
 		}
 
 
-		float AND1_g379( float A, float B )
+		float AND1_g411( float A, float B )
 		{
 			return A && B;
 		}
 
 
-		float AND1_g385( float A, float B )
+		float AND1_g417( float A, float B )
 		{
 			return A && B;
 		}
 
 
-		float AND1_g369( float A, float B )
+		float AND1_g401( float A, float B )
 		{
 			return A && B;
 		}
 
 
-		float AND1_g371( float A, float B )
+		float AND1_g403( float A, float B )
 		{
 			return A && B;
 		}
 
 
-		float AND1_g373( float A, float B )
+		float AND1_g405( float A, float B )
 		{
 			return A && B;
 		}
@@ -325,88 +325,88 @@ Shader "VoyVivika/VivikaShader"
 		void vertexDataFunc( inout appdata_full v, out Input o )
 		{
 			UNITY_INITIALIZE_OUTPUT( Input, o );
-			float A1_g387 = _DiscardUVTile00;
-			float2 break63_g386 = floor( float2( 0,0 ) );
+			float A1_g419 = _DiscardUVTile00;
+			float2 break63_g418 = floor( float2( 0,0 ) );
 			float2 DiscardUV200 = v.texcoord1.xy;
-			float2 break61_g386 = DiscardUV200;
-			float B1_g387 = ( step( break63_g386.x , break61_g386.x ) * step( break61_g386.x , ( break63_g386.x + 0.9999999 ) ) * step( break63_g386.y , break61_g386.y ) * step( break61_g386.y , ( break63_g386.y + 0.9999999 ) ) );
-			float localAND1_g387 = AND1_g387( A1_g387 , B1_g387 );
-			float A1_g361 = _DiscardUVTile01;
-			float2 break63_g360 = floor( float2( 0,1 ) );
-			float2 break61_g360 = DiscardUV200;
-			float B1_g361 = ( step( break63_g360.x , break61_g360.x ) * step( break61_g360.x , ( break63_g360.x + 0.9999999 ) ) * step( break63_g360.y , break61_g360.y ) * step( break61_g360.y , ( break63_g360.y + 0.9999999 ) ) );
-			float localAND1_g361 = AND1_g361( A1_g361 , B1_g361 );
-			float A1_g363 = _DiscardUVTile02;
-			float2 break63_g362 = floor( float2( 0,2 ) );
-			float2 break61_g362 = DiscardUV200;
-			float B1_g363 = ( step( break63_g362.x , break61_g362.x ) * step( break61_g362.x , ( break63_g362.x + 0.9999999 ) ) * step( break63_g362.y , break61_g362.y ) * step( break61_g362.y , ( break63_g362.y + 0.9999999 ) ) );
-			float localAND1_g363 = AND1_g363( A1_g363 , B1_g363 );
-			float A1_g365 = _DiscardUVTile03;
-			float2 break63_g364 = floor( float2( 0,3 ) );
-			float2 break61_g364 = DiscardUV200;
-			float B1_g365 = ( step( break63_g364.x , break61_g364.x ) * step( break61_g364.x , ( break63_g364.x + 0.9999999 ) ) * step( break63_g364.y , break61_g364.y ) * step( break61_g364.y , ( break63_g364.y + 0.9999999 ) ) );
-			float localAND1_g365 = AND1_g365( A1_g365 , B1_g365 );
-			float A1_g357 = _DiscardUVTile10;
-			float2 break63_g356 = floor( float2( 1,0 ) );
-			float2 break61_g356 = DiscardUV200;
-			float B1_g357 = ( step( break63_g356.x , break61_g356.x ) * step( break61_g356.x , ( break63_g356.x + 0.9999999 ) ) * step( break63_g356.y , break61_g356.y ) * step( break61_g356.y , ( break63_g356.y + 0.9999999 ) ) );
-			float localAND1_g357 = AND1_g357( A1_g357 , B1_g357 );
-			float A1_g367 = _DiscardUVTile11;
-			float2 break63_g366 = floor( float2( 1,1 ) );
-			float2 break61_g366 = DiscardUV200;
-			float B1_g367 = ( step( break63_g366.x , break61_g366.x ) * step( break61_g366.x , ( break63_g366.x + 0.9999999 ) ) * step( break63_g366.y , break61_g366.y ) * step( break61_g366.y , ( break63_g366.y + 0.9999999 ) ) );
-			float localAND1_g367 = AND1_g367( A1_g367 , B1_g367 );
-			float A1_g381 = _DiscardUVTile12;
-			float2 break63_g380 = floor( float2( 1,2 ) );
-			float2 break61_g380 = DiscardUV200;
-			float B1_g381 = ( step( break63_g380.x , break61_g380.x ) * step( break61_g380.x , ( break63_g380.x + 0.9999999 ) ) * step( break63_g380.y , break61_g380.y ) * step( break61_g380.y , ( break63_g380.y + 0.9999999 ) ) );
-			float localAND1_g381 = AND1_g381( A1_g381 , B1_g381 );
-			float A1_g383 = _DiscardUVTile13;
-			float2 break63_g382 = floor( float2( 1,3 ) );
-			float2 break61_g382 = DiscardUV200;
-			float B1_g383 = ( step( break63_g382.x , break61_g382.x ) * step( break61_g382.x , ( break63_g382.x + 0.9999999 ) ) * step( break63_g382.y , break61_g382.y ) * step( break61_g382.y , ( break63_g382.y + 0.9999999 ) ) );
-			float localAND1_g383 = AND1_g383( A1_g383 , B1_g383 );
-			float A1_g359 = _DiscardUVTile20;
-			float2 break63_g358 = floor( float2( 2,0 ) );
-			float2 break61_g358 = DiscardUV200;
-			float B1_g359 = ( step( break63_g358.x , break61_g358.x ) * step( break61_g358.x , ( break63_g358.x + 0.9999999 ) ) * step( break63_g358.y , break61_g358.y ) * step( break61_g358.y , ( break63_g358.y + 0.9999999 ) ) );
-			float localAND1_g359 = AND1_g359( A1_g359 , B1_g359 );
-			float A1_g375 = _DiscardUVTile21;
-			float2 break63_g374 = floor( float2( 2,1 ) );
-			float2 break61_g374 = DiscardUV200;
-			float B1_g375 = ( step( break63_g374.x , break61_g374.x ) * step( break61_g374.x , ( break63_g374.x + 0.9999999 ) ) * step( break63_g374.y , break61_g374.y ) * step( break61_g374.y , ( break63_g374.y + 0.9999999 ) ) );
-			float localAND1_g375 = AND1_g375( A1_g375 , B1_g375 );
-			float A1_g377 = _DiscardUVTile22;
-			float2 break63_g376 = floor( float2( 2,2 ) );
-			float2 break61_g376 = DiscardUV200;
-			float B1_g377 = ( step( break63_g376.x , break61_g376.x ) * step( break61_g376.x , ( break63_g376.x + 0.9999999 ) ) * step( break63_g376.y , break61_g376.y ) * step( break61_g376.y , ( break63_g376.y + 0.9999999 ) ) );
-			float localAND1_g377 = AND1_g377( A1_g377 , B1_g377 );
-			float A1_g379 = _DiscardUVTile23;
-			float2 break63_g378 = floor( float2( 2,3 ) );
-			float2 break61_g378 = DiscardUV200;
-			float B1_g379 = ( step( break63_g378.x , break61_g378.x ) * step( break61_g378.x , ( break63_g378.x + 0.9999999 ) ) * step( break63_g378.y , break61_g378.y ) * step( break61_g378.y , ( break63_g378.y + 0.9999999 ) ) );
-			float localAND1_g379 = AND1_g379( A1_g379 , B1_g379 );
-			float A1_g385 = _DiscardUVTile30;
-			float2 break63_g384 = floor( float2( 3,0 ) );
-			float2 break61_g384 = DiscardUV200;
-			float B1_g385 = ( step( break63_g384.x , break61_g384.x ) * step( break61_g384.x , ( break63_g384.x + 0.9999999 ) ) * step( break63_g384.y , break61_g384.y ) * step( break61_g384.y , ( break63_g384.y + 0.9999999 ) ) );
-			float localAND1_g385 = AND1_g385( A1_g385 , B1_g385 );
-			float A1_g369 = _DiscardUVTile31;
-			float2 break63_g368 = floor( float2( 3,1 ) );
-			float2 break61_g368 = DiscardUV200;
-			float B1_g369 = ( step( break63_g368.x , break61_g368.x ) * step( break61_g368.x , ( break63_g368.x + 0.9999999 ) ) * step( break63_g368.y , break61_g368.y ) * step( break61_g368.y , ( break63_g368.y + 0.9999999 ) ) );
-			float localAND1_g369 = AND1_g369( A1_g369 , B1_g369 );
-			float A1_g371 = _DiscardUVTile32;
-			float2 break63_g370 = floor( float2( 3,2 ) );
-			float2 break61_g370 = DiscardUV200;
-			float B1_g371 = ( step( break63_g370.x , break61_g370.x ) * step( break61_g370.x , ( break63_g370.x + 0.9999999 ) ) * step( break63_g370.y , break61_g370.y ) * step( break61_g370.y , ( break63_g370.y + 0.9999999 ) ) );
-			float localAND1_g371 = AND1_g371( A1_g371 , B1_g371 );
-			float A1_g373 = _DiscardUVTile33;
-			float2 break63_g372 = floor( float2( 3,3 ) );
-			float2 break61_g372 = DiscardUV200;
-			float B1_g373 = ( step( break63_g372.x , break61_g372.x ) * step( break61_g372.x , ( break63_g372.x + 0.9999999 ) ) * step( break63_g372.y , break61_g372.y ) * step( break61_g372.y , ( break63_g372.y + 0.9999999 ) ) );
-			float localAND1_g373 = AND1_g373( A1_g373 , B1_g373 );
-			float UVTileDiscard192 = ( ( ( localAND1_g387 == 1.0 ? ( 0.0 / 0.0 ) : 0.0 ) + ( localAND1_g361 == 1.0 ? ( 0.0 / 0.0 ) : 0.0 ) + ( localAND1_g363 == 1.0 ? ( 0.0 / 0.0 ) : 0.0 ) + ( localAND1_g365 == 1.0 ? ( 0.0 / 0.0 ) : 0.0 ) ) + ( ( localAND1_g357 == 1.0 ? ( 0.0 / 0.0 ) : 0.0 ) + ( localAND1_g367 == 1.0 ? ( 0.0 / 0.0 ) : 0.0 ) + ( localAND1_g381 == 1.0 ? ( 0.0 / 0.0 ) : 0.0 ) + ( localAND1_g383 == 1.0 ? ( 0.0 / 0.0 ) : 0.0 ) ) + ( ( localAND1_g359 == 1.0 ? ( 0.0 / 0.0 ) : 0.0 ) + ( localAND1_g375 == 1.0 ? ( 0.0 / 0.0 ) : 0.0 ) + ( localAND1_g377 == 1.0 ? ( 0.0 / 0.0 ) : 0.0 ) + ( localAND1_g379 == 1.0 ? ( 0.0 / 0.0 ) : 0.0 ) ) + ( ( localAND1_g385 == 1.0 ? ( 0.0 / 0.0 ) : 0.0 ) + ( localAND1_g369 == 1.0 ? ( 0.0 / 0.0 ) : 0.0 ) + ( localAND1_g371 == 1.0 ? ( 0.0 / 0.0 ) : 0.0 ) + ( localAND1_g373 == 1.0 ? ( 0.0 / 0.0 ) : 0.0 ) ) );
+			float2 break61_g418 = DiscardUV200;
+			float B1_g419 = ( step( break63_g418.x , break61_g418.x ) * step( break61_g418.x , ( break63_g418.x + 0.9999999 ) ) * step( break63_g418.y , break61_g418.y ) * step( break61_g418.y , ( break63_g418.y + 0.9999999 ) ) );
+			float localAND1_g419 = AND1_g419( A1_g419 , B1_g419 );
+			float A1_g393 = _DiscardUVTile01;
+			float2 break63_g392 = floor( float2( 0,1 ) );
+			float2 break61_g392 = DiscardUV200;
+			float B1_g393 = ( step( break63_g392.x , break61_g392.x ) * step( break61_g392.x , ( break63_g392.x + 0.9999999 ) ) * step( break63_g392.y , break61_g392.y ) * step( break61_g392.y , ( break63_g392.y + 0.9999999 ) ) );
+			float localAND1_g393 = AND1_g393( A1_g393 , B1_g393 );
+			float A1_g395 = _DiscardUVTile02;
+			float2 break63_g394 = floor( float2( 0,2 ) );
+			float2 break61_g394 = DiscardUV200;
+			float B1_g395 = ( step( break63_g394.x , break61_g394.x ) * step( break61_g394.x , ( break63_g394.x + 0.9999999 ) ) * step( break63_g394.y , break61_g394.y ) * step( break61_g394.y , ( break63_g394.y + 0.9999999 ) ) );
+			float localAND1_g395 = AND1_g395( A1_g395 , B1_g395 );
+			float A1_g397 = _DiscardUVTile03;
+			float2 break63_g396 = floor( float2( 0,3 ) );
+			float2 break61_g396 = DiscardUV200;
+			float B1_g397 = ( step( break63_g396.x , break61_g396.x ) * step( break61_g396.x , ( break63_g396.x + 0.9999999 ) ) * step( break63_g396.y , break61_g396.y ) * step( break61_g396.y , ( break63_g396.y + 0.9999999 ) ) );
+			float localAND1_g397 = AND1_g397( A1_g397 , B1_g397 );
+			float A1_g389 = _DiscardUVTile10;
+			float2 break63_g388 = floor( float2( 1,0 ) );
+			float2 break61_g388 = DiscardUV200;
+			float B1_g389 = ( step( break63_g388.x , break61_g388.x ) * step( break61_g388.x , ( break63_g388.x + 0.9999999 ) ) * step( break63_g388.y , break61_g388.y ) * step( break61_g388.y , ( break63_g388.y + 0.9999999 ) ) );
+			float localAND1_g389 = AND1_g389( A1_g389 , B1_g389 );
+			float A1_g399 = _DiscardUVTile11;
+			float2 break63_g398 = floor( float2( 1,1 ) );
+			float2 break61_g398 = DiscardUV200;
+			float B1_g399 = ( step( break63_g398.x , break61_g398.x ) * step( break61_g398.x , ( break63_g398.x + 0.9999999 ) ) * step( break63_g398.y , break61_g398.y ) * step( break61_g398.y , ( break63_g398.y + 0.9999999 ) ) );
+			float localAND1_g399 = AND1_g399( A1_g399 , B1_g399 );
+			float A1_g413 = _DiscardUVTile12;
+			float2 break63_g412 = floor( float2( 1,2 ) );
+			float2 break61_g412 = DiscardUV200;
+			float B1_g413 = ( step( break63_g412.x , break61_g412.x ) * step( break61_g412.x , ( break63_g412.x + 0.9999999 ) ) * step( break63_g412.y , break61_g412.y ) * step( break61_g412.y , ( break63_g412.y + 0.9999999 ) ) );
+			float localAND1_g413 = AND1_g413( A1_g413 , B1_g413 );
+			float A1_g415 = _DiscardUVTile13;
+			float2 break63_g414 = floor( float2( 1,3 ) );
+			float2 break61_g414 = DiscardUV200;
+			float B1_g415 = ( step( break63_g414.x , break61_g414.x ) * step( break61_g414.x , ( break63_g414.x + 0.9999999 ) ) * step( break63_g414.y , break61_g414.y ) * step( break61_g414.y , ( break63_g414.y + 0.9999999 ) ) );
+			float localAND1_g415 = AND1_g415( A1_g415 , B1_g415 );
+			float A1_g391 = _DiscardUVTile20;
+			float2 break63_g390 = floor( float2( 2,0 ) );
+			float2 break61_g390 = DiscardUV200;
+			float B1_g391 = ( step( break63_g390.x , break61_g390.x ) * step( break61_g390.x , ( break63_g390.x + 0.9999999 ) ) * step( break63_g390.y , break61_g390.y ) * step( break61_g390.y , ( break63_g390.y + 0.9999999 ) ) );
+			float localAND1_g391 = AND1_g391( A1_g391 , B1_g391 );
+			float A1_g407 = _DiscardUVTile21;
+			float2 break63_g406 = floor( float2( 2,1 ) );
+			float2 break61_g406 = DiscardUV200;
+			float B1_g407 = ( step( break63_g406.x , break61_g406.x ) * step( break61_g406.x , ( break63_g406.x + 0.9999999 ) ) * step( break63_g406.y , break61_g406.y ) * step( break61_g406.y , ( break63_g406.y + 0.9999999 ) ) );
+			float localAND1_g407 = AND1_g407( A1_g407 , B1_g407 );
+			float A1_g409 = _DiscardUVTile22;
+			float2 break63_g408 = floor( float2( 2,2 ) );
+			float2 break61_g408 = DiscardUV200;
+			float B1_g409 = ( step( break63_g408.x , break61_g408.x ) * step( break61_g408.x , ( break63_g408.x + 0.9999999 ) ) * step( break63_g408.y , break61_g408.y ) * step( break61_g408.y , ( break63_g408.y + 0.9999999 ) ) );
+			float localAND1_g409 = AND1_g409( A1_g409 , B1_g409 );
+			float A1_g411 = _DiscardUVTile23;
+			float2 break63_g410 = floor( float2( 2,3 ) );
+			float2 break61_g410 = DiscardUV200;
+			float B1_g411 = ( step( break63_g410.x , break61_g410.x ) * step( break61_g410.x , ( break63_g410.x + 0.9999999 ) ) * step( break63_g410.y , break61_g410.y ) * step( break61_g410.y , ( break63_g410.y + 0.9999999 ) ) );
+			float localAND1_g411 = AND1_g411( A1_g411 , B1_g411 );
+			float A1_g417 = _DiscardUVTile30;
+			float2 break63_g416 = floor( float2( 3,0 ) );
+			float2 break61_g416 = DiscardUV200;
+			float B1_g417 = ( step( break63_g416.x , break61_g416.x ) * step( break61_g416.x , ( break63_g416.x + 0.9999999 ) ) * step( break63_g416.y , break61_g416.y ) * step( break61_g416.y , ( break63_g416.y + 0.9999999 ) ) );
+			float localAND1_g417 = AND1_g417( A1_g417 , B1_g417 );
+			float A1_g401 = _DiscardUVTile31;
+			float2 break63_g400 = floor( float2( 3,1 ) );
+			float2 break61_g400 = DiscardUV200;
+			float B1_g401 = ( step( break63_g400.x , break61_g400.x ) * step( break61_g400.x , ( break63_g400.x + 0.9999999 ) ) * step( break63_g400.y , break61_g400.y ) * step( break61_g400.y , ( break63_g400.y + 0.9999999 ) ) );
+			float localAND1_g401 = AND1_g401( A1_g401 , B1_g401 );
+			float A1_g403 = _DiscardUVTile32;
+			float2 break63_g402 = floor( float2( 3,2 ) );
+			float2 break61_g402 = DiscardUV200;
+			float B1_g403 = ( step( break63_g402.x , break61_g402.x ) * step( break61_g402.x , ( break63_g402.x + 0.9999999 ) ) * step( break63_g402.y , break61_g402.y ) * step( break61_g402.y , ( break63_g402.y + 0.9999999 ) ) );
+			float localAND1_g403 = AND1_g403( A1_g403 , B1_g403 );
+			float A1_g405 = _DiscardUVTile33;
+			float2 break63_g404 = floor( float2( 3,3 ) );
+			float2 break61_g404 = DiscardUV200;
+			float B1_g405 = ( step( break63_g404.x , break61_g404.x ) * step( break61_g404.x , ( break63_g404.x + 0.9999999 ) ) * step( break63_g404.y , break61_g404.y ) * step( break61_g404.y , ( break63_g404.y + 0.9999999 ) ) );
+			float localAND1_g405 = AND1_g405( A1_g405 , B1_g405 );
+			float UVTileDiscard192 = ( ( ( localAND1_g419 == 1.0 ? ( 0.0 / 0.0 ) : 0.0 ) + ( localAND1_g393 == 1.0 ? ( 0.0 / 0.0 ) : 0.0 ) + ( localAND1_g395 == 1.0 ? ( 0.0 / 0.0 ) : 0.0 ) + ( localAND1_g397 == 1.0 ? ( 0.0 / 0.0 ) : 0.0 ) ) + ( ( localAND1_g389 == 1.0 ? ( 0.0 / 0.0 ) : 0.0 ) + ( localAND1_g399 == 1.0 ? ( 0.0 / 0.0 ) : 0.0 ) + ( localAND1_g413 == 1.0 ? ( 0.0 / 0.0 ) : 0.0 ) + ( localAND1_g415 == 1.0 ? ( 0.0 / 0.0 ) : 0.0 ) ) + ( ( localAND1_g391 == 1.0 ? ( 0.0 / 0.0 ) : 0.0 ) + ( localAND1_g407 == 1.0 ? ( 0.0 / 0.0 ) : 0.0 ) + ( localAND1_g409 == 1.0 ? ( 0.0 / 0.0 ) : 0.0 ) + ( localAND1_g411 == 1.0 ? ( 0.0 / 0.0 ) : 0.0 ) ) + ( ( localAND1_g417 == 1.0 ? ( 0.0 / 0.0 ) : 0.0 ) + ( localAND1_g401 == 1.0 ? ( 0.0 / 0.0 ) : 0.0 ) + ( localAND1_g403 == 1.0 ? ( 0.0 / 0.0 ) : 0.0 ) + ( localAND1_g405 == 1.0 ? ( 0.0 / 0.0 ) : 0.0 ) ) );
 			float UVDiscard730 = UVTileDiscard192;
 			float3 temp_cast_0 = (UVDiscard730).xxx;
 			v.vertex.xyz += temp_cast_0;
@@ -475,10 +475,12 @@ Shader "VoyVivika/VivikaShader"
 			float in_ALDelay991 = round( ( _ALUVToggle == 1.0 ? (127.0 + (clampResult982 - 0.0) * (0.0 - 127.0) / (127.0 - 0.0)) : ( _ALUVToggle == 2.0 ? clampResult987 : 0.0 ) ) );
 			int Delay3_g316 = (int)in_ALDelay991;
 			float localAudioLinkData3_g316 = AudioLinkData3_g316( Band3_g316 , Delay3_g316 );
-			float temp_output_8_0_g355 = 0.0;
+			float4 temp_output_8_0_g355 = float4( 0,0,0,0 );
 			float localIfAudioLinkv2Exists1_g317 = IfAudioLinkv2Exists1_g317();
 			float temp_output_7_0_g355 = localIfAudioLinkv2Exists1_g317;
-			float3 lerpResult6_g355 = lerp( temp_output_194_0 , ( temp_output_194_0 * localAudioLinkData3_g316 ) , ( step( temp_output_8_0_g355 , temp_output_7_0_g355 ) * step( temp_output_7_0_g355 , temp_output_8_0_g355 ) ));
+			float4 temp_cast_20 = (temp_output_7_0_g355).xxxx;
+			float4 temp_cast_21 = (temp_output_7_0_g355).xxxx;
+			float3 lerpResult6_g355 = lerp( temp_output_194_0 , ( temp_output_194_0 * localAudioLinkData3_g316 ) , ( step( temp_output_8_0_g355 , temp_cast_20 ) * step( temp_cast_21 , temp_output_8_0_g355 ) ).rgb);
 			float3 ALC_Bass61 = lerpResult6_g355;
 			float4 color44 = IsGammaSpace() ? float4(0,0.8196079,0,1) : float4(0,0.637597,0,1);
 			float3 hsvTorgb4_g59 = RGBToHSV( color44.rgb );
@@ -635,10 +637,12 @@ Shader "VoyVivika/VivikaShader"
 			float in_ALDelay991 = round( ( _ALUVToggle == 1.0 ? (127.0 + (clampResult982 - 0.0) * (0.0 - 127.0) / (127.0 - 0.0)) : ( _ALUVToggle == 2.0 ? clampResult987 : 0.0 ) ) );
 			int Delay3_g316 = (int)in_ALDelay991;
 			float localAudioLinkData3_g316 = AudioLinkData3_g316( Band3_g316 , Delay3_g316 );
-			float temp_output_8_0_g355 = 0.0;
+			float4 temp_output_8_0_g355 = float4( 0,0,0,0 );
 			float localIfAudioLinkv2Exists1_g317 = IfAudioLinkv2Exists1_g317();
 			float temp_output_7_0_g355 = localIfAudioLinkv2Exists1_g317;
-			float3 lerpResult6_g355 = lerp( temp_output_194_0 , ( temp_output_194_0 * localAudioLinkData3_g316 ) , ( step( temp_output_8_0_g355 , temp_output_7_0_g355 ) * step( temp_output_7_0_g355 , temp_output_8_0_g355 ) ));
+			float4 temp_cast_3 = (temp_output_7_0_g355).xxxx;
+			float4 temp_cast_4 = (temp_output_7_0_g355).xxxx;
+			float3 lerpResult6_g355 = lerp( temp_output_194_0 , ( temp_output_194_0 * localAudioLinkData3_g316 ) , ( step( temp_output_8_0_g355 , temp_cast_3 ) * step( temp_cast_4 , temp_output_8_0_g355 ) ).rgb);
 			float3 ALC_Bass61 = lerpResult6_g355;
 			float4 color44 = IsGammaSpace() ? float4(0,0.8196079,0,1) : float4(0,0.637597,0,1);
 			float3 hsvTorgb4_g59 = RGBToHSV( color44.rgb );
@@ -782,18 +786,17 @@ Node;AmplifyShaderEditor.CommentaryNode;1277;-625.4538,-8465.168;Inherit;False;5
 Node;AmplifyShaderEditor.CommentaryNode;1275;-585.7518,-9738.513;Inherit;False;735.2146;441.0371;Dot Product of Normal and Light Dir;8;2266;2265;2264;1204;1254;1206;1205;1203;NdotL;1,1,1,1;0;0
 Node;AmplifyShaderEditor.CommentaryNode;326;1907.217,-5775.348;Inherit;False;1038.421;993.8057;Comment;9;1155;1148;330;1156;1146;329;1149;328;1157;Pick Lighting Type;1,1,1,1;0;0
 Node;AmplifyShaderEditor.CommentaryNode;1157;1973.18,-5641.242;Inherit;False;467.9048;169.6509;Comment;2;331;793;Light Type Register;1,1,1,1;0;0
-Node;AmplifyShaderEditor.CommentaryNode;1110;-4777.827,-3708.893;Inherit;False;2208.849;2268.729;Comment;19;1083;1053;1108;1074;1075;1112;1111;1076;1071;1064;1067;1066;1121;1118;1077;1081;1124;1129;1136;Video Player Decal;1,1,1,1;0;0
+Node;AmplifyShaderEditor.CommentaryNode;1110;-4777.827,-3708.893;Inherit;False;2225.059;1150.243;Comment;20;1118;1136;1074;1124;1135;1129;1108;1081;1077;1121;1053;1075;1112;1111;1076;1071;1064;1067;1066;1083;Video Player Decal;1,1,1,1;0;0
 Node;AmplifyShaderEditor.CommentaryNode;1007;-8252.399,-4786.937;Inherit;False;330;858.978;Comment;4;1005;1003;1006;1004;Fallback Textures;1,1,1,1;0;0
 Node;AmplifyShaderEditor.CommentaryNode;854;1549.401,-6831.974;Inherit;False;1363.141;376.2364;Comment;6;848;845;847;951;844;849;Light Ramp;1,1,1,1;0;0
-Node;AmplifyShaderEditor.CommentaryNode;843;485.3015,-9967.852;Inherit;False;931.1643;711.4839;Comment;8;839;836;840;835;841;842;838;837;Light/View Dir Dot Products;1,1,1,1;0;0
 Node;AmplifyShaderEditor.CommentaryNode;732;4078.449,-1883.351;Inherit;False;626.3779;265.5669;Comment;2;729;730;Combine UV Discards;1,1,1,1;0;0
-Node;AmplifyShaderEditor.CommentaryNode;220;2051.233,-3370.865;Inherit;False;962.8354;715.8684;Comment;7;0;33;32;95;92;193;332;Output;1,1,1,1;0;0
+Node;AmplifyShaderEditor.CommentaryNode;220;2051.233,-3370.865;Inherit;False;962.8354;715.8684;Comment;5;0;33;32;193;332;Output;1,1,1,1;0;0
 Node;AmplifyShaderEditor.CommentaryNode;201;202.1576,-813.593;Inherit;False;861.1718;446.9373;Comment;2;200;1027;Discard UV;1,1,1,1;0;0
 Node;AmplifyShaderEditor.CommentaryNode;107;-23.66935,-4536.875;Inherit;False;1663.516;958.884;Comment;21;85;1043;1037;71;415;416;84;83;82;81;80;79;78;76;77;75;74;73;1044;1046;2263;AudioLink Emission;1,1,1,1;0;0
 Node;AmplifyShaderEditor.CommentaryNode;106;-112.9787,-5381.73;Inherit;False;1183.572;355.2229;Comment;5;57;69;70;45;1011;AudioLink Treble;1,1,1,1;0;0
 Node;AmplifyShaderEditor.CommentaryNode;105;-86.35403,-5893.254;Inherit;False;1188.215;403.241;Comment;6;67;66;56;44;197;1010;AudioLink HighMid;1,1,1,1;0;0
 Node;AmplifyShaderEditor.CommentaryNode;104;-1337.905,-5407.259;Inherit;False;1137.62;367.6456;Comment;7;64;63;55;43;1008;996;196;AudioLink LowMid;1,1,1,1;0;0
-Node;AmplifyShaderEditor.CommentaryNode;103;-1450.344,-6273.886;Inherit;False;1247.135;723.0679;Comment;8;1012;42;51;995;1009;194;58;61;AudioLink Bass;1,1,1,1;0;0
+Node;AmplifyShaderEditor.CommentaryNode;103;-1450.344,-6273.886;Inherit;False;1247.135;723.0679;Comment;9;1012;42;51;995;1009;194;58;61;2213;AudioLink Bass;1,1,1,1;0;0
 Node;AmplifyShaderEditor.CommentaryNode;72;-1818.04,-4819.045;Inherit;False;712.9634;194.3457;Comment;4;243;48;49;50;Time;1,1,1,1;0;0
 Node;AmplifyShaderEditor.CommentaryNode;37;-7417.041,-1620.861;Inherit;False;859.9141;343.3768;Comment;3;737;34;1002;Normal Map;1,1,1,1;0;0
 Node;AmplifyShaderEditor.CommentaryNode;31;-278.7401,-2122.503;Inherit;False;1194.286;795.1765;Comment;8;1098;1079;30;28;122;86;29;1120;Emission Combination;1,1,1,1;0;0
@@ -830,8 +833,6 @@ Node;AmplifyShaderEditor.FunctionNode;195;343.6559,-5323.875;Inherit;False;HueSh
 Node;AmplifyShaderEditor.FunctionNode;196;-907.4175,-5335.405;Inherit;False;HueShift;-1;;38;09c7357f8ce789c46a405a6704ca8341;0;4;14;COLOR;0,0,0,0;False;15;FLOAT;0;False;16;FLOAT;0;False;17;FLOAT;0;False;1;FLOAT3;0
 Node;AmplifyShaderEditor.CommentaryNode;217;4137.307,-4147.085;Inherit;False;420.8079;185;Comment;2;219;218;Declare NaN;1,1,1,1;0;0
 Node;AmplifyShaderEditor.StandardSurfaceOutputNode;0;2759.068,-3220.523;Float;False;True;-1;2;ASEMaterialInspector;0;0;CustomLighting;VoyVivika/VivikaShader;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;Off;0;False;;0;False;;False;0;False;;0;False;;False;0;Opaque;0.5;True;True;0;False;Opaque;;Geometry;All;12;all;True;True;True;True;0;False;;False;0;False;;255;False;;255;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;False;2;15;10;25;False;0.5;True;2;5;False;;10;False;;0;0;False;;0;False;;0;False;;0;False;;0;False;0;0,0,0,0;VertexOffset;True;False;Cylindrical;False;True;Relative;0;Standard;-1;-1;-1;-1;1;VRCFallback=DoubleSided;False;0;0;True;_CullMode;-1;0;False;;1;Include;Libs\AudioLink\AudioLink.cginc;False;;Custom;False;0;0;;0;0;False;0.1;False;;0;False;;False;16;0;FLOAT3;0,0,0;False;1;FLOAT3;0,0,0;False;2;FLOAT3;0,0,0;False;3;FLOAT3;0,0,0;False;4;FLOAT;0;False;6;FLOAT3;0,0,0;False;7;FLOAT3;0,0,0;False;8;FLOAT;0;False;9;FLOAT;0;False;10;FLOAT;0;False;13;FLOAT3;0,0,0;False;11;FLOAT3;0,0,0;False;12;FLOAT3;0,0,0;False;16;FLOAT4;0,0,0,0;False;14;FLOAT4;0,0,0,0;False;15;FLOAT3;0,0,0;False;0
-Node;AmplifyShaderEditor.BreakToComponentsNode;95;2282.518,-3022.374;Inherit;False;COLOR;1;0;COLOR;0,0,0,0;False;16;FLOAT;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4;FLOAT;5;FLOAT;6;FLOAT;7;FLOAT;8;FLOAT;9;FLOAT;10;FLOAT;11;FLOAT;12;FLOAT;13;FLOAT;14;FLOAT;15
-Node;AmplifyShaderEditor.GetLocalVarNode;92;2101.233,-3026.873;Inherit;False;90;multiMap;1;0;OBJECT;;False;1;COLOR;0
 Node;AmplifyShaderEditor.SamplerNode;118;-1797.104,-2926.999;Inherit;True;Property;_Emission;Emission;19;0;Create;True;0;0;0;False;0;False;-1;83f90c05f51ea5c469ceb2c4218b09a7;83f90c05f51ea5c469ceb2c4218b09a7;True;0;False;black;Auto;False;Object;-1;Auto;Texture2D;8;0;SAMPLER2D;;False;1;FLOAT2;0,0;False;2;FLOAT;0;False;3;FLOAT2;0,0;False;4;FLOAT2;0,0;False;5;FLOAT;1;False;6;FLOAT;0;False;7;SAMPLERSTATE;;False;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
 Node;AmplifyShaderEditor.FractNode;49;-1440.809,-4759.045;Inherit;False;1;0;FLOAT;0;False;1;FLOAT;0
 Node;AmplifyShaderEditor.RangedFloatNode;243;-1786.835,-4764.416;Inherit;False;Property;_ALTimeScale;AL Time Scale;18;0;Create;True;0;0;0;False;0;False;0;0;0;0;0;1;FLOAT;0
@@ -964,7 +965,6 @@ Node;AmplifyShaderEditor.LayeredBlendNode;1098;366.2708,-1963.705;Inherit;True;6
 Node;AmplifyShaderEditor.LayeredBlendNode;1101;-6423.06,-3428.237;Inherit;True;6;0;FLOAT;0;False;1;COLOR;0,0,0,0;False;2;COLOR;0,0,0,0;False;3;FLOAT;0;False;4;FLOAT;0;False;5;FLOAT;0;False;1;COLOR;0
 Node;AmplifyShaderEditor.GetLocalVarNode;1079;-82.32339,-1724.547;Inherit;False;1077;Video Player Decal;1;0;OBJECT;;False;1;COLOR;0
 Node;AmplifyShaderEditor.GetLocalVarNode;1119;-6822.949,-3227.708;Inherit;False;1118;VideoDecalAlpha;1;0;OBJECT;;False;1;FLOAT;0
-Node;AmplifyShaderEditor.GetLocalVarNode;1120;-31.28754,-1624.004;Inherit;False;1118;VideoDecalAlpha;1;0;OBJECT;;False;1;FLOAT;0
 Node;AmplifyShaderEditor.RangedFloatNode;1083;-3667.103,-3648.907;Inherit;False;Property;_EnableVideoPlayerDecal;Enable Video Player Decal;41;2;[Header];[ToggleUI];Create;True;1;Video Player Decal;0;0;False;0;False;0;0;0;0;0;1;FLOAT;0
 Node;AmplifyShaderEditor.DynamicAppendNode;1066;-4445.004,-3141;Inherit;False;FLOAT2;4;0;FLOAT;0;False;1;FLOAT;0;False;2;FLOAT;0;False;3;FLOAT;0;False;1;FLOAT2;0
 Node;AmplifyShaderEditor.DynamicAppendNode;1067;-4439.004,-3027;Inherit;False;FLOAT2;4;0;FLOAT;0;False;1;FLOAT;0;False;2;FLOAT;0;False;3;FLOAT;0;False;1;FLOAT2;0
@@ -975,7 +975,6 @@ Node;AmplifyShaderEditor.SimpleMultiplyOpNode;1111;-4280.878,-3263.277;Inherit;F
 Node;AmplifyShaderEditor.RangedFloatNode;1112;-4469.494,-3288.354;Inherit;False;Constant;_Float1;Float 1;56;0;Create;True;0;0;0;False;0;False;0.01;0;0;0;0;1;FLOAT;0
 Node;AmplifyShaderEditor.SimpleAddOpNode;1075;-4081.008,-3341;Inherit;False;2;2;0;FLOAT2;0,0;False;1;FLOAT2;0,0;False;1;FLOAT2;0
 Node;AmplifyShaderEditor.TexturePropertyNode;1053;-4046.878,-3543.225;Inherit;True;Global;_Udon_VideoTex;_Udon_VideoTex;47;0;Create;True;0;0;0;True;0;False;None;None;False;white;Auto;Texture2D;-1;0;2;SAMPLER2D;0;SAMPLERSTATE;1
-Node;AmplifyShaderEditor.RegisterLocalVarNode;1118;-2900.04,-3521.027;Inherit;False;VideoDecalAlpha;-1;True;1;0;FLOAT;0;False;1;FLOAT;0
 Node;AmplifyShaderEditor.SimpleMultiplyOpNode;1121;-3119.618,-3508.809;Inherit;False;2;2;0;FLOAT;0;False;1;FLOAT;0;False;1;FLOAT;0
 Node;AmplifyShaderEditor.RegisterLocalVarNode;1077;-2825.569,-3288.123;Inherit;True;Video Player Decal;-1;True;1;0;COLOR;0,0,0,0;False;1;COLOR;0
 Node;AmplifyShaderEditor.SimpleMultiplyOpNode;1081;-3019.766,-3288.592;Inherit;False;2;2;0;COLOR;0,0,0,0;False;1;FLOAT;0;False;1;COLOR;0
@@ -991,15 +990,9 @@ Node;AmplifyShaderEditor.GetLocalVarNode;1149;2063.787,-5036.328;Inherit;False;1
 Node;AmplifyShaderEditor.GetLocalVarNode;1156;2264.553,-5411.804;Inherit;False;793;LightType;1;0;OBJECT;;False;1;FLOAT;0
 Node;AmplifyShaderEditor.RangedFloatNode;1148;2126.788,-5110.328;Inherit;False;Constant;_Wrap;Wrap;57;0;Create;True;0;0;0;False;0;False;2;0;0;0;0;1;FLOAT;0
 Node;AmplifyShaderEditor.GetLocalVarNode;1155;2095.441,-5183.049;Inherit;False;793;LightType;1;0;OBJECT;;False;1;FLOAT;0
-Node;AmplifyShaderEditor.DotProductOpNode;837;1026.471,-9526.638;Inherit;False;2;0;FLOAT3;0,0,0;False;1;FLOAT3;0,0,0;False;1;FLOAT;0
-Node;AmplifyShaderEditor.WorldNormalVector;835;809.627,-9633.095;Inherit;False;True;1;0;FLOAT3;0,0,1;False;4;FLOAT3;0;FLOAT;1;FLOAT;2;FLOAT;3
-Node;AmplifyShaderEditor.DotProductOpNode;840;1034.907,-9693.645;Inherit;False;2;0;FLOAT3;0,0,0;False;1;FLOAT3;0,0,0;False;1;FLOAT;0
-Node;AmplifyShaderEditor.ViewDirInputsCoordNode;836;836.3906,-9455.15;Inherit;False;World;True;0;4;FLOAT3;0;FLOAT;1;FLOAT;2;FLOAT;3
-Node;AmplifyShaderEditor.GetLocalVarNode;842;604.5024,-9464.823;Inherit;False;-1;;1;0;OBJECT;;False;1;FLOAT3;0
 Node;AmplifyShaderEditor.CustomStandardSurface;303;-1238.217,-8849.06;Inherit;False;Metallic;Tangent;6;0;FLOAT3;0,0,0;False;1;FLOAT3;0,0,1;False;2;FLOAT3;0,0,0;False;3;FLOAT;0;False;4;FLOAT;0;False;5;FLOAT;1;False;1;FLOAT3;0
 Node;AmplifyShaderEditor.RegisterLocalVarNode;1209;-343.803,-8399.448;Inherit;False;wrap;-1;True;1;0;FLOAT;0;False;1;FLOAT;0
 Node;AmplifyShaderEditor.RangedFloatNode;1207;-595.0138,-8399.448;Inherit;False;Property;_WrappedShadingValue;Wrapped Shading Value;2;0;Create;True;0;0;0;False;0;False;1;4;0;0;0;1;FLOAT;0
-Node;AmplifyShaderEditor.WorldSpaceLightDirHlpNode;839;566.467,-9845.46;Inherit;False;True;1;0;FLOAT;0;False;4;FLOAT3;0;FLOAT;1;FLOAT;2;FLOAT;3
 Node;AmplifyShaderEditor.LerpOp;1356;-223.8023,-7946.047;Inherit;False;3;0;COLOR;0,0,0,0;False;1;COLOR;0,0,0,0;False;2;FLOAT;0;False;1;COLOR;0
 Node;AmplifyShaderEditor.GetLocalVarNode;1214;-610.8956,-8609.429;Inherit;False;1209;wrap;1;0;OBJECT;;False;1;FLOAT;0
 Node;AmplifyShaderEditor.RangedFloatNode;1213;-577.4956,-8681.038;Inherit;False;Constant;_Float5;Float 5;58;0;Create;True;0;0;0;False;0;False;1;0;0;0;0;1;FLOAT;0
@@ -1071,9 +1064,7 @@ Node;AmplifyShaderEditor.SimpleMultiplyOpNode;58;-761.1933,-6046.505;Inherit;Fal
 Node;AmplifyShaderEditor.RegisterLocalVarNode;61;-429.0311,-6170.326;Inherit;False;ALC_Bass;-1;True;1;0;FLOAT3;0,0,0;False;1;FLOAT3;0
 Node;AmplifyShaderEditor.SimpleTimeNode;48;-1610.04,-4762.258;Inherit;False;1;0;FLOAT;0.1;False;1;FLOAT;0
 Node;AmplifyShaderEditor.GetLocalVarNode;729;4150.826,-1795.785;Inherit;False;192;UVTileDiscard;1;0;OBJECT;;False;1;FLOAT;0
-Node;AmplifyShaderEditor.RegisterLocalVarNode;841;1194.473,-9743.162;Inherit;False;LightLightDir;-1;True;1;0;FLOAT;0;False;1;FLOAT;0
-Node;AmplifyShaderEditor.RegisterLocalVarNode;838;1200.473,-9521.638;Inherit;False;LightViewDir;-1;True;1;0;FLOAT;0;False;1;FLOAT;0
-Node;AmplifyShaderEditor.GetLocalVarNode;845;1705.331,-6759.567;Inherit;False;841;LightLightDir;1;0;OBJECT;;False;1;FLOAT;0
+Node;AmplifyShaderEditor.GetLocalVarNode;845;1705.331,-6759.567;Inherit;False;-1;;1;0;OBJECT;;False;1;FLOAT;0
 Node;AmplifyShaderEditor.DynamicAppendNode;1015;-2342.906,-6864.568;Inherit;False;FLOAT2;4;0;FLOAT;0;False;1;FLOAT;0;False;2;FLOAT;0;False;3;FLOAT;0;False;1;FLOAT2;0
 Node;AmplifyShaderEditor.BreakToComponentsNode;1020;-1877.493,-6965.705;Inherit;False;FLOAT2;1;0;FLOAT2;0,0;False;16;FLOAT;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4;FLOAT;5;FLOAT;6;FLOAT;7;FLOAT;8;FLOAT;9;FLOAT;10;FLOAT;11;FLOAT;12;FLOAT;13;FLOAT;14;FLOAT;15
 Node;AmplifyShaderEditor.SimpleAddOpNode;1094;-1982.059,-6956.215;Inherit;False;2;2;0;FLOAT2;0,0;False;1;FLOAT2;0,0;False;1;FLOAT2;0
@@ -1095,23 +1086,6 @@ Node;AmplifyShaderEditor.GetLocalVarNode;2048;-1490.37,-8646.09;Inherit;False;75
 Node;AmplifyShaderEditor.GetLocalVarNode;2049;-1504.37,-8564.09;Inherit;False;755;_Smoothness;1;0;OBJECT;;False;1;FLOAT;0
 Node;AmplifyShaderEditor.FunctionNode;2211;2552.985,-5357.156;Inherit;False;If Float Equal;-1;;353;bdca1c28487c8a1418e72579bec63589;0;4;7;FLOAT;0;False;8;FLOAT;0;False;9;COLOR;0,0,0,0;False;10;COLOR;0,0,0,0;False;1;COLOR;0
 Node;AmplifyShaderEditor.FunctionNode;2212;2303.705,-5091.534;Inherit;False;If Float Equal;-1;;354;bdca1c28487c8a1418e72579bec63589;0;4;7;FLOAT;0;False;8;FLOAT;0;False;9;COLOR;0,0,0,0;False;10;FLOAT3;0,0,0;False;1;COLOR;0
-Node;AmplifyShaderEditor.FunctionNode;2213;-606.5715,-6162.057;Inherit;False;If Float Equal;-1;;355;bdca1c28487c8a1418e72579bec63589;0;4;7;FLOAT;0;False;8;FLOAT;0;False;9;FLOAT3;0,0,0;False;10;FLOAT3;0,0,0;False;1;FLOAT3;0
-Node;AmplifyShaderEditor.FunctionNode;2214;2566.127,-818.3905;Inherit;False;UV Tile Discard;-1;;356;f1bd11510c44bc348aeb983c4528c9d5;0;3;21;FLOAT;0;False;6;FLOAT2;0,0;False;10;FLOAT2;0,0;False;1;FLOAT;0
-Node;AmplifyShaderEditor.FunctionNode;2215;3347.481,-781.8707;Inherit;False;UV Tile Discard;-1;;358;f1bd11510c44bc348aeb983c4528c9d5;0;3;21;FLOAT;0;False;6;FLOAT2;0,0;False;10;FLOAT2;0,0;False;1;FLOAT;0
-Node;AmplifyShaderEditor.FunctionNode;2216;1803.251,-596.9982;Inherit;False;UV Tile Discard;-1;;360;f1bd11510c44bc348aeb983c4528c9d5;0;3;21;FLOAT;0;False;6;FLOAT2;0,0;False;10;FLOAT2;0,0;False;1;FLOAT;0
-Node;AmplifyShaderEditor.FunctionNode;2217;1785.751,-378.5684;Inherit;False;UV Tile Discard;-1;;362;f1bd11510c44bc348aeb983c4528c9d5;0;3;21;FLOAT;0;False;6;FLOAT2;0,0;False;10;FLOAT2;0,0;False;1;FLOAT;0
-Node;AmplifyShaderEditor.FunctionNode;2218;1793.151,-18.96954;Inherit;False;UV Tile Discard;-1;;364;f1bd11510c44bc348aeb983c4528c9d5;0;3;21;FLOAT;0;False;6;FLOAT2;0,0;False;10;FLOAT2;0,0;False;1;FLOAT;0
-Node;AmplifyShaderEditor.FunctionNode;2219;2535.103,-558.2587;Inherit;False;UV Tile Discard;-1;;366;f1bd11510c44bc348aeb983c4528c9d5;0;3;21;FLOAT;0;False;6;FLOAT2;0,0;False;10;FLOAT2;0,0;False;1;FLOAT;0
-Node;AmplifyShaderEditor.FunctionNode;2220;4111.194,-549.4994;Inherit;False;UV Tile Discard;-1;;368;f1bd11510c44bc348aeb983c4528c9d5;0;3;21;FLOAT;0;False;6;FLOAT2;0,0;False;10;FLOAT2;0,0;False;1;FLOAT;0
-Node;AmplifyShaderEditor.FunctionNode;2221;4146.207,-244.9378;Inherit;False;UV Tile Discard;-1;;370;f1bd11510c44bc348aeb983c4528c9d5;0;3;21;FLOAT;0;False;6;FLOAT2;0,0;False;10;FLOAT2;0,0;False;1;FLOAT;0
-Node;AmplifyShaderEditor.FunctionNode;2222;4104.421,78.95988;Inherit;False;UV Tile Discard;-1;;372;f1bd11510c44bc348aeb983c4528c9d5;0;3;21;FLOAT;0;False;6;FLOAT2;0,0;False;10;FLOAT2;0,0;False;1;FLOAT;0
-Node;AmplifyShaderEditor.FunctionNode;2223;3330.537,-609.8447;Inherit;False;UV Tile Discard;-1;;374;f1bd11510c44bc348aeb983c4528c9d5;0;3;21;FLOAT;0;False;6;FLOAT2;0,0;False;10;FLOAT2;0,0;False;1;FLOAT;0
-Node;AmplifyShaderEditor.FunctionNode;2224;3352.062,-280.4475;Inherit;False;UV Tile Discard;-1;;376;f1bd11510c44bc348aeb983c4528c9d5;0;3;21;FLOAT;0;False;6;FLOAT2;0,0;False;10;FLOAT2;0,0;False;1;FLOAT;0
-Node;AmplifyShaderEditor.FunctionNode;2225;3339.263,55.05388;Inherit;False;UV Tile Discard;-1;;378;f1bd11510c44bc348aeb983c4528c9d5;0;3;21;FLOAT;0;False;6;FLOAT2;0,0;False;10;FLOAT2;0,0;False;1;FLOAT;0
-Node;AmplifyShaderEditor.FunctionNode;2226;2536.623,-252.0813;Inherit;False;UV Tile Discard;-1;;380;f1bd11510c44bc348aeb983c4528c9d5;0;3;21;FLOAT;0;False;6;FLOAT2;0,0;False;10;FLOAT2;0,0;False;1;FLOAT;0
-Node;AmplifyShaderEditor.FunctionNode;2227;2532.193,51.46117;Inherit;False;UV Tile Discard;-1;;382;f1bd11510c44bc348aeb983c4528c9d5;0;3;21;FLOAT;0;False;6;FLOAT2;0,0;False;10;FLOAT2;0,0;False;1;FLOAT;0
-Node;AmplifyShaderEditor.FunctionNode;2228;4142.573,-783.9061;Inherit;False;UV Tile Discard;-1;;384;f1bd11510c44bc348aeb983c4528c9d5;0;3;21;FLOAT;0;False;6;FLOAT2;0,0;False;10;FLOAT2;0,0;False;1;FLOAT;0
-Node;AmplifyShaderEditor.FunctionNode;2229;1812.015,-856.9457;Inherit;False;UV Tile Discard;-1;;386;f1bd11510c44bc348aeb983c4528c9d5;0;3;21;FLOAT;0;False;6;FLOAT2;0,0;False;10;FLOAT2;0,0;False;1;FLOAT;0
 Node;AmplifyShaderEditor.SaturateNode;2254;-182.7855,-8729.182;Inherit;False;1;0;FLOAT;0;False;1;FLOAT;0
 Node;AmplifyShaderEditor.SaturateNode;2255;-386.2491,-8053.128;Inherit;False;1;0;FLOAT;0;False;1;FLOAT;0
 Node;AmplifyShaderEditor.SaturateNode;2256;-405.2491,-7882.128;Inherit;False;1;0;COLOR;0,0,0,0;False;1;COLOR;0
@@ -1137,6 +1111,25 @@ Node;AmplifyShaderEditor.GetLocalVarNode;1204;-566.7516,-9531.513;Inherit;False;
 Node;AmplifyShaderEditor.GetLocalVarNode;2264;-392.1232,-9378.447;Inherit;False;1254;NdotL;1;0;OBJECT;;False;1;FLOAT;0
 Node;AmplifyShaderEditor.SaturateNode;2265;-210.3306,-9386.864;Inherit;False;1;0;FLOAT;0;False;1;FLOAT;0
 Node;AmplifyShaderEditor.RegisterLocalVarNode;2266;-61.33063,-9391.864;Inherit;False;NdotLSaturated;-1;True;1;0;FLOAT;0;False;1;FLOAT;0
+Node;AmplifyShaderEditor.FunctionNode;2213;-606.5715,-6162.057;Inherit;False;If Float Equal;-1;;355;bdca1c28487c8a1418e72579bec63589;0;4;7;FLOAT;0;False;8;COLOR;0,0,0,0;False;9;FLOAT3;0,0,0;False;10;FLOAT3;0,0,0;False;1;FLOAT3;0
+Node;AmplifyShaderEditor.FunctionNode;2267;2566.127,-818.3905;Inherit;False;UV Tile Discard;-1;;388;f1bd11510c44bc348aeb983c4528c9d5;0;3;21;FLOAT;0;False;6;FLOAT2;0,0;False;10;FLOAT2;0,0;False;1;FLOAT;0
+Node;AmplifyShaderEditor.FunctionNode;2268;3347.481,-781.8707;Inherit;False;UV Tile Discard;-1;;390;f1bd11510c44bc348aeb983c4528c9d5;0;3;21;FLOAT;0;False;6;FLOAT2;0,0;False;10;FLOAT2;0,0;False;1;FLOAT;0
+Node;AmplifyShaderEditor.FunctionNode;2269;1803.251,-596.9982;Inherit;False;UV Tile Discard;-1;;392;f1bd11510c44bc348aeb983c4528c9d5;0;3;21;FLOAT;0;False;6;FLOAT2;0,0;False;10;FLOAT2;0,0;False;1;FLOAT;0
+Node;AmplifyShaderEditor.FunctionNode;2270;1785.751,-378.5684;Inherit;False;UV Tile Discard;-1;;394;f1bd11510c44bc348aeb983c4528c9d5;0;3;21;FLOAT;0;False;6;FLOAT2;0,0;False;10;FLOAT2;0,0;False;1;FLOAT;0
+Node;AmplifyShaderEditor.FunctionNode;2271;1793.151,-18.96954;Inherit;False;UV Tile Discard;-1;;396;f1bd11510c44bc348aeb983c4528c9d5;0;3;21;FLOAT;0;False;6;FLOAT2;0,0;False;10;FLOAT2;0,0;False;1;FLOAT;0
+Node;AmplifyShaderEditor.FunctionNode;2272;2535.103,-558.2587;Inherit;False;UV Tile Discard;-1;;398;f1bd11510c44bc348aeb983c4528c9d5;0;3;21;FLOAT;0;False;6;FLOAT2;0,0;False;10;FLOAT2;0,0;False;1;FLOAT;0
+Node;AmplifyShaderEditor.FunctionNode;2273;4111.194,-549.4994;Inherit;False;UV Tile Discard;-1;;400;f1bd11510c44bc348aeb983c4528c9d5;0;3;21;FLOAT;0;False;6;FLOAT2;0,0;False;10;FLOAT2;0,0;False;1;FLOAT;0
+Node;AmplifyShaderEditor.FunctionNode;2274;4146.207,-244.9378;Inherit;False;UV Tile Discard;-1;;402;f1bd11510c44bc348aeb983c4528c9d5;0;3;21;FLOAT;0;False;6;FLOAT2;0,0;False;10;FLOAT2;0,0;False;1;FLOAT;0
+Node;AmplifyShaderEditor.FunctionNode;2275;4104.421,78.95988;Inherit;False;UV Tile Discard;-1;;404;f1bd11510c44bc348aeb983c4528c9d5;0;3;21;FLOAT;0;False;6;FLOAT2;0,0;False;10;FLOAT2;0,0;False;1;FLOAT;0
+Node;AmplifyShaderEditor.FunctionNode;2276;3330.537,-609.8447;Inherit;False;UV Tile Discard;-1;;406;f1bd11510c44bc348aeb983c4528c9d5;0;3;21;FLOAT;0;False;6;FLOAT2;0,0;False;10;FLOAT2;0,0;False;1;FLOAT;0
+Node;AmplifyShaderEditor.FunctionNode;2277;3352.062,-280.4475;Inherit;False;UV Tile Discard;-1;;408;f1bd11510c44bc348aeb983c4528c9d5;0;3;21;FLOAT;0;False;6;FLOAT2;0,0;False;10;FLOAT2;0,0;False;1;FLOAT;0
+Node;AmplifyShaderEditor.FunctionNode;2278;3339.263,55.05388;Inherit;False;UV Tile Discard;-1;;410;f1bd11510c44bc348aeb983c4528c9d5;0;3;21;FLOAT;0;False;6;FLOAT2;0,0;False;10;FLOAT2;0,0;False;1;FLOAT;0
+Node;AmplifyShaderEditor.FunctionNode;2279;2536.623,-252.0813;Inherit;False;UV Tile Discard;-1;;412;f1bd11510c44bc348aeb983c4528c9d5;0;3;21;FLOAT;0;False;6;FLOAT2;0,0;False;10;FLOAT2;0,0;False;1;FLOAT;0
+Node;AmplifyShaderEditor.FunctionNode;2280;2532.193,51.46117;Inherit;False;UV Tile Discard;-1;;414;f1bd11510c44bc348aeb983c4528c9d5;0;3;21;FLOAT;0;False;6;FLOAT2;0,0;False;10;FLOAT2;0,0;False;1;FLOAT;0
+Node;AmplifyShaderEditor.FunctionNode;2281;4142.573,-783.9061;Inherit;False;UV Tile Discard;-1;;416;f1bd11510c44bc348aeb983c4528c9d5;0;3;21;FLOAT;0;False;6;FLOAT2;0,0;False;10;FLOAT2;0,0;False;1;FLOAT;0
+Node;AmplifyShaderEditor.FunctionNode;2282;1812.015,-856.9457;Inherit;False;UV Tile Discard;-1;;418;f1bd11510c44bc348aeb983c4528c9d5;0;3;21;FLOAT;0;False;6;FLOAT2;0,0;False;10;FLOAT2;0,0;False;1;FLOAT;0
+Node;AmplifyShaderEditor.GetLocalVarNode;1120;-31.28754,-1624.004;Inherit;False;1118;VideoDecalAlpha;1;0;OBJECT;;False;1;FLOAT;0
+Node;AmplifyShaderEditor.RegisterLocalVarNode;1118;-2900.04,-3519.727;Inherit;False;VideoDecalAlpha;-1;True;1;0;FLOAT;0;False;1;FLOAT;0
 WireConnection;50;0;49;0
 WireConnection;90;0;91;0
 WireConnection;69;0;195;0
@@ -1170,29 +1163,28 @@ WireConnection;0;0;33;0
 WireConnection;0;2;32;0
 WireConnection;0;13;332;0
 WireConnection;0;11;193;0
-WireConnection;95;0;92;0
 WireConnection;49;0;48;0
 WireConnection;416;0;415;0
 WireConnection;416;1;84;0
 WireConnection;197;14;44;0
 WireConnection;197;15;56;0
 WireConnection;25;0;736;0
-WireConnection;149;0;2229;0
-WireConnection;149;1;2216;0
-WireConnection;149;2;2217;0
-WireConnection;149;3;2218;0
-WireConnection;154;0;2214;0
-WireConnection;154;1;2219;0
-WireConnection;154;2;2226;0
-WireConnection;154;3;2227;0
-WireConnection;167;0;2215;0
-WireConnection;167;1;2223;0
-WireConnection;167;2;2224;0
-WireConnection;167;3;2225;0
-WireConnection;180;0;2228;0
-WireConnection;180;1;2220;0
-WireConnection;180;2;2221;0
-WireConnection;180;3;2222;0
+WireConnection;149;0;2282;0
+WireConnection;149;1;2269;0
+WireConnection;149;2;2270;0
+WireConnection;149;3;2271;0
+WireConnection;154;0;2267;0
+WireConnection;154;1;2272;0
+WireConnection;154;2;2279;0
+WireConnection;154;3;2280;0
+WireConnection;167;0;2268;0
+WireConnection;167;1;2276;0
+WireConnection;167;2;2277;0
+WireConnection;167;3;2278;0
+WireConnection;180;0;2281;0
+WireConnection;180;1;2273;0
+WireConnection;180;2;2274;0
+WireConnection;180;3;2275;0
 WireConnection;225;0;149;0
 WireConnection;223;0;167;0
 WireConnection;224;0;154;0
@@ -1254,7 +1246,6 @@ WireConnection;1111;0;1066;0
 WireConnection;1111;1;1112;0
 WireConnection;1075;0;1074;0
 WireConnection;1075;1;1111;0
-WireConnection;1118;0;1121;0
 WireConnection;1121;0;1135;19
 WireConnection;1121;1;1083;0
 WireConnection;1077;0;1081;0
@@ -1270,11 +1261,6 @@ WireConnection;1136;9;1124;0
 WireConnection;1136;15;1076;0
 WireConnection;1136;14;1071;0
 WireConnection;793;0;331;0
-WireConnection;837;0;835;0
-WireConnection;837;1;836;0
-WireConnection;835;0;842;0
-WireConnection;840;0;839;0
-WireConnection;840;1;835;0
 WireConnection;303;0;304;0
 WireConnection;303;1;306;0
 WireConnection;303;2;305;0
@@ -1345,8 +1331,6 @@ WireConnection;58;0;194;0
 WireConnection;58;1;1009;0
 WireConnection;61;0;2213;0
 WireConnection;48;0;243;0
-WireConnection;841;0;840;0
-WireConnection;838;0;837;0
 WireConnection;1015;0;307;0
 WireConnection;1015;1;307;1
 WireConnection;1020;0;1094;0
@@ -1371,57 +1355,6 @@ WireConnection;2212;7;1155;0
 WireConnection;2212;8;1148;0
 WireConnection;2212;9;1149;0
 WireConnection;2212;10;328;0
-WireConnection;2213;7;1012;0
-WireConnection;2213;9;58;0
-WireConnection;2213;10;194;0
-WireConnection;2214;21;765;0
-WireConnection;2214;6;205;0
-WireConnection;2214;10;633;0
-WireConnection;2215;21;770;0
-WireConnection;2215;6;209;0
-WireConnection;2215;10;637;0
-WireConnection;2216;21;762;0
-WireConnection;2216;6;202;0
-WireConnection;2216;10;630;0
-WireConnection;2217;21;763;0
-WireConnection;2217;6;203;0
-WireConnection;2217;10;631;0
-WireConnection;2218;21;764;0
-WireConnection;2218;6;204;0
-WireConnection;2218;10;632;0
-WireConnection;2219;21;766;0
-WireConnection;2219;6;206;0
-WireConnection;2219;10;634;0
-WireConnection;2220;21;775;0
-WireConnection;2220;6;214;0
-WireConnection;2220;10;642;0
-WireConnection;2221;21;776;0
-WireConnection;2221;6;215;0
-WireConnection;2221;10;643;0
-WireConnection;2222;21;777;0
-WireConnection;2222;6;216;0
-WireConnection;2222;10;644;0
-WireConnection;2223;21;771;0
-WireConnection;2223;6;210;0
-WireConnection;2223;10;638;0
-WireConnection;2224;21;772;0
-WireConnection;2224;6;211;0
-WireConnection;2224;10;639;0
-WireConnection;2225;21;773;0
-WireConnection;2225;6;212;0
-WireConnection;2225;10;640;0
-WireConnection;2226;21;767;0
-WireConnection;2226;6;207;0
-WireConnection;2226;10;635;0
-WireConnection;2227;21;768;0
-WireConnection;2227;6;208;0
-WireConnection;2227;10;636;0
-WireConnection;2228;21;774;0
-WireConnection;2228;6;213;0
-WireConnection;2228;10;641;0
-WireConnection;2229;21;270;0
-WireConnection;2229;6;198;0
-WireConnection;2229;10;629;0
 WireConnection;2254;0;1392;0
 WireConnection;2255;0;1273;0
 WireConnection;2256;0;1274;0
@@ -1445,5 +1378,57 @@ WireConnection;1206;1;1203;0
 WireConnection;1254;0;1206;0
 WireConnection;2265;0;2264;0
 WireConnection;2266;0;2265;0
+WireConnection;2213;7;1012;0
+WireConnection;2213;9;58;0
+WireConnection;2213;10;194;0
+WireConnection;2267;21;765;0
+WireConnection;2267;6;205;0
+WireConnection;2267;10;633;0
+WireConnection;2268;21;770;0
+WireConnection;2268;6;209;0
+WireConnection;2268;10;637;0
+WireConnection;2269;21;762;0
+WireConnection;2269;6;202;0
+WireConnection;2269;10;630;0
+WireConnection;2270;21;763;0
+WireConnection;2270;6;203;0
+WireConnection;2270;10;631;0
+WireConnection;2271;21;764;0
+WireConnection;2271;6;204;0
+WireConnection;2271;10;632;0
+WireConnection;2272;21;766;0
+WireConnection;2272;6;206;0
+WireConnection;2272;10;634;0
+WireConnection;2273;21;775;0
+WireConnection;2273;6;214;0
+WireConnection;2273;10;642;0
+WireConnection;2274;21;776;0
+WireConnection;2274;6;215;0
+WireConnection;2274;10;643;0
+WireConnection;2275;21;777;0
+WireConnection;2275;6;216;0
+WireConnection;2275;10;644;0
+WireConnection;2276;21;771;0
+WireConnection;2276;6;210;0
+WireConnection;2276;10;638;0
+WireConnection;2277;21;772;0
+WireConnection;2277;6;211;0
+WireConnection;2277;10;639;0
+WireConnection;2278;21;773;0
+WireConnection;2278;6;212;0
+WireConnection;2278;10;640;0
+WireConnection;2279;21;767;0
+WireConnection;2279;6;207;0
+WireConnection;2279;10;635;0
+WireConnection;2280;21;768;0
+WireConnection;2280;6;208;0
+WireConnection;2280;10;636;0
+WireConnection;2281;21;774;0
+WireConnection;2281;6;213;0
+WireConnection;2281;10;641;0
+WireConnection;2282;21;270;0
+WireConnection;2282;6;198;0
+WireConnection;2282;10;629;0
+WireConnection;1118;0;1121;0
 ASEEND*/
-//CHKSM=7CF5777F51122344BD578B38F7B38D4E36B462B4
+//CHKSM=0CF16F15A539943461983160672BBA1D5BBD83FC
