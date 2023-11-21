@@ -35,7 +35,7 @@ This Shader only officially supports the Unity Built-in Render Pipeline, it does
 				3. Drag and Drop the Render Texture being used by a `CVR Video Player` Components
 				4. Set the Property Name to `_Udon_VideoTex`
 - Rim Lighting
-- 3 Lighting Types
+- 2 Lighting Types
 	- Standard (Acts like Unity Standard Shader)
 	- Wrapped (A Less Realistic Lighting Mode with the intent of having less harsh, smoother, flatter lighting.)
 ### MultiMap
@@ -43,6 +43,11 @@ MultiMap is a Texture which contains multiple maps in a Single RGB Texture inten
 Currently the Spec for the Divorce Shader Multi-Map is
 - Red Channel = Metalic
 - Green Channel = Smoothness
+### UV Map Uses
+This Shader has Features which use different UV Maps for Different Purposes. These are:
+1. Used for Rendering
+2. Used for UV Tile Discarding
+3. Used for AudioLink UV Based Delay
 ### Texture Ramp (Toon Lighting)
 - Left is Darkest, Right is Lightest
 - For best results on your Texture Ramp switch the Wrap Mode from "Repeat" to "Clamp"
