@@ -477,7 +477,7 @@ Shader "VoyVivika/VivikaShader"
 			half in_ALDelay991 = round( ( _ALUVToggle == 1.0 ? (127.0 + (clampResult982 - 0.0) * (0.0 - 127.0) / (127.0 - 0.0)) : ( _ALUVToggle == 2.0 ? clampResult987 : 0.0 ) ) );
 			int Delay3_g316 = (int)in_ALDelay991;
 			half localAudioLinkData3_g316 = AudioLinkData3_g316( Band3_g316 , Delay3_g316 );
-			half temp_output_8_0_g420 = 0.0;
+			half temp_output_8_0_g420 = 1.0;
 			half localIfAudioLinkv2Exists1_g421 = IfAudioLinkv2Exists1_g421();
 			half temp_output_7_0_g420 = localIfAudioLinkv2Exists1_g421;
 			half3 lerpResult6_g420 = lerp( temp_output_194_0 , ( temp_output_194_0 * localAudioLinkData3_g316 ) , ( step( temp_output_8_0_g420 , temp_output_7_0_g420 ) * step( temp_output_7_0_g420 , temp_output_8_0_g420 ) ));
@@ -636,7 +636,7 @@ Shader "VoyVivika/VivikaShader"
 			half in_ALDelay991 = round( ( _ALUVToggle == 1.0 ? (127.0 + (clampResult982 - 0.0) * (0.0 - 127.0) / (127.0 - 0.0)) : ( _ALUVToggle == 2.0 ? clampResult987 : 0.0 ) ) );
 			int Delay3_g316 = (int)in_ALDelay991;
 			half localAudioLinkData3_g316 = AudioLinkData3_g316( Band3_g316 , Delay3_g316 );
-			half temp_output_8_0_g420 = 0.0;
+			half temp_output_8_0_g420 = 1.0;
 			half localIfAudioLinkv2Exists1_g421 = IfAudioLinkv2Exists1_g421();
 			half temp_output_7_0_g420 = localIfAudioLinkv2Exists1_g421;
 			half3 lerpResult6_g420 = lerp( temp_output_194_0 , ( temp_output_194_0 * localAudioLinkData3_g316 ) , ( step( temp_output_8_0_g420 , temp_output_7_0_g420 ) * step( temp_output_7_0_g420 , temp_output_8_0_g420 ) ));
@@ -1123,9 +1123,6 @@ Node;AmplifyShaderEditor.ExpOpNode;2289;-47.40698,-7793.081;Inherit;False;1;0;FL
 Node;AmplifyShaderEditor.RangedFloatNode;2291;-190.8753,-7710.983;Inherit;False;Property;_WrapIndirScale;Wrapped Indirect Scale;3;0;Create;False;0;0;0;False;0;False;3;0;0;0;0;1;FLOAT;0
 Node;AmplifyShaderEditor.SimpleAddOpNode;1389;227.3536,-8061.248;Inherit;False;2;2;0;FLOAT;0;False;1;FLOAT;0;False;1;FLOAT;0
 Node;AmplifyShaderEditor.SaturateNode;2286;503.1699,-8064.364;Inherit;False;1;0;FLOAT;0;False;1;FLOAT;0
-Node;AmplifyShaderEditor.FunctionNode;2213;-556.2672,-5832.83;Inherit;False;If Float Equal;-1;;420;bdca1c28487c8a1418e72579bec63589;0;4;7;FLOAT;0;False;8;FLOAT;0;False;9;FLOAT3;0,0,0;False;10;FLOAT3;0,0,0;False;1;FLOAT3;0
-Node;AmplifyShaderEditor.RangedFloatNode;2292;-883.269,-5866.682;Inherit;False;Constant;_Float0;Float 0;52;0;Create;True;0;0;0;False;0;False;0;0;0;0;0;1;FLOAT;0
-Node;AmplifyShaderEditor.FunctionNode;1012;-744.153,-5892.785;Inherit;False;IsAudioLink;-1;;421;ff5333ab7aa196b46b61532e86c1a947;0;0;1;FLOAT;0
 Node;AmplifyShaderEditor.SimpleSubtractOpNode;2288;61.8468,-7792.959;Inherit;False;2;0;FLOAT3;0,0,0;False;1;FLOAT3;1,1,1;False;1;FLOAT3;0
 Node;AmplifyShaderEditor.SaturateNode;2259;659.0978,-7894.973;Inherit;False;1;0;COLOR;0,0,0,0;False;1;COLOR;0
 Node;AmplifyShaderEditor.SimpleMultiplyOpNode;1326;797.5153,-7959.848;Inherit;False;2;2;0;FLOAT;0;False;1;COLOR;0,0,0,0;False;1;COLOR;0
@@ -1137,6 +1134,9 @@ Node;AmplifyShaderEditor.WireNode;2302;1010.839,-7916.79;Inherit;False;1;0;COLOR
 Node;AmplifyShaderEditor.WireNode;2305;884.8391,-7857.79;Inherit;False;1;0;COLOR;0,0,0,0;False;1;COLOR;0
 Node;AmplifyShaderEditor.RegisterLocalVarNode;1363;694.6958,-7796.014;Inherit;False;DiffWrapLighting;-1;True;1;0;COLOR;0,0,0,0;False;1;COLOR;0
 Node;AmplifyShaderEditor.WireNode;2306;667.8391,-7819.79;Inherit;False;1;0;COLOR;0,0,0,0;False;1;COLOR;0
+Node;AmplifyShaderEditor.FunctionNode;2213;-556.2672,-5832.83;Inherit;False;If Float Equal;-1;;420;bdca1c28487c8a1418e72579bec63589;0;4;7;FLOAT;0;False;8;FLOAT;0;False;9;FLOAT3;0,0,0;False;10;FLOAT3;0,0,0;False;1;FLOAT3;0
+Node;AmplifyShaderEditor.RangedFloatNode;2292;-884.269,-5865.682;Inherit;False;Constant;_Float0;Float 0;52;0;Create;True;0;0;0;False;0;False;1;0;0;0;0;1;FLOAT;0
+Node;AmplifyShaderEditor.FunctionNode;1012;-743.153,-5891.785;Inherit;False;IsAudioLink;-1;;421;ff5333ab7aa196b46b61532e86c1a947;0;0;1;FLOAT;0
 WireConnection;50;0;49;0
 WireConnection;90;0;91;0
 WireConnection;69;0;195;0
@@ -1429,10 +1429,6 @@ WireConnection;2289;0;2283;0
 WireConnection;1389;0;1388;0
 WireConnection;1389;1;2285;0
 WireConnection;2286;0;1389;0
-WireConnection;2213;7;1012;0
-WireConnection;2213;8;2292;0
-WireConnection;2213;9;58;0
-WireConnection;2213;10;194;0
 WireConnection;2288;0;2289;0
 WireConnection;2259;0;1355;0
 WireConnection;1326;0;2286;0
@@ -1447,5 +1443,9 @@ WireConnection;2302;0;2260;0
 WireConnection;2305;0;2302;0
 WireConnection;1363;0;2306;0
 WireConnection;2306;0;2305;0
+WireConnection;2213;7;1012;0
+WireConnection;2213;8;2292;0
+WireConnection;2213;9;58;0
+WireConnection;2213;10;194;0
 ASEEND*/
-//CHKSM=3084E6D4B340793EC66E296227C07FE6128C7B4A
+//CHKSM=49A846B0CE8BC20E400A919235A3E3D14BD98020
