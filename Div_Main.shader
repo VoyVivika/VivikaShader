@@ -120,8 +120,8 @@ Shader "VoyVivika/VivikaShader"
 		uniform half4 _Color;
 		uniform sampler2D _BumpMap;
 		uniform half _CullMode;
-		uniform half _DiscardUVMap;
 		uniform half _DiscardUVTile00;
+		uniform half _DiscardUVMap;
 		uniform half _DiscardUVTile01;
 		uniform half _DiscardUVTile02;
 		uniform half _DiscardUVTile03;
@@ -258,10 +258,10 @@ Shader "VoyVivika/VivikaShader"
 		{
 			UNITY_INITIALIZE_OUTPUT( Input, o );
 			half2 break63_g466 = floor( half2( 0,0 ) );
-			half temp_output_8_0_g422 = 0.0;
+			half temp_output_8_0_g468 = 0.0;
 			half discUVset2314 = _DiscardUVMap;
-			half temp_output_7_0_g422 = discUVset2314;
-			half2 lerpResult6_g422 = lerp( half2( 0,0 ) , v.texcoord.xy , ( step( temp_output_8_0_g422 , temp_output_7_0_g422 ) * step( temp_output_7_0_g422 , temp_output_8_0_g422 ) ));
+			half temp_output_7_0_g468 = discUVset2314;
+			half2 lerpResult6_g468 = lerp( half2( 0,0 ) , v.texcoord.xy , ( step( temp_output_8_0_g468 , temp_output_7_0_g468 ) * step( temp_output_7_0_g468 , temp_output_8_0_g468 ) ));
 			half temp_output_8_0_g423 = 1.0;
 			half temp_output_7_0_g423 = discUVset2314;
 			half2 lerpResult6_g423 = lerp( half2( 0,0 ) , v.texcoord1.xy , ( step( temp_output_8_0_g423 , temp_output_7_0_g423 ) * step( temp_output_7_0_g423 , temp_output_8_0_g423 ) ));
@@ -271,7 +271,7 @@ Shader "VoyVivika/VivikaShader"
 			half temp_output_8_0_g431 = 3.0;
 			half temp_output_7_0_g431 = discUVset2314;
 			half2 lerpResult6_g431 = lerp( half2( 0,0 ) , v.texcoord3.xy , ( step( temp_output_8_0_g431 , temp_output_7_0_g431 ) * step( temp_output_7_0_g431 , temp_output_8_0_g431 ) ));
-			half2 DiscardUV200 = ( lerpResult6_g422 + lerpResult6_g423 + lerpResult6_g424 + lerpResult6_g431 );
+			half2 DiscardUV200 = ( lerpResult6_g468 + lerpResult6_g423 + lerpResult6_g424 + lerpResult6_g431 );
 			half2 break61_g466 = DiscardUV200;
 			half2 break63_g465 = floor( half2( 0,1 ) );
 			half2 break61_g465 = DiscardUV200;
@@ -279,8 +279,8 @@ Shader "VoyVivika/VivikaShader"
 			half2 break61_g464 = DiscardUV200;
 			half2 break63_g463 = floor( half2( 0,3 ) );
 			half2 break61_g463 = DiscardUV200;
-			half2 break63_g459 = floor( half2( 1,0 ) );
-			half2 break61_g459 = DiscardUV200;
+			half2 break63_g467 = floor( half2( 1,0 ) );
+			half2 break61_g467 = DiscardUV200;
 			half2 break63_g460 = floor( half2( 1,1 ) );
 			half2 break61_g460 = DiscardUV200;
 			half2 break63_g461 = floor( half2( 1,2 ) );
@@ -303,7 +303,7 @@ Shader "VoyVivika/VivikaShader"
 			half2 break61_g453 = DiscardUV200;
 			half2 break63_g454 = floor( half2( 3,3 ) );
 			half2 break61_g454 = DiscardUV200;
-			half UVTileDiscard192 = ( step( 1.0 , ( ( ( saturate( _DiscardUVTile00 ) * saturate( ( step( break63_g466.x , break61_g466.x ) * step( break61_g466.x , ( break63_g466.x + 0.9999999 ) ) * step( break63_g466.y , break61_g466.y ) * step( break61_g466.y , ( break63_g466.y + 0.9999999 ) ) ) ) ) + ( saturate( _DiscardUVTile01 ) * saturate( ( step( break63_g465.x , break61_g465.x ) * step( break61_g465.x , ( break63_g465.x + 0.9999999 ) ) * step( break63_g465.y , break61_g465.y ) * step( break61_g465.y , ( break63_g465.y + 0.9999999 ) ) ) ) ) + ( saturate( _DiscardUVTile02 ) * saturate( ( step( break63_g464.x , break61_g464.x ) * step( break61_g464.x , ( break63_g464.x + 0.9999999 ) ) * step( break63_g464.y , break61_g464.y ) * step( break61_g464.y , ( break63_g464.y + 0.9999999 ) ) ) ) ) + ( saturate( _DiscardUVTile03 ) * saturate( ( step( break63_g463.x , break61_g463.x ) * step( break61_g463.x , ( break63_g463.x + 0.9999999 ) ) * step( break63_g463.y , break61_g463.y ) * step( break61_g463.y , ( break63_g463.y + 0.9999999 ) ) ) ) ) ) + ( ( saturate( _DiscardUVTile10 ) * saturate( ( step( break63_g459.x , break61_g459.x ) * step( break61_g459.x , ( break63_g459.x + 0.9999999 ) ) * step( break63_g459.y , break61_g459.y ) * step( break61_g459.y , ( break63_g459.y + 0.9999999 ) ) ) ) ) + ( saturate( _DiscardUVTile11 ) * saturate( ( step( break63_g460.x , break61_g460.x ) * step( break61_g460.x , ( break63_g460.x + 0.9999999 ) ) * step( break63_g460.y , break61_g460.y ) * step( break61_g460.y , ( break63_g460.y + 0.9999999 ) ) ) ) ) + ( saturate( _DiscardUVTile12 ) * saturate( ( step( break63_g461.x , break61_g461.x ) * step( break61_g461.x , ( break63_g461.x + 0.9999999 ) ) * step( break63_g461.y , break61_g461.y ) * step( break61_g461.y , ( break63_g461.y + 0.9999999 ) ) ) ) ) + ( saturate( _DiscardUVTile13 ) * saturate( ( step( break63_g462.x , break61_g462.x ) * step( break61_g462.x , ( break63_g462.x + 0.9999999 ) ) * step( break63_g462.y , break61_g462.y ) * step( break61_g462.y , ( break63_g462.y + 0.9999999 ) ) ) ) ) ) + ( ( saturate( _DiscardUVTile20 ) * saturate( ( step( break63_g458.x , break61_g458.x ) * step( break61_g458.x , ( break63_g458.x + 0.9999999 ) ) * step( break63_g458.y , break61_g458.y ) * step( break61_g458.y , ( break63_g458.y + 0.9999999 ) ) ) ) ) + ( saturate( _DiscardUVTile21 ) * saturate( ( step( break63_g457.x , break61_g457.x ) * step( break61_g457.x , ( break63_g457.x + 0.9999999 ) ) * step( break63_g457.y , break61_g457.y ) * step( break61_g457.y , ( break63_g457.y + 0.9999999 ) ) ) ) ) + ( saturate( _DiscardUVTile22 ) * saturate( ( step( break63_g456.x , break61_g456.x ) * step( break61_g456.x , ( break63_g456.x + 0.9999999 ) ) * step( break63_g456.y , break61_g456.y ) * step( break61_g456.y , ( break63_g456.y + 0.9999999 ) ) ) ) ) + ( saturate( _DiscardUVTile23 ) * saturate( ( step( break63_g455.x , break61_g455.x ) * step( break61_g455.x , ( break63_g455.x + 0.9999999 ) ) * step( break63_g455.y , break61_g455.y ) * step( break61_g455.y , ( break63_g455.y + 0.9999999 ) ) ) ) ) ) + ( ( saturate( _DiscardUVTile30 ) * saturate( ( step( break63_g451.x , break61_g451.x ) * step( break61_g451.x , ( break63_g451.x + 0.9999999 ) ) * step( break63_g451.y , break61_g451.y ) * step( break61_g451.y , ( break63_g451.y + 0.9999999 ) ) ) ) ) + ( saturate( _DiscardUVTile31 ) * saturate( ( step( break63_g452.x , break61_g452.x ) * step( break61_g452.x , ( break63_g452.x + 0.9999999 ) ) * step( break63_g452.y , break61_g452.y ) * step( break61_g452.y , ( break63_g452.y + 0.9999999 ) ) ) ) ) + ( saturate( _DiscardUVTile32 ) * saturate( ( step( break63_g453.x , break61_g453.x ) * step( break61_g453.x , ( break63_g453.x + 0.9999999 ) ) * step( break63_g453.y , break61_g453.y ) * step( break61_g453.y , ( break63_g453.y + 0.9999999 ) ) ) ) ) + ( saturate( _DiscardUVTile33 ) * saturate( ( step( break63_g454.x , break61_g454.x ) * step( break61_g454.x , ( break63_g454.x + 0.9999999 ) ) * step( break63_g454.y , break61_g454.y ) * step( break61_g454.y , ( break63_g454.y + 0.9999999 ) ) ) ) ) ) ) ) == 1.0 ? ( 0.0 / 0.0 ) : 0.0 );
+			half UVTileDiscard192 = ( step( 1.0 , ( ( ( saturate( _DiscardUVTile00 ) * saturate( ( step( break63_g466.x , break61_g466.x ) * step( break61_g466.x , ( break63_g466.x + 0.9999999 ) ) * step( break63_g466.y , break61_g466.y ) * step( break61_g466.y , ( break63_g466.y + 0.9999999 ) ) ) ) ) + ( saturate( _DiscardUVTile01 ) * saturate( ( step( break63_g465.x , break61_g465.x ) * step( break61_g465.x , ( break63_g465.x + 0.9999999 ) ) * step( break63_g465.y , break61_g465.y ) * step( break61_g465.y , ( break63_g465.y + 0.9999999 ) ) ) ) ) + ( saturate( _DiscardUVTile02 ) * saturate( ( step( break63_g464.x , break61_g464.x ) * step( break61_g464.x , ( break63_g464.x + 0.9999999 ) ) * step( break63_g464.y , break61_g464.y ) * step( break61_g464.y , ( break63_g464.y + 0.9999999 ) ) ) ) ) + ( saturate( _DiscardUVTile03 ) * saturate( ( step( break63_g463.x , break61_g463.x ) * step( break61_g463.x , ( break63_g463.x + 0.9999999 ) ) * step( break63_g463.y , break61_g463.y ) * step( break61_g463.y , ( break63_g463.y + 0.9999999 ) ) ) ) ) ) + ( ( saturate( _DiscardUVTile10 ) * saturate( ( step( break63_g467.x , break61_g467.x ) * step( break61_g467.x , ( break63_g467.x + 0.9999999 ) ) * step( break63_g467.y , break61_g467.y ) * step( break61_g467.y , ( break63_g467.y + 0.9999999 ) ) ) ) ) + ( saturate( _DiscardUVTile11 ) * saturate( ( step( break63_g460.x , break61_g460.x ) * step( break61_g460.x , ( break63_g460.x + 0.9999999 ) ) * step( break63_g460.y , break61_g460.y ) * step( break61_g460.y , ( break63_g460.y + 0.9999999 ) ) ) ) ) + ( saturate( _DiscardUVTile12 ) * saturate( ( step( break63_g461.x , break61_g461.x ) * step( break61_g461.x , ( break63_g461.x + 0.9999999 ) ) * step( break63_g461.y , break61_g461.y ) * step( break61_g461.y , ( break63_g461.y + 0.9999999 ) ) ) ) ) + ( saturate( _DiscardUVTile13 ) * saturate( ( step( break63_g462.x , break61_g462.x ) * step( break61_g462.x , ( break63_g462.x + 0.9999999 ) ) * step( break63_g462.y , break61_g462.y ) * step( break61_g462.y , ( break63_g462.y + 0.9999999 ) ) ) ) ) ) + ( ( saturate( _DiscardUVTile20 ) * saturate( ( step( break63_g458.x , break61_g458.x ) * step( break61_g458.x , ( break63_g458.x + 0.9999999 ) ) * step( break63_g458.y , break61_g458.y ) * step( break61_g458.y , ( break63_g458.y + 0.9999999 ) ) ) ) ) + ( saturate( _DiscardUVTile21 ) * saturate( ( step( break63_g457.x , break61_g457.x ) * step( break61_g457.x , ( break63_g457.x + 0.9999999 ) ) * step( break63_g457.y , break61_g457.y ) * step( break61_g457.y , ( break63_g457.y + 0.9999999 ) ) ) ) ) + ( saturate( _DiscardUVTile22 ) * saturate( ( step( break63_g456.x , break61_g456.x ) * step( break61_g456.x , ( break63_g456.x + 0.9999999 ) ) * step( break63_g456.y , break61_g456.y ) * step( break61_g456.y , ( break63_g456.y + 0.9999999 ) ) ) ) ) + ( saturate( _DiscardUVTile23 ) * saturate( ( step( break63_g455.x , break61_g455.x ) * step( break61_g455.x , ( break63_g455.x + 0.9999999 ) ) * step( break63_g455.y , break61_g455.y ) * step( break61_g455.y , ( break63_g455.y + 0.9999999 ) ) ) ) ) ) + ( ( saturate( _DiscardUVTile30 ) * saturate( ( step( break63_g451.x , break61_g451.x ) * step( break61_g451.x , ( break63_g451.x + 0.9999999 ) ) * step( break63_g451.y , break61_g451.y ) * step( break61_g451.y , ( break63_g451.y + 0.9999999 ) ) ) ) ) + ( saturate( _DiscardUVTile31 ) * saturate( ( step( break63_g452.x , break61_g452.x ) * step( break61_g452.x , ( break63_g452.x + 0.9999999 ) ) * step( break63_g452.y , break61_g452.y ) * step( break61_g452.y , ( break63_g452.y + 0.9999999 ) ) ) ) ) + ( saturate( _DiscardUVTile32 ) * saturate( ( step( break63_g453.x , break61_g453.x ) * step( break61_g453.x , ( break63_g453.x + 0.9999999 ) ) * step( break63_g453.y , break61_g453.y ) * step( break61_g453.y , ( break63_g453.y + 0.9999999 ) ) ) ) ) + ( saturate( _DiscardUVTile33 ) * saturate( ( step( break63_g454.x , break61_g454.x ) * step( break61_g454.x , ( break63_g454.x + 0.9999999 ) ) * step( break63_g454.y , break61_g454.y ) * step( break61_g454.y , ( break63_g454.y + 0.9999999 ) ) ) ) ) ) ) ) == 1.0 ? ( 0.0 / 0.0 ) : 0.0 );
 			half3 temp_cast_0 = (UVTileDiscard192).xxx;
 			v.vertex.xyz += temp_cast_0;
 			v.vertex.w = 1;
@@ -367,10 +367,10 @@ Shader "VoyVivika/VivikaShader"
 			half4 color2383 = IsGammaSpace() ? half4(1,1,1,1) : half4(1,1,1,1);
 			half4 clampResult2381 = clamp( saturate( ( saturate( ( DiffWrapStep11229 + saturate( exp2( temp_output_2255_0 ) ) ) ) * saturate( ( saturate( lerpResult1356 ) + half4( saturate( (saturate( ( exp2( saturate( indirDiffuse2394 ) ) - temp_cast_17 ) )*_WrapIndirScale + 0.0) ) , 0.0 ) ) ) ) ) , temp_cast_19 , color2383 );
 			half4 DiffWrapLighting1363 = clampResult2381;
-			half temp_output_8_0_g471 = 0.0;
+			half temp_output_8_0_g479 = 0.0;
 			half vpUVoption2482 = _VideoPlayerDecalUV;
-			half temp_output_7_0_g471 = vpUVoption2482;
-			half2 lerpResult6_g471 = lerp( half2( 0,0 ) , i.uv_texcoord , ( step( temp_output_8_0_g471 , temp_output_7_0_g471 ) * step( temp_output_7_0_g471 , temp_output_8_0_g471 ) ));
+			half temp_output_7_0_g479 = vpUVoption2482;
+			half2 lerpResult6_g479 = lerp( half2( 0,0 ) , i.uv_texcoord , ( step( temp_output_8_0_g479 , temp_output_7_0_g479 ) * step( temp_output_7_0_g479 , temp_output_8_0_g479 ) ));
 			half temp_output_8_0_g472 = 1.0;
 			half temp_output_7_0_g472 = vpUVoption2482;
 			half2 lerpResult6_g472 = lerp( half2( 0,0 ) , i.uv2_texcoord2 , ( step( temp_output_8_0_g472 , temp_output_7_0_g472 ) * step( temp_output_7_0_g472 , temp_output_8_0_g472 ) ));
@@ -380,21 +380,21 @@ Shader "VoyVivika/VivikaShader"
 			half temp_output_8_0_g474 = 3.0;
 			half temp_output_7_0_g474 = vpUVoption2482;
 			half2 lerpResult6_g474 = lerp( half2( 0,0 ) , i.uv4_texcoord4 , ( step( temp_output_8_0_g474 , temp_output_7_0_g474 ) * step( temp_output_7_0_g474 , temp_output_8_0_g474 ) ));
-			half2 vpUV2500 = ( lerpResult6_g471 + lerpResult6_g472 + lerpResult6_g473 + lerpResult6_g474 );
+			half2 vpUV2500 = ( lerpResult6_g479 + lerpResult6_g472 + lerpResult6_g473 + lerpResult6_g474 );
 			half2 appendResult1066 = (half2(_VideoDecalUVs.x , _VideoDecalUVs.y));
 			half2 appendResult1067 = (half2(_VideoDecalUVs.z , _VideoDecalUVs.w));
 			half2 temp_output_1076_0 = ( ( vpUV2500 + ( appendResult1066 * 0.01 ) ) * appendResult1067 );
-			float cos7_g323 = cos( _VideoDecalRotation );
-			float sin7_g323 = sin( _VideoDecalRotation );
-			half2 rotator7_g323 = mul( temp_output_1076_0 - float2( 0.5,0.5 ) , float2x2( cos7_g323 , -sin7_g323 , sin7_g323 , cos7_g323 )) + float2( 0.5,0.5 );
-			half2 break6_g323 = rotator7_g323;
-			half VideoDecalAlpha1118 = ( (( break6_g323.y >= 0.0 && break6_g323.y <= 1.0 ) ? (( break6_g323.x >= 0.0 && break6_g323.x <= 1.0 ) ? 1.0 :  0.0 ) :  0.0 ) * _EnableDecal );
+			float cos7_g469 = cos( _VideoDecalRotation );
+			float sin7_g469 = sin( _VideoDecalRotation );
+			half2 rotator7_g469 = mul( temp_output_1076_0 - float2( 0.5,0.5 ) , float2x2( cos7_g469 , -sin7_g469 , sin7_g469 , cos7_g469 )) + float2( 0.5,0.5 );
+			half2 break6_g469 = rotator7_g469;
+			half VideoDecalAlpha1118 = ( (( break6_g469.y >= 0.0 && break6_g469.y <= 1.0 ) ? (( break6_g469.x >= 0.0 && break6_g469.x <= 1.0 ) ? 1.0 :  0.0 ) :  0.0 ) * _EnableDecal );
 			float2 uv_Albedo = i.uv_texcoord * _Albedo_ST.xy + _Albedo_ST.zw;
 			float cos7_g324 = cos( _VideoDecalRotation );
 			float sin7_g324 = sin( _VideoDecalRotation );
 			half2 rotator7_g324 = mul( temp_output_1076_0 - float2( 0.5,0.5 ) , float2x2( cos7_g324 , -sin7_g324 , sin7_g324 , cos7_g324 )) + float2( 0.5,0.5 );
 			half2 break6_g324 = rotator7_g324;
-			half4 lerpResult1129 = lerp( (( break6_g323.y >= 0.0 && break6_g323.y <= 1.0 ) ? (( break6_g323.x >= 0.0 && break6_g323.x <= 1.0 ) ? tex2D( _Udon_VideoTex, rotator7_g323 ) :  float4( 0,0,0,0 ) ) :  float4( 0,0,0,0 ) ) , (( break6_g324.y >= 0.0 && break6_g324.y <= 1.0 ) ? (( break6_g324.x >= 0.0 && break6_g324.x <= 1.0 ) ? tex2D( _VideoDecalPreview, rotator7_g324 ) :  float4( 0,0,0,0 ) ) :  float4( 0,0,0,0 ) ) , _ShowVideoPreview);
+			half4 lerpResult1129 = lerp( (( break6_g469.y >= 0.0 && break6_g469.y <= 1.0 ) ? (( break6_g469.x >= 0.0 && break6_g469.x <= 1.0 ) ? tex2D( _Udon_VideoTex, rotator7_g469 ) :  float4( 0,0,0,0 ) ) :  float4( 0,0,0,0 ) ) , (( break6_g324.y >= 0.0 && break6_g324.y <= 1.0 ) ? (( break6_g324.x >= 0.0 && break6_g324.x <= 1.0 ) ? tex2D( _VideoDecalPreview, rotator7_g324 ) :  float4( 0,0,0,0 ) ) :  float4( 0,0,0,0 ) ) , _ShowVideoPreview);
 			half4 Video_Player_Decal1077 = ( lerpResult1129 * _EnableDecal );
 			half layeredBlendVar1101 = VideoDecalAlpha1118;
 			half4 layeredBlend1101 = ( lerp( tex2D( _Albedo, uv_Albedo ),Video_Player_Decal1077 , layeredBlendVar1101 ) );
@@ -432,10 +432,10 @@ Shader "VoyVivika/VivikaShader"
 		{
 			o.SurfInput = i;
 			o.Normal = float3(0,0,1);
-			half temp_output_8_0_g471 = 0.0;
+			half temp_output_8_0_g479 = 0.0;
 			half vpUVoption2482 = _VideoPlayerDecalUV;
-			half temp_output_7_0_g471 = vpUVoption2482;
-			half2 lerpResult6_g471 = lerp( half2( 0,0 ) , i.uv_texcoord , ( step( temp_output_8_0_g471 , temp_output_7_0_g471 ) * step( temp_output_7_0_g471 , temp_output_8_0_g471 ) ));
+			half temp_output_7_0_g479 = vpUVoption2482;
+			half2 lerpResult6_g479 = lerp( half2( 0,0 ) , i.uv_texcoord , ( step( temp_output_8_0_g479 , temp_output_7_0_g479 ) * step( temp_output_7_0_g479 , temp_output_8_0_g479 ) ));
 			half temp_output_8_0_g472 = 1.0;
 			half temp_output_7_0_g472 = vpUVoption2482;
 			half2 lerpResult6_g472 = lerp( half2( 0,0 ) , i.uv2_texcoord2 , ( step( temp_output_8_0_g472 , temp_output_7_0_g472 ) * step( temp_output_7_0_g472 , temp_output_8_0_g472 ) ));
@@ -445,21 +445,21 @@ Shader "VoyVivika/VivikaShader"
 			half temp_output_8_0_g474 = 3.0;
 			half temp_output_7_0_g474 = vpUVoption2482;
 			half2 lerpResult6_g474 = lerp( half2( 0,0 ) , i.uv4_texcoord4 , ( step( temp_output_8_0_g474 , temp_output_7_0_g474 ) * step( temp_output_7_0_g474 , temp_output_8_0_g474 ) ));
-			half2 vpUV2500 = ( lerpResult6_g471 + lerpResult6_g472 + lerpResult6_g473 + lerpResult6_g474 );
+			half2 vpUV2500 = ( lerpResult6_g479 + lerpResult6_g472 + lerpResult6_g473 + lerpResult6_g474 );
 			half2 appendResult1066 = (half2(_VideoDecalUVs.x , _VideoDecalUVs.y));
 			half2 appendResult1067 = (half2(_VideoDecalUVs.z , _VideoDecalUVs.w));
 			half2 temp_output_1076_0 = ( ( vpUV2500 + ( appendResult1066 * 0.01 ) ) * appendResult1067 );
-			float cos7_g323 = cos( _VideoDecalRotation );
-			float sin7_g323 = sin( _VideoDecalRotation );
-			half2 rotator7_g323 = mul( temp_output_1076_0 - float2( 0.5,0.5 ) , float2x2( cos7_g323 , -sin7_g323 , sin7_g323 , cos7_g323 )) + float2( 0.5,0.5 );
-			half2 break6_g323 = rotator7_g323;
-			half VideoDecalAlpha1118 = ( (( break6_g323.y >= 0.0 && break6_g323.y <= 1.0 ) ? (( break6_g323.x >= 0.0 && break6_g323.x <= 1.0 ) ? 1.0 :  0.0 ) :  0.0 ) * _EnableDecal );
+			float cos7_g469 = cos( _VideoDecalRotation );
+			float sin7_g469 = sin( _VideoDecalRotation );
+			half2 rotator7_g469 = mul( temp_output_1076_0 - float2( 0.5,0.5 ) , float2x2( cos7_g469 , -sin7_g469 , sin7_g469 , cos7_g469 )) + float2( 0.5,0.5 );
+			half2 break6_g469 = rotator7_g469;
+			half VideoDecalAlpha1118 = ( (( break6_g469.y >= 0.0 && break6_g469.y <= 1.0 ) ? (( break6_g469.x >= 0.0 && break6_g469.x <= 1.0 ) ? 1.0 :  0.0 ) :  0.0 ) * _EnableDecal );
 			float2 uv_Albedo = i.uv_texcoord * _Albedo_ST.xy + _Albedo_ST.zw;
 			float cos7_g324 = cos( _VideoDecalRotation );
 			float sin7_g324 = sin( _VideoDecalRotation );
 			half2 rotator7_g324 = mul( temp_output_1076_0 - float2( 0.5,0.5 ) , float2x2( cos7_g324 , -sin7_g324 , sin7_g324 , cos7_g324 )) + float2( 0.5,0.5 );
 			half2 break6_g324 = rotator7_g324;
-			half4 lerpResult1129 = lerp( (( break6_g323.y >= 0.0 && break6_g323.y <= 1.0 ) ? (( break6_g323.x >= 0.0 && break6_g323.x <= 1.0 ) ? tex2D( _Udon_VideoTex, rotator7_g323 ) :  float4( 0,0,0,0 ) ) :  float4( 0,0,0,0 ) ) , (( break6_g324.y >= 0.0 && break6_g324.y <= 1.0 ) ? (( break6_g324.x >= 0.0 && break6_g324.x <= 1.0 ) ? tex2D( _VideoDecalPreview, rotator7_g324 ) :  float4( 0,0,0,0 ) ) :  float4( 0,0,0,0 ) ) , _ShowVideoPreview);
+			half4 lerpResult1129 = lerp( (( break6_g469.y >= 0.0 && break6_g469.y <= 1.0 ) ? (( break6_g469.x >= 0.0 && break6_g469.x <= 1.0 ) ? tex2D( _Udon_VideoTex, rotator7_g469 ) :  float4( 0,0,0,0 ) ) :  float4( 0,0,0,0 ) ) , (( break6_g324.y >= 0.0 && break6_g324.y <= 1.0 ) ? (( break6_g324.x >= 0.0 && break6_g324.x <= 1.0 ) ? tex2D( _VideoDecalPreview, rotator7_g324 ) :  float4( 0,0,0,0 ) ) :  float4( 0,0,0,0 ) ) , _ShowVideoPreview);
 			half4 Video_Player_Decal1077 = ( lerpResult1129 * _EnableDecal );
 			half layeredBlendVar1101 = VideoDecalAlpha1118;
 			half4 layeredBlend1101 = ( lerp( tex2D( _Albedo, uv_Albedo ),Video_Player_Decal1077 , layeredBlendVar1101 ) );
@@ -475,34 +475,33 @@ Shader "VoyVivika/VivikaShader"
 			half3 temp_output_194_0 = saturate( hsvTorgb8_g315 );
 			int Band3_g316 = 0;
 			half2 appendResult986 = (half2(_ALDelayUPosition , _ALDelayVPosition));
-			half temp_output_8_0_g426 = 0.0;
+			half temp_output_8_0_g470 = 0.0;
 			half delayUVset2356 = _ALDelayUVMap;
-			half temp_output_7_0_g426 = delayUVset2356;
-			half2 lerpResult6_g426 = lerp( half2( 0,0 ) , i.uv_texcoord , ( step( temp_output_8_0_g426 , temp_output_7_0_g426 ) * step( temp_output_7_0_g426 , temp_output_8_0_g426 ) ));
+			half temp_output_7_0_g470 = delayUVset2356;
+			half2 lerpResult6_g470 = lerp( half2( 0,0 ) , i.uv_texcoord , ( step( temp_output_8_0_g470 , temp_output_7_0_g470 ) * step( temp_output_7_0_g470 , temp_output_8_0_g470 ) ));
 			half temp_output_8_0_g427 = 1.0;
 			half temp_output_7_0_g427 = delayUVset2356;
 			half2 lerpResult6_g427 = lerp( half2( 0,0 ) , i.uv2_texcoord2 , ( step( temp_output_8_0_g427 , temp_output_7_0_g427 ) * step( temp_output_7_0_g427 , temp_output_8_0_g427 ) ));
 			half temp_output_8_0_g428 = 2.0;
 			half temp_output_7_0_g428 = delayUVset2356;
 			half2 lerpResult6_g428 = lerp( half2( 0,0 ) , i.uv3_texcoord3 , ( step( temp_output_8_0_g428 , temp_output_7_0_g428 ) * step( temp_output_7_0_g428 , temp_output_8_0_g428 ) ));
-			half temp_output_8_0_g429 = 3.0;
-			half temp_output_7_0_g429 = delayUVset2356;
-			half2 lerpResult6_g429 = lerp( half2( 0,0 ) , i.uv4_texcoord4 , ( step( temp_output_8_0_g429 , temp_output_7_0_g429 ) * step( temp_output_7_0_g429 , temp_output_8_0_g429 ) ));
-			half2 DelayUV2355 = ( lerpResult6_g426 + lerpResult6_g427 + lerpResult6_g428 + lerpResult6_g429 );
+			half temp_output_8_0_g478 = 3.0;
+			half temp_output_7_0_g478 = delayUVset2356;
+			half2 lerpResult6_g478 = lerp( half2( 0,0 ) , i.uv4_texcoord4 , ( step( temp_output_8_0_g478 , temp_output_7_0_g478 ) * step( temp_output_7_0_g478 , temp_output_8_0_g478 ) ));
+			half2 DelayUV2355 = ( lerpResult6_g470 + lerpResult6_g427 + lerpResult6_g428 + lerpResult6_g478 );
 			half3 hsvTorgb2458 = RGBToHSV( tex2D( _ALDelayMap, DelayUV2355 ).rgb );
-			half temp_output_8_0_g470 = 3.0;
+			half temp_output_8_0_g477 = 3.0;
 			half ALDelay2470 = _ALUVToggle;
-			half temp_output_7_0_g470 = ALDelay2470;
-			half lerpResult6_g470 = lerp( distance( appendResult986 , DelayUV2355 ) , hsvTorgb2458.z , ( step( temp_output_8_0_g470 , temp_output_7_0_g470 ) * step( temp_output_7_0_g470 , temp_output_8_0_g470 ) ));
-			half clampResult987 = clamp( (0.0 + (lerpResult6_g470 - 0.0) * (_ALUVDelayMaxDelay - 0.0) / (1.0 - 0.0)) , 0.0 , 127.0 );
-			half temp_output_8_0_g468 = 2.0;
-			half temp_output_7_0_g468 = _ALUVToggle;
-			half lerpResult6_g468 = lerp( 0.0 , clampResult987 , ( step( temp_output_8_0_g468 , temp_output_7_0_g468 ) * step( temp_output_7_0_g468 , temp_output_8_0_g468 ) ));
+			half temp_output_7_0_g477 = ALDelay2470;
+			half lerpResult6_g477 = lerp( distance( appendResult986 , DelayUV2355 ) , hsvTorgb2458.z , ( step( temp_output_8_0_g477 , temp_output_7_0_g477 ) * step( temp_output_7_0_g477 , temp_output_8_0_g477 ) ));
+			half clampResult987 = clamp( (0.0 + (lerpResult6_g477 - 0.0) * (_ALUVDelayMaxDelay - 0.0) / (1.0 - 0.0)) , 0.0 , 127.0 );
+			half temp_output_8_0_g483 = _ALUVToggle;
+			half lerpResult10_g483 = lerp( 0.0 , clampResult987 , ( step( 2.0 , temp_output_8_0_g483 ) * step( temp_output_8_0_g483 , 3.0 ) ));
 			half clampResult982 = clamp( (0.0 + (DelayUV2355.y - 0.0) * (_ALUVDelayMaxDelay - 0.0) / (_ALDelayVPosition - 0.0)) , 0.0 , 127.0 );
-			half temp_output_8_0_g469 = 1.0;
-			half temp_output_7_0_g469 = _ALUVToggle;
-			half lerpResult6_g469 = lerp( lerpResult6_g468 , (127.0 + (clampResult982 - 0.0) * (0.0 - 127.0) / (127.0 - 0.0)) , ( step( temp_output_8_0_g469 , temp_output_7_0_g469 ) * step( temp_output_7_0_g469 , temp_output_8_0_g469 ) ));
-			half in_ALDelay991 = round( lerpResult6_g469 );
+			half temp_output_8_0_g476 = 1.0;
+			half temp_output_7_0_g476 = _ALUVToggle;
+			half lerpResult6_g476 = lerp( lerpResult10_g483 , (127.0 + (clampResult982 - 0.0) * (0.0 - 127.0) / (127.0 - 0.0)) , ( step( temp_output_8_0_g476 , temp_output_7_0_g476 ) * step( temp_output_7_0_g476 , temp_output_8_0_g476 ) ));
+			half in_ALDelay991 = round( lerpResult6_g476 );
 			int Delay3_g316 = (int)in_ALDelay991;
 			half localAudioLinkData3_g316 = AudioLinkData3_g316( Band3_g316 , Delay3_g316 );
 			half temp_output_8_0_g420 = 1.0;
@@ -768,7 +767,7 @@ Node;AmplifyShaderEditor.WireNode;222;4161.278,-1049.713;Inherit;False;1;0;FLOAT
 Node;AmplifyShaderEditor.SimpleAddOpNode;191;4249.063,-1173.994;Inherit;False;4;4;0;FLOAT;0;False;1;FLOAT;0;False;2;FLOAT;0;False;3;FLOAT;0;False;1;FLOAT;0
 Node;AmplifyShaderEditor.Vector2Node;629;1539.432,-900.3254;Inherit;False;Constant;_Vector0;Vector 0;38;0;Create;True;0;0;0;False;0;False;0,0;0,0;0;3;FLOAT2;0;FLOAT;1;FLOAT;2
 Node;AmplifyShaderEditor.SamplerNode;40;-1793.337,-3445.624;Inherit;True;Property;_AL_Mask;AudioLink Mask;15;0;Create;False;0;0;0;False;0;False;-1;83f90c05f51ea5c469ceb2c4218b09a7;83f90c05f51ea5c469ceb2c4218b09a7;True;0;False;black;Auto;False;Object;-1;Auto;Texture2D;8;0;SAMPLER2D;;False;1;FLOAT2;0,0;False;2;FLOAT;0;False;3;FLOAT2;0,0;False;4;FLOAT2;0,0;False;5;FLOAT;1;False;6;FLOAT;0;False;7;SAMPLERSTATE;;False;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
-Node;AmplifyShaderEditor.CommentaryNode;977;-3566.635,-6071.09;Inherit;False;1927.026;711.7993;Comment;22;993;991;987;986;985;984;983;982;981;979;978;999;2363;2365;2457;2458;2462;2465;2468;2470;2471;2472;UV Delay AudioLink;1,1,1,1;0;0
+Node;AmplifyShaderEditor.CommentaryNode;977;-3566.635,-6071.09;Inherit;False;1946.786;821.5767;Comment;27;2507;2506;984;2505;2457;2471;2468;2462;986;2472;2458;2470;991;985;2363;2365;987;982;999;979;981;993;983;978;2508;2509;2510;UV Delay AudioLink;1,1,1,1;0;0
 Node;AmplifyShaderEditor.GetLocalVarNode;55;-1082.38,-5260.526;Inherit;False;50;Time;1;0;OBJECT;;False;1;FLOAT;0
 Node;AmplifyShaderEditor.ColorNode;45;-77.97868,-5324.461;Inherit;False;Constant;_AL_Treble;AL_Treble;6;0;Create;True;0;0;0;False;0;False;0,0,1,1;0,0,0,0;True;0;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
 Node;AmplifyShaderEditor.GetLocalVarNode;57;134.7981,-5255.021;Inherit;False;50;Time;1;0;OBJECT;;False;1;FLOAT;0
@@ -937,7 +936,6 @@ Node;AmplifyShaderEditor.FunctionNode;2348;-3786.355,-7142.881;Inherit;False;If 
 Node;AmplifyShaderEditor.GetLocalVarNode;2349;-4023.205,-6818.523;Inherit;False;2356;delayUVset;1;0;OBJECT;;False;1;FLOAT;0
 Node;AmplifyShaderEditor.Vector2Node;2350;-3997.712,-6554.679;Inherit;False;Constant;_Vector23;Vector 16;54;0;Create;True;0;0;0;False;0;False;0,0;0,0;0;3;FLOAT2;0;FLOAT;1;FLOAT;2
 Node;AmplifyShaderEditor.RangedFloatNode;2351;-3993.712,-6747.678;Inherit;False;Constant;_Float10;Float 2;54;0;Create;True;0;0;0;False;0;False;3;0;0;0;0;1;FLOAT;0
-Node;AmplifyShaderEditor.FunctionNode;2353;-3731.706,-6748.421;Inherit;False;If Float Equal;-1;;429;bdca1c28487c8a1418e72579bec63589;0;4;7;FLOAT;0;False;8;FLOAT;0;False;9;FLOAT2;0,0;False;10;FLOAT2;0,0;False;1;FLOAT2;0
 Node;AmplifyShaderEditor.TextureCoordinatesNode;2360;-4059.78,-7478.398;Inherit;False;1;-1;2;3;2;SAMPLER2D;;False;0;FLOAT2;1,1;False;1;FLOAT2;0,0;False;5;FLOAT2;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
 Node;AmplifyShaderEditor.TextureCoordinatesNode;2361;-4057.78,-7077.398;Inherit;False;2;-1;2;3;2;SAMPLER2D;;False;0;FLOAT2;1,1;False;1;FLOAT2;0,0;False;5;FLOAT2;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
 Node;AmplifyShaderEditor.TextureCoordinatesNode;2362;-4056.78,-6675.4;Inherit;False;3;-1;2;3;2;SAMPLER2D;;False;0;FLOAT2;1,1;False;1;FLOAT2;0,0;False;5;FLOAT2;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
@@ -1025,15 +1023,14 @@ Node;AmplifyShaderEditor.FunctionNode;2446;1800.911,-3.485718;Inherit;False;UV T
 Node;AmplifyShaderEditor.FunctionNode;2447;1785.775,-345.7103;Inherit;False;UV Tile Checker;-1;;464;c43a818059b65cd448c0f67225beab6f;0;3;21;FLOAT;0;False;6;FLOAT2;0,0;False;10;FLOAT2;0,0;False;1;FLOAT;0
 Node;AmplifyShaderEditor.FunctionNode;2448;1788.775,-622.7103;Inherit;False;UV Tile Checker;-1;;465;c43a818059b65cd448c0f67225beab6f;0;3;21;FLOAT;0;False;6;FLOAT2;0,0;False;10;FLOAT2;0,0;False;1;FLOAT;0
 Node;AmplifyShaderEditor.FunctionNode;2449;1764.775,-968.7103;Inherit;False;UV Tile Checker;-1;;466;c43a818059b65cd448c0f67225beab6f;0;3;21;FLOAT;0;False;6;FLOAT2;0,0;False;10;FLOAT2;0,0;False;1;FLOAT;0
-Node;AmplifyShaderEditor.Compare;2453;4783.413,-1083.667;Inherit;False;0;4;0;FLOAT;0;False;1;FLOAT;1;False;2;FLOAT;0;False;3;FLOAT;0;False;1;FLOAT;0
 Node;AmplifyShaderEditor.SimpleDivideOpNode;2455;4560.986,-915.4526;Inherit;False;2;0;FLOAT;0;False;1;FLOAT;0;False;1;FLOAT;0
 Node;AmplifyShaderEditor.GetLocalVarNode;193;2351.81,-2859.997;Inherit;False;192;UVTileDiscard;1;0;OBJECT;;False;1;FLOAT;0
 Node;AmplifyShaderEditor.RegisterLocalVarNode;192;5052.494,-1100.016;Inherit;False;UVTileDiscard;-1;True;1;0;FLOAT;0;False;1;FLOAT;0
 Node;AmplifyShaderEditor.StepOpNode;2451;4526.275,-1286.567;Inherit;True;2;0;FLOAT;0;False;1;FLOAT;0;False;1;FLOAT;0
 Node;AmplifyShaderEditor.RangedFloatNode;2452;4310.275,-985.5667;Inherit;False;Constant;_Float2;Float 2;58;0;Create;True;0;0;0;False;0;False;0;0;0;0;0;1;FLOAT;0
 Node;AmplifyShaderEditor.RangedFloatNode;2454;4365.413,-1078.667;Inherit;False;Constant;_Float15;Float 15;58;0;Create;True;0;0;0;False;0;False;1;0;0;0;0;1;FLOAT;0
-Node;AmplifyShaderEditor.FunctionNode;2442;2547.401,-851.9913;Inherit;False;UV Tile Checker;-1;;459;c43a818059b65cd448c0f67225beab6f;0;3;21;FLOAT;0;False;6;FLOAT2;0,0;False;10;FLOAT2;0,0;False;1;FLOAT;0
-Node;AmplifyShaderEditor.FunctionNode;2311;1774.179,726.7761;Inherit;False;If Float Equal;-1;;422;bdca1c28487c8a1418e72579bec63589;0;4;7;FLOAT;0;False;8;FLOAT;0;False;9;FLOAT2;0,0;False;10;FLOAT2;0,0;False;1;FLOAT2;0
+Node;AmplifyShaderEditor.FunctionNode;2442;2547.401,-851.9913;Inherit;False;UV Tile Checker;-1;;467;c43a818059b65cd448c0f67225beab6f;0;3;21;FLOAT;0;False;6;FLOAT2;0,0;False;10;FLOAT2;0,0;False;1;FLOAT;0
+Node;AmplifyShaderEditor.FunctionNode;2311;1774.179,726.7761;Inherit;False;If Float Equal;-1;;468;bdca1c28487c8a1418e72579bec63589;0;4;7;FLOAT;0;False;8;FLOAT;0;False;9;FLOAT2;0,0;False;10;FLOAT2;0,0;False;1;FLOAT2;0
 Node;AmplifyShaderEditor.SimpleMultiplyOpNode;88;-7.109922,-962.2746;Inherit;False;2;2;0;FLOAT;0;False;1;FLOAT;0;False;1;FLOAT;0
 Node;AmplifyShaderEditor.GetLocalVarNode;2363;-3471.832,-5996.048;Inherit;False;2355;DelayUV;1;0;OBJECT;;False;1;FLOAT2;0
 Node;AmplifyShaderEditor.RoundOpNode;985;-1996.866,-5958.629;Inherit;False;1;0;FLOAT;0;False;1;FLOAT;0
@@ -1045,9 +1042,9 @@ Node;AmplifyShaderEditor.DynamicAppendNode;986;-3220.573,-5754.957;Inherit;False
 Node;AmplifyShaderEditor.DistanceOpNode;2462;-3045.087,-5789.802;Inherit;False;2;0;FLOAT2;0,0;False;1;FLOAT2;0,0;False;1;FLOAT;0
 Node;AmplifyShaderEditor.SimpleMultiplyOpNode;1076;-3769.198,-3562.609;Inherit;False;2;2;0;FLOAT2;0,0;False;1;FLOAT2;0,0;False;1;FLOAT2;0
 Node;AmplifyShaderEditor.TexturePropertyNode;1053;-3849.051,-3962.619;Inherit;True;Global;_Udon_VideoTex;_Udon_VideoTex;57;0;Create;True;0;0;0;True;0;False;None;None;False;white;Auto;Texture2D;-1;0;2;SAMPLER2D;0;SAMPLERSTATE;1
-Node;AmplifyShaderEditor.FunctionNode;1135;-3552.285,-3682.727;Inherit;True;Decal;-1;;323;c7a5994071b70f8448ea324b9d90affe;0;4;9;SAMPLER2D;;False;15;FLOAT2;0,0;False;12;FLOAT2;0.5,0.5;False;14;FLOAT;0;False;2;COLOR;0;FLOAT;19
+Node;AmplifyShaderEditor.FunctionNode;1135;-3552.285,-3682.727;Inherit;True;Decal;-1;;469;c7a5994071b70f8448ea324b9d90affe;0;4;9;SAMPLER2D;;False;15;FLOAT2;0,0;False;12;FLOAT2;0.5,0.5;False;14;FLOAT;0;False;2;COLOR;0;FLOAT;19
 Node;AmplifyShaderEditor.Vector4Node;1064;-4498.177,-3540.394;Inherit;False;Property;_VideoDecalUVs;Video Decal Coordinates;50;1;[Header];Create;False;2;X and Y are Position;Z and W are Tiling (Size);0;0;False;0;False;0.01,-0.29,1.29,1.4;0.01,-0.29,1.29,1.4;0;5;FLOAT4;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
-Node;AmplifyShaderEditor.FunctionNode;2338;-3782.334,-7965.802;Inherit;False;If Float Equal;-1;;426;bdca1c28487c8a1418e72579bec63589;0;4;7;FLOAT;0;False;8;FLOAT;0;False;9;FLOAT2;0,0;False;10;FLOAT2;0,0;False;1;FLOAT2;0
+Node;AmplifyShaderEditor.FunctionNode;2338;-3782.334,-7965.802;Inherit;False;If Float Equal;-1;;470;bdca1c28487c8a1418e72579bec63589;0;4;7;FLOAT;0;False;8;FLOAT;0;False;9;FLOAT2;0,0;False;10;FLOAT2;0,0;False;1;FLOAT2;0
 Node;AmplifyShaderEditor.RangedFloatNode;2336;-4027.867,-7965.935;Inherit;False;Constant;_Float7;Float 2;54;0;Create;True;0;0;0;False;0;False;0;0;0;0;0;1;FLOAT;0
 Node;AmplifyShaderEditor.TextureCoordinatesNode;2359;-4064.78,-7891.399;Inherit;False;0;-1;2;3;2;SAMPLER2D;;False;0;FLOAT2;1,1;False;1;FLOAT2;0,0;False;5;FLOAT2;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
 Node;AmplifyShaderEditor.Vector2Node;2337;-4001.867,-7768.933;Inherit;False;Constant;_Vector20;Vector 16;54;0;Create;True;0;0;0;False;0;False;0,0;0,0;0;3;FLOAT2;0;FLOAT;1;FLOAT;2
@@ -1059,7 +1056,6 @@ Node;AmplifyShaderEditor.GetLocalVarNode;2483;-5961.885,-4134.134;Inherit;False;
 Node;AmplifyShaderEditor.RangedFloatNode;2477;-5980.029,-4057.781;Inherit;False;Constant;_Float21;Float 2;54;0;Create;True;0;0;0;False;0;False;0;0;0;0;0;1;FLOAT;0
 Node;AmplifyShaderEditor.TextureCoordinatesNode;2478;-6016.942,-3983.242;Inherit;False;0;-1;2;3;2;SAMPLER2D;;False;0;FLOAT2;1,1;False;1;FLOAT2;0,0;False;5;FLOAT2;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
 Node;AmplifyShaderEditor.Vector2Node;2479;-5954.029,-3860.776;Inherit;False;Constant;_Vector24;Vector 16;54;0;Create;True;0;0;0;False;0;False;0,0;0,0;0;3;FLOAT2;0;FLOAT;1;FLOAT;2
-Node;AmplifyShaderEditor.FunctionNode;2476;-5735.497,-4058.647;Inherit;False;If Float Equal;-1;;471;bdca1c28487c8a1418e72579bec63589;0;4;7;FLOAT;0;False;8;FLOAT;0;False;9;FLOAT2;0,0;False;10;FLOAT2;0,0;False;1;FLOAT2;0
 Node;AmplifyShaderEditor.GetLocalVarNode;2484;-6147.482,-3800.054;Inherit;False;2482;vpUVoption;1;0;OBJECT;;False;1;FLOAT;0
 Node;AmplifyShaderEditor.RangedFloatNode;2485;-6165.626,-3723.7;Inherit;False;Constant;_Float22;Float 2;54;0;Create;True;0;0;0;False;0;False;1;0;0;0;0;1;FLOAT;0
 Node;AmplifyShaderEditor.TextureCoordinatesNode;2486;-6202.539,-3649.163;Inherit;False;1;-1;2;3;2;SAMPLER2D;;False;0;FLOAT2;1,1;False;1;FLOAT2;0,0;False;5;FLOAT2;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
@@ -1083,11 +1079,19 @@ Node;AmplifyShaderEditor.TexturePropertyNode;1124;-3878.399,-3256.554;Inherit;Tr
 Node;AmplifyShaderEditor.RangedFloatNode;1083;-3476.276,-4001.301;Inherit;False;Property;_EnableDecal;Enable Decal;46;2;[Header];[ToggleUI];Create;True;1;Video Player Decal;0;0;False;0;False;0;0;0;0;0;1;FLOAT;0
 Node;AmplifyShaderEditor.RangedFloatNode;1108;-3527.153,-3412.754;Inherit;False;Property;_ShowVideoPreview;Custom Tex Instead of Video Tex;48;1;[ToggleUI];Create;False;0;0;0;False;0;False;0;0;0;0;0;1;FLOAT;0
 Node;AmplifyShaderEditor.RangedFloatNode;1071;-3919.18,-3403.594;Inherit;False;Property;_VideoDecalRotation;Decal Rotation;51;0;Create;False;0;0;0;False;0;False;-0.15;-0.15;0;0;0;1;FLOAT;0
-Node;AmplifyShaderEditor.FunctionNode;2465;-2310.545,-5602.096;Inherit;False;If Float Equal;-1;;468;bdca1c28487c8a1418e72579bec63589;0;4;7;FLOAT;0;False;8;FLOAT;2;False;9;FLOAT;0;False;10;FLOAT;0;False;1;FLOAT;0
-Node;AmplifyShaderEditor.FunctionNode;2468;-2149.545,-5826.096;Inherit;False;If Float Equal;-1;;469;bdca1c28487c8a1418e72579bec63589;0;4;7;FLOAT;0;False;8;FLOAT;1;False;9;FLOAT;0;False;10;FLOAT;0;False;1;FLOAT;0
-Node;AmplifyShaderEditor.FunctionNode;2471;-2869.101,-5766.701;Inherit;False;If Float Equal;-1;;470;bdca1c28487c8a1418e72579bec63589;0;4;7;FLOAT;0;False;8;FLOAT;3;False;9;FLOAT;0;False;10;FLOAT;0;False;1;FLOAT;0
-Node;AmplifyShaderEditor.RangedFloatNode;984;-2526.103,-5758.253;Inherit;False;Property;_ALUVToggle;Delay for AL;16;1;[Enum];Create;False;0;4;None;0;UV Vertical;1;UV Distance Out;2;Texture;3;0;True;0;False;0;2;0;0;0;1;FLOAT;0
+Node;AmplifyShaderEditor.FunctionNode;2468;-2149.545,-5826.096;Inherit;False;If Float Equal;-1;;476;bdca1c28487c8a1418e72579bec63589;0;4;7;FLOAT;0;False;8;FLOAT;1;False;9;FLOAT;0;False;10;FLOAT;0;False;1;FLOAT;0
+Node;AmplifyShaderEditor.FunctionNode;2471;-2869.101,-5766.701;Inherit;False;If Float Equal;-1;;477;bdca1c28487c8a1418e72579bec63589;0;4;7;FLOAT;0;False;8;FLOAT;3;False;9;FLOAT;0;False;10;FLOAT;0;False;1;FLOAT;0
 Node;AmplifyShaderEditor.SamplerNode;2457;-3414.087,-5567.802;Inherit;True;Property;_ALDelayMap;AL Delay Map;22;1;[SingleLineTexture];Create;True;0;0;0;False;0;False;-1;None;None;True;0;False;white;Auto;False;Object;-1;Auto;Texture2D;8;0;SAMPLER2D;;False;1;FLOAT2;0,0;False;2;FLOAT;0;False;3;FLOAT2;0,0;False;4;FLOAT2;0,0;False;5;FLOAT;1;False;6;FLOAT;0;False;7;SAMPLERSTATE;;False;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
+Node;AmplifyShaderEditor.FunctionNode;2353;-3731.706,-6748.421;Inherit;False;If Float Equal;-1;;478;bdca1c28487c8a1418e72579bec63589;0;4;7;FLOAT;0;False;8;FLOAT;0;False;9;FLOAT2;0,0;False;10;FLOAT2;0,0;False;1;FLOAT2;0
+Node;AmplifyShaderEditor.FunctionNode;2476;-5735.497,-4058.647;Inherit;False;If Float Equal;-1;;479;bdca1c28487c8a1418e72579bec63589;0;4;7;FLOAT;0;False;8;FLOAT;0;False;9;FLOAT2;0,0;False;10;FLOAT2;0,0;False;1;FLOAT2;0
+Node;AmplifyShaderEditor.Compare;2453;4783.413,-1083.667;Inherit;False;0;4;0;FLOAT;0;False;1;FLOAT;1;False;2;FLOAT;0;False;3;FLOAT;0;False;1;FLOAT;0
+Node;AmplifyShaderEditor.RangedFloatNode;984;-2526.103,-5758.253;Inherit;False;Property;_ALUVToggle;Delay for AL;16;1;[Enum];Create;False;0;4;None;0;UV Vertical;1;UV Distance Out;2;Texture;3;0;True;0;False;0;2;0;0;0;1;FLOAT;0
+Node;AmplifyShaderEditor.RangedFloatNode;2506;-2648.877,-5457.972;Inherit;False;Constant;_Float16;Float 16;58;0;Create;True;0;0;0;False;0;False;2;0;0;0;0;1;FLOAT;0
+Node;AmplifyShaderEditor.RangedFloatNode;2507;-2644.877,-5384.972;Inherit;False;Constant;_Float17;Float 17;58;0;Create;True;0;0;0;False;0;False;3;0;0;0;0;1;FLOAT;0
+Node;AmplifyShaderEditor.FunctionNode;2505;-2274.877,-5642.972;Inherit;False;If Float in Range;-1;;483;fb43c64eec5b88541922ad5239a69a8c;0;5;8;FLOAT;0;False;4;FLOAT;0;False;5;FLOAT;0;False;14;FLOAT;0;False;13;FLOAT;0;False;1;FLOAT;0
+Node;AmplifyShaderEditor.RangedFloatNode;2508;-2402.315,-5413.435;Inherit;False;Constant;_Float18;Float 18;58;0;Create;True;0;0;0;False;0;False;0;0;0;0;0;1;FLOAT;0
+Node;AmplifyShaderEditor.RangedFloatNode;2509;-2335.315,-5809.435;Inherit;False;Constant;_Float19;Float 19;58;0;Create;True;0;0;0;False;0;False;1;0;0;0;0;1;FLOAT;0
+Node;AmplifyShaderEditor.RangedFloatNode;2510;-3053.633,-5685.82;Inherit;False;Constant;_Float20;Float 20;58;0;Create;True;0;0;0;False;0;False;3;0;0;0;0;1;FLOAT;0
 WireConnection;50;0;49;0
 WireConnection;90;0;91;0
 WireConnection;69;0;195;0
@@ -1293,10 +1297,6 @@ WireConnection;2348;7;2344;0
 WireConnection;2348;8;2345;0
 WireConnection;2348;9;2361;0
 WireConnection;2348;10;2346;0
-WireConnection;2353;7;2349;0
-WireConnection;2353;8;2351;0
-WireConnection;2353;9;2362;0
-WireConnection;2353;10;2350;0
 WireConnection;2365;0;2363;0
 WireConnection;2355;0;2354;0
 WireConnection;1402;0;1403;0
@@ -1408,10 +1408,6 @@ WireConnection;2448;10;630;0
 WireConnection;2449;21;270;0
 WireConnection;2449;6;198;0
 WireConnection;2449;10;629;0
-WireConnection;2453;0;2451;0
-WireConnection;2453;1;2454;0
-WireConnection;2453;2;2455;0
-WireConnection;2453;3;2452;0
 WireConnection;2455;0;2452;0
 WireConnection;2455;1;2452;0
 WireConnection;192;0;2453;0
@@ -1452,10 +1448,6 @@ WireConnection;2480;0;2476;0
 WireConnection;2480;1;2488;0
 WireConnection;2480;2;2493;0
 WireConnection;2480;3;2498;0
-WireConnection;2476;7;2483;0
-WireConnection;2476;8;2477;0
-WireConnection;2476;9;2478;0
-WireConnection;2476;10;2479;0
 WireConnection;2488;7;2484;0
 WireConnection;2488;8;2485;0
 WireConnection;2488;9;2486;0
@@ -1470,14 +1462,31 @@ WireConnection;2498;9;2496;0
 WireConnection;2498;10;2497;0
 WireConnection;2500;0;2480;0
 WireConnection;2482;0;2481;0
-WireConnection;2465;7;984;0
-WireConnection;2465;9;987;0
 WireConnection;2468;7;984;0
+WireConnection;2468;8;2509;0
 WireConnection;2468;9;983;0
-WireConnection;2468;10;2465;0
+WireConnection;2468;10;2505;0
 WireConnection;2471;7;2472;0
+WireConnection;2471;8;2510;0
 WireConnection;2471;9;2458;3
 WireConnection;2471;10;2462;0
 WireConnection;2457;1;2363;0
+WireConnection;2353;7;2349;0
+WireConnection;2353;8;2351;0
+WireConnection;2353;9;2362;0
+WireConnection;2353;10;2350;0
+WireConnection;2476;7;2483;0
+WireConnection;2476;8;2477;0
+WireConnection;2476;9;2478;0
+WireConnection;2476;10;2479;0
+WireConnection;2453;0;2451;0
+WireConnection;2453;1;2454;0
+WireConnection;2453;2;2455;0
+WireConnection;2453;3;2452;0
+WireConnection;2505;8;984;0
+WireConnection;2505;4;2506;0
+WireConnection;2505;5;2507;0
+WireConnection;2505;14;987;0
+WireConnection;2505;13;2508;0
 ASEEND*/
-//CHKSM=796F061D5AC88807C3C9724BADC4CFBB18C4E0F8
+//CHKSM=8ED23E1721D58631E2257A9CF2EECC2E61A80984
