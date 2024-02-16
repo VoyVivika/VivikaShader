@@ -9,17 +9,19 @@ The Vivika Shader is a Shader created by VoyVivika in Unity3D with the Amplify S
 This Shader only officially supports the Unity Built-in Render Pipeline, it does not support LWRP, URP, or HDRP at this time.
 
 ## Features
+- Single-Pass Stereo Instancing Compatible
+	- Rendering Mode used in Unity 2020+ by Default for XR Enabled Projects.
+		- This Rendering Mode is not Required by VRChat, as their version of Unity is Customized to retain Backwards Compatibility for Older Shaders.
+		- This Rendering Mode is Required by ChilloutVR, as they use SPS-I.
 - AudioLink Support
 	- AudioLink.cginc Included along with the Amplify Functions as permitted by the AudioLink License.
 		- Using the [ChilloutVR Specific Fork by DomNomNom](https://github.com/DomNomNomVR/cvr-audio-link)
-	- Emission Mask with 4 Colors that Represent each Band, the Colors Combine Together to Become White.
-	- If AudioLink is Absent in the Enviornment, the Bass Band Emission will remain on.
-	- Delay Feature
-		- Three Modes
-			- Off (None at all)
-			- UV Vertical (From the Top of the UV Map to the Bottom)
-			- UV Distance (Distance out from a UV Position)
-			- Texture (Grayscale Color from a Delay Texture)
+	- 4 Colors that Represent each Band, the Colors Combine Together to Become White.
+	- Setting to Keep Emission of the Bass Band on if AudioLink is Absent from the Enviornment.
+	- AudioLink Delay Feature
+		- Delay done using Grayscale Texture (Black = No Delay, White = Maximum Delay)
+			- Recommended to Disable SRGB on Texture, Leave Mipmaps on!!!
+		- Setting to Increase Maximum Delay (0 - 127)
 - Vertex UV Tile Discard
 	- Discards Verticies within Certain UV Coordinates
 	- This Treats UV Coordinates like Tiles (U 1.0 to 2.0, V 1.0 to 2.0 is considered Tile 1, 1)
@@ -60,6 +62,9 @@ This Repo contains some Amplify Shader Editor Functions useful for Shader Creato
 - If Float Equals
 	- Optimized way to check if Two Values are Equal, if yes the input of true is returned, if no the input of false is returned.
 		- Uses Step Functions to check if Equal and Lerp Function to return either based on the result of the step functions.
+- Vivika Shading
+	- Unfinished and seemingly non-functional, ASE Function to Easily Provide Vivika Shader Shading to other ASE Shaders.
+	- Mostly meant so that I may create variants with ease.
 # Third-Party Licenses
 Please Note if these links are incorrect they will be corrected in a later commit after the mistake is corrected.
 - Hue Shift - https://github.com/VoyVivika/VivikaShader/blob/main/Functions/ThirdParty/HueShift/LICENSE.txt
