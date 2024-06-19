@@ -3,7 +3,7 @@
 
 [3D  Model Showcased is my Personal Edit of Murdoc the Rat by Skully Hellfire](https://skullyhellfire.gumroad.com/l/skullysmurdoc)
 
-The Vivika Shader is a Shader created by VoyVivika in Unity3D with the Amplify Shader Editor. I made these for my Personal ChilloutVR Avatars with some in-game encouragement from N3X15, ended up being a fun project for experimenting with Amplify Shaders Honestly, figured out how UV Discarding worked (and it's honestly a personal favorite feature despite me not using it very much).
+The Vivika Shader is a Shader created by VoyVivika in Unity3D with the Amplify Shader Editor. I made these for my Personal ChilloutVR Avatars with some in-game encouragement from N3X15, ended up being a fun project for experimenting with Amplify Shaders.
 
 # Please Note:
 This Shader only officially supports the Unity Built-in Render Pipeline, it does not support LWRP, URP, or HDRP at this time.
@@ -25,22 +25,22 @@ This Shader only officially supports the Unity Built-in Render Pipeline, it does
 - Vertex UV Tile Discard
 	- Discards Verticies within Certain UV Coordinates
 	- This Treats UV Coordinates like Tiles (U 1.0 to 2.0, V 1.0 to 2.0 is considered Tile 1, 1)
-- Decal (Video Player Display Support in CVR and VRC)
-	- in VRChat, Worlds with Newer Versions of ProTV
-		- in VRChat, to support this use newer versions of ProTV, Otherwise, please look for resources related to Udon. I am personally dedicated to creating content for ChilloutVR.
-	- in ChilloutVR, my world the Viviklub Supports This.
-		- to Support This in ChilloutVR:
-				1. in your world, add a Component called `CVR Global Shader Updater`
-				2. Enable "Update Texture"
-				3. Drag and Drop the Render Texture being used by a `CVR Video Player` Component in your world
-				4. Set the Property Name to `_Udon_VideoTex`
 - Rim Lighting
 - Toon Style Lighting
-### MultiMap
-MultiMap is a Texture which contains multiple maps in a Single RGB Texture intended for use with DXT1 Encoded Textures
-Currently the Spec for the Divorce Shader Multi-Map is
-- Red Channel = Metalic
-- Green Channel = Smoothness
+- Support for [Raliv's Dynamic Penetration System](https://raliv.gumroad.com/l/lwthuB)
+	- This is supported via a Custom Variant of the Vivika Shader which looks for the DPS .cginc files.
+	- This Variant of the Vivika Shader Requires DPS to be present in your Unity Project.
+## Legacy (Deprecated/Removed Features)
+These Features can be found in Older Versions of the Vivika Shader.
+- Video Player Decal
+	- This was supported in older versions of the Shader
+	- Used the `_Udon_VideoTex` Global Texture (to retain VRChat Support. Personally I would've called it `_VideoTex` or `_GlobalVideoTex`)
+	- Removed to save on Texture Samplers
+- MultiMap
+	- This stood in place of Unity's Metalic Glossiness Map. Support for this was cut after it became a priority to retain Standard Shader Compatibility.
+	- Red Channel = Metalic
+	- Green Channel = Smoothness
+	- Removed to save on Texture Samplers and Texture Memory.
 ## Amplify Functions
 This Repo contains some Amplify Shader Editor Functions useful for Shader Creators, namely:
 - Distance
@@ -62,9 +62,6 @@ This Repo contains some Amplify Shader Editor Functions useful for Shader Creato
 - If Float Equals
 	- Optimized way to check if Two Values are Equal, if yes the input of true is returned, if no the input of false is returned.
 		- Uses Step Functions to check if Equal and Lerp Function to return either based on the result of the step functions.
-- Vivika Shading
-	- Unfinished and seemingly non-functional, ASE Function to Easily Provide Vivika Shader Shading to other ASE Shaders.
-	- Mostly meant so that I may create variants with ease.
 # Third-Party Licenses
 Please Note if these links are incorrect they will be corrected in a later commit after the mistake is corrected.
 - Hue Shift - https://github.com/VoyVivika/VivikaShader/blob/main/Functions/ThirdParty/HueShift/LICENSE.txt
