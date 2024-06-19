@@ -10,7 +10,7 @@ This Shader only officially supports the Unity Built-in Render Pipeline, it does
 
 ## Features
 - Single-Pass Stereo Instancing Compatible
-	- Rendering Mode used in Unity 2020+ by Default for XR Enabled Projects.
+	- Rendering Mode used in Unity 2020+ by Default for VR/XR Enabled Projects.
 		- This Rendering Mode is not Required by VRChat, as their version of Unity is Customized to retain Backwards Compatibility for Older Shaders.
 		- This Rendering Mode is Required by ChilloutVR, as they use SPS-I.
 - AudioLink Support
