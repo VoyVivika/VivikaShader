@@ -13,8 +13,6 @@ Shader "VoyVivika/VivikaShader/DPS/Vivika Shader Opaque Penetrator"
 		_WrappedShadingValue("Wrapped Shading Value", Float) = 1
 		_WrapIndirScale("Indirect Light Scale", Float) = 3
 		[SingleLineTexture]_MetallicGlossMap("Unity Metallic", 2D) = "black" {}
-		_WrapMetallicFesnelScale("Metallic Fesnel Scale", Float) = 1
-		_MetallicFresnelPower("Metallic Fresnel Power", Float) = 3
 		_AmbientOcclusion("Ambient Occlusion", 2D) = "white" {}
 		_AOStrength("AO Strength", Range( 0 , 1)) = 1
 		[ToggleUI]_RealAO("Real AO", Float) = 0
@@ -47,9 +45,9 @@ Shader "VoyVivika/VivikaShader/DPS/Vivika Shader Opaque Penetrator"
 		_ReCurvature("ReCurvature", Range( -1 , 1)) = 0
 		_Wriggle("Wriggle Amount", Range( 0 , 1)) = 0
 		_WriggleSpeed("Wriggle Speed", Range( 0.1 , 30)) = 0.28
-		[HideInInspector] _texcoord3( "", 2D ) = "white" {}
-		[HideInInspector] _texcoord2( "", 2D ) = "white" {}
 		[HideInInspector] _texcoord4( "", 2D ) = "white" {}
+		[HideInInspector] _texcoord2( "", 2D ) = "white" {}
+		[HideInInspector] _texcoord3( "", 2D ) = "white" {}
 		[HideInInspector] _texcoord( "", 2D ) = "white" {}
 		[HideInInspector] __dirty( "", Int ) = 1
 	}
@@ -86,7 +84,6 @@ Shader "VoyVivika/VivikaShader/DPS/Vivika Shader Opaque Penetrator"
 			float3 worldPos;
 			float3 worldNormal;
 			INTERNAL_DATA
-			float3 worldRefl;
 		};
 
 		struct SurfaceOutputCustomLightingCustom
@@ -139,8 +136,6 @@ Shader "VoyVivika/VivikaShader/DPS/Vivika Shader Opaque Penetrator"
 		uniform float _MinBrightness;
 		uniform sampler2D _MetallicGlossMap;
 		uniform float4 _MetallicGlossMap_ST;
-		uniform float _WrapMetallicFesnelScale;
-		uniform float _MetallicFresnelPower;
 
 
 		float3 HSVToRGB( float3 c )
@@ -250,7 +245,7 @@ Shader "VoyVivika/VivikaShader/DPS/Vivika Shader Opaque Penetrator"
 		}
 
 
-		float3 ShadeSH97_g949( float4 Normal )
+		float3 ShadeSH97_g948( float4 Normal )
 		{
 			return ShadeSH9(Normal);
 		}
@@ -302,40 +297,40 @@ Shader "VoyVivika/VivikaShader/DPS/Vivika Shader Opaque Penetrator"
 			float2 uv_BumpMap = i.uv_texcoord * _BumpMap_ST.xy + _BumpMap_ST.zw;
 			float3 normalMap1002 = UnpackNormal( tex2D( _BumpMap, uv_BumpMap ) );
 			float3 temp_output_11_0_g944 = normalMap1002;
-			float3 temp_output_2_0_g946 = temp_output_11_0_g944;
-			float dotResult3_g948 = dot( ase_worldlightDir , (WorldNormalVector( i , temp_output_2_0_g946 )) );
-			float temp_output_5_0_g947 = _WrappedShadingValue;
-			float temp_output_15_0_g946 = saturate( ase_lightAtten );
-			float4 color16_g946 = IsGammaSpace() ? float4(0,0,0,0) : float4(0,0,0,0);
+			float3 temp_output_2_0_g945 = temp_output_11_0_g944;
+			float dotResult3_g947 = dot( ase_worldlightDir , (WorldNormalVector( i , temp_output_2_0_g945 )) );
+			float temp_output_5_0_g946 = _WrappedShadingValue;
+			float temp_output_15_0_g945 = saturate( ase_lightAtten );
+			float4 color16_g945 = IsGammaSpace() ? float4(0,0,0,0) : float4(0,0,0,0);
 			#if defined(LIGHTMAP_ON) && ( UNITY_VERSION < 560 || ( defined(LIGHTMAP_SHADOW_MIXING) && !defined(SHADOWS_SHADOWMASK) && defined(SHADOWS_SCREEN) ) )//aselc
 			float4 ase_lightColor = 0;
 			#else //aselc
 			float4 ase_lightColor = _LightColor0;
 			#endif //aselc
-			float4 lerpResult17_g946 = lerp( color16_g946 , ase_lightColor , temp_output_15_0_g946);
-			float3 temp_output_1_0_g949 = temp_output_2_0_g946;
-			UnityGI gi2_g949 = gi;
-			float3 diffNorm2_g949 = normalize( WorldNormalVector( i , temp_output_1_0_g949 ) );
-			gi2_g949 = UnityGI_Base( data, 1, diffNorm2_g949 );
-			float3 indirectDiffuse2_g949 = gi2_g949.indirect.diffuse + diffNorm2_g949 * 0.0001;
-			float3 temp_output_34_0_g949 = saturate( indirectDiffuse2_g949 );
-			float4 appendResult6_g949 = (float4(( temp_output_1_0_g949 * 0.3 ) , 1.0));
-			float4 Normal7_g949 = appendResult6_g949;
-			float3 localShadeSH97_g949 = ShadeSH97_g949( Normal7_g949 );
-			float temp_output_9_0_g949 = _IndirectDiffuseOffset;
-			float3 temp_cast_17 = (temp_output_9_0_g949).xxx;
-			float3 temp_output_15_0_g949 = saturate( ( localShadeSH97_g949 - temp_cast_17 ) );
-			float temp_output_8_0_g950 = 1.0;
-			float temp_output_7_0_g950 = _IndirLightUseMinforMax;
-			float lerpResult6_g950 = lerp( _IndirectDiffuseOffsetMax , temp_output_9_0_g949 , ( step( temp_output_8_0_g950 , temp_output_7_0_g950 ) * step( temp_output_7_0_g950 , temp_output_8_0_g950 ) ));
-			float3 temp_output_16_0_g949 = saturate( ( localShadeSH97_g949 + lerpResult6_g950 ) );
-			float3 clampResult17_g949 = clamp( temp_output_34_0_g949 , temp_output_15_0_g949 , temp_output_16_0_g949 );
-			float3 lerpResult20_g949 = lerp( clampResult17_g949 , (temp_output_15_0_g949 + (temp_output_34_0_g949 - float3( 0,0,0 )) * (temp_output_16_0_g949 - temp_output_15_0_g949) / (float3( 1,1,1 ) - float3( 0,0,0 ))) , _IndirectLimiterMode);
-			float4 color4_g946 = IsGammaSpace() ? float4(1,1,1,0) : float4(1,1,1,0);
+			float4 lerpResult17_g945 = lerp( color16_g945 , ase_lightColor , temp_output_15_0_g945);
+			float3 temp_output_1_0_g948 = temp_output_2_0_g945;
+			UnityGI gi2_g948 = gi;
+			float3 diffNorm2_g948 = normalize( WorldNormalVector( i , temp_output_1_0_g948 ) );
+			gi2_g948 = UnityGI_Base( data, 1, diffNorm2_g948 );
+			float3 indirectDiffuse2_g948 = gi2_g948.indirect.diffuse + diffNorm2_g948 * 0.0001;
+			float3 temp_output_34_0_g948 = saturate( indirectDiffuse2_g948 );
+			float4 appendResult6_g948 = (float4(( temp_output_1_0_g948 * 0.3 ) , 1.0));
+			float4 Normal7_g948 = appendResult6_g948;
+			float3 localShadeSH97_g948 = ShadeSH97_g948( Normal7_g948 );
+			float temp_output_9_0_g948 = _IndirectDiffuseOffset;
+			float3 temp_cast_17 = (temp_output_9_0_g948).xxx;
+			float3 temp_output_15_0_g948 = saturate( ( localShadeSH97_g948 - temp_cast_17 ) );
+			float temp_output_8_0_g949 = 1.0;
+			float temp_output_7_0_g949 = _IndirLightUseMinforMax;
+			float lerpResult6_g949 = lerp( _IndirectDiffuseOffsetMax , temp_output_9_0_g948 , ( step( temp_output_8_0_g949 , temp_output_7_0_g949 ) * step( temp_output_7_0_g949 , temp_output_8_0_g949 ) ));
+			float3 temp_output_16_0_g948 = saturate( ( localShadeSH97_g948 + lerpResult6_g949 ) );
+			float3 clampResult17_g948 = clamp( temp_output_34_0_g948 , temp_output_15_0_g948 , temp_output_16_0_g948 );
+			float3 lerpResult20_g948 = lerp( clampResult17_g948 , (temp_output_15_0_g948 + (temp_output_34_0_g948 - float3( 0,0,0 )) * (temp_output_16_0_g948 - temp_output_15_0_g948) / (float3( 1,1,1 ) - float3( 0,0,0 ))) , _IndirectLimiterMode);
+			float4 color4_g945 = IsGammaSpace() ? float4(1,1,1,0) : float4(1,1,1,0);
 			float4 temp_cast_19 = (1.0).xxxx;
 			float4 temp_cast_20 = (_MinBrightness).xxxx;
-			float4 color40_g946 = IsGammaSpace() ? float4(1,1,1,1) : float4(1,1,1,1);
-			float4 clampResult37_g946 = clamp( saturate( ( saturate( ( saturate( exp2( ( ( dotResult3_g948 + temp_output_5_0_g947 ) / ( 1.0 + temp_output_5_0_g947 ) ) ) ) + saturate( exp2( temp_output_15_0_g946 ) ) ) ) * saturate( ( saturate( lerpResult17_g946 ) + saturate( (saturate( ( exp2( saturate( ( float4( lerpResult20_g949 , 0.0 ) * color4_g946 ) ) ) - temp_cast_19 ) )*_WrapIndirScale + 0.0) ) ) ) ) ) , temp_cast_20 , color40_g946 );
+			float4 color40_g945 = IsGammaSpace() ? float4(1,1,1,1) : float4(1,1,1,1);
+			float4 clampResult37_g945 = clamp( saturate( ( saturate( ( saturate( exp2( ( ( dotResult3_g947 + temp_output_5_0_g946 ) / ( 1.0 + temp_output_5_0_g946 ) ) ) ) + saturate( exp2( temp_output_15_0_g945 ) ) ) ) * saturate( ( saturate( lerpResult17_g945 ) + saturate( (saturate( ( exp2( saturate( ( float4( lerpResult20_g948 , 0.0 ) * color4_g945 ) ) ) - temp_cast_19 ) )*_WrapIndirScale + 0.0) ) ) ) ) ) , temp_cast_20 , color40_g945 );
 			float2 uv_MainTex = i.uv_texcoord * _MainTex_ST.xy + _MainTex_ST.zw;
 			float4 color8_g891 = IsGammaSpace() ? float4(1,1,1,1) : float4(1,1,1,1);
 			float2 uv_AmbientOcclusion = i.uv_texcoord * _AmbientOcclusion_ST.xy + _AmbientOcclusion_ST.zw;
@@ -343,18 +338,15 @@ Shader "VoyVivika/VivikaShader/DPS/Vivika Shader Opaque Penetrator"
 			float temp_output_9_0_g891 = _RealAO;
 			float4 lerpResult5_g891 = lerp( color8_g891 , temp_output_3_0_g891 , temp_output_9_0_g891);
 			float4 mainTex26 = ( tex2D( _MainTex, uv_MainTex ) * lerpResult5_g891 * _Color );
-			float3 temp_output_1_0_g945 = temp_output_11_0_g944;
-			float3 indirectNormal4_g945 = normalize( WorldNormalVector( i , normalize( WorldReflectionVector( i , temp_output_1_0_g945 ) ) ) );
+			float3 indirectNormal4_g950 = normalize( WorldNormalVector( i , temp_output_11_0_g944 ) );
 			float2 uv_MetallicGlossMap = i.uv_texcoord * _MetallicGlossMap_ST.xy + _MetallicGlossMap_ST.zw;
 			float4 tex2DNode1017 = tex2D( _MetallicGlossMap, uv_MetallicGlossMap );
 			float _Smoothness755 = tex2DNode1017.a;
-			Unity_GlossyEnvironmentData g4_g945 = UnityGlossyEnvironmentSetup( _Smoothness755, data.worldViewDir, indirectNormal4_g945, float3(0,0,0));
-			float3 indirectSpecular4_g945 = UnityGI_IndirectSpecular( data, 1.0, indirectNormal4_g945, g4_g945 );
-			float3 ase_worldViewDir = normalize( UnityWorldSpaceViewDir( ase_worldPos ) );
+			Unity_GlossyEnvironmentData g4_g950 = UnityGlossyEnvironmentSetup( _Smoothness755, data.worldViewDir, indirectNormal4_g950, float3(0,0,0));
+			float3 indirectSpecular4_g950 = UnityGI_IndirectSpecular( data, 1.0, indirectNormal4_g950, g4_g950 );
 			float _Metalic753 = tex2DNode1017.r;
-			float fresnelNdotV8_g945 = dot( normalize( normalize( (WorldNormalVector( i , temp_output_1_0_g945 )) ) ), ase_worldViewDir );
-			float fresnelNode8_g945 = ( _Metalic753 + _WrapMetallicFesnelScale * pow( max( 1.0 - fresnelNdotV8_g945 , 0.0001 ), _MetallicFresnelPower ) );
-			float4 Lighting_Wrapped1144 = ( clampResult37_g946 * ( mainTex26 + float4( ( saturate( indirectSpecular4_g945 ) * fresnelNode8_g945 ) , 0.0 ) ) );
+			float4 lerpResult21_g950 = lerp( mainTex26 , float4( indirectSpecular4_g950 , 0.0 ) , _Metalic753);
+			float4 Lighting_Wrapped1144 = ( clampResult37_g945 * lerpResult21_g950 );
 			c.rgb = Lighting_Wrapped1144.rgb;
 			c.a = 1;
 			return c;
@@ -470,17 +462,17 @@ Shader "VoyVivika/VivikaShader/DPS/Vivika Shader Opaque Penetrator"
 			#endif //aselc
 			float3 hsvTorgb3_g973 = RGBToHSV( ase_lightColor.rgb );
 			float3 temp_output_11_0_g944 = normalMap1002;
-			float3 temp_output_2_0_g946 = temp_output_11_0_g944;
-			float3 temp_output_1_0_g949 = temp_output_2_0_g946;
-			float4 appendResult6_g949 = (float4(( temp_output_1_0_g949 * 0.3 ) , 1.0));
-			float4 Normal7_g949 = appendResult6_g949;
-			float3 localShadeSH97_g949 = ShadeSH97_g949( Normal7_g949 );
-			float temp_output_9_0_g949 = _IndirectDiffuseOffset;
-			float temp_output_8_0_g950 = 1.0;
-			float temp_output_7_0_g950 = _IndirLightUseMinforMax;
-			float lerpResult6_g950 = lerp( _IndirectDiffuseOffsetMax , temp_output_9_0_g949 , ( step( temp_output_8_0_g950 , temp_output_7_0_g950 ) * step( temp_output_7_0_g950 , temp_output_8_0_g950 ) ));
-			float3 temp_output_16_0_g949 = saturate( ( localShadeSH97_g949 + lerpResult6_g950 ) );
-			float3 maxIndirLight2618 = temp_output_16_0_g949;
+			float3 temp_output_2_0_g945 = temp_output_11_0_g944;
+			float3 temp_output_1_0_g948 = temp_output_2_0_g945;
+			float4 appendResult6_g948 = (float4(( temp_output_1_0_g948 * 0.3 ) , 1.0));
+			float4 Normal7_g948 = appendResult6_g948;
+			float3 localShadeSH97_g948 = ShadeSH97_g948( Normal7_g948 );
+			float temp_output_9_0_g948 = _IndirectDiffuseOffset;
+			float temp_output_8_0_g949 = 1.0;
+			float temp_output_7_0_g949 = _IndirLightUseMinforMax;
+			float lerpResult6_g949 = lerp( _IndirectDiffuseOffsetMax , temp_output_9_0_g948 , ( step( temp_output_8_0_g949 , temp_output_7_0_g949 ) * step( temp_output_7_0_g949 , temp_output_8_0_g949 ) ));
+			float3 temp_output_16_0_g948 = saturate( ( localShadeSH97_g948 + lerpResult6_g949 ) );
+			float3 maxIndirLight2618 = temp_output_16_0_g948;
 			float3 hsvTorgb24_g973 = RGBToHSV( maxIndirLight2618 );
 			float4 Rim116 = ( _EnableRimLighting * ( ( ( fresnelNode9_g973 * _RimEnergy ) * lerpResult14_g973 ) * max( ( 0.0 * saturate( ( exp( hsvTorgb3_g973.z ) - 1.0 ) ) ) , hsvTorgb24_g973.z ) ) );
 			float4 EmissionFinal29 = saturate( ( AL_Final85 + Emission119 + Rim116 ) );
@@ -569,7 +561,6 @@ Shader "VoyVivika/VivikaShader/DPS/Vivika Shader Opaque Penetrator"
 				half3 worldViewDir = normalize( UnityWorldSpaceViewDir( worldPos ) );
 				surfIN.worldPos = worldPos;
 				surfIN.worldNormal = float3( IN.tSpace0.z, IN.tSpace1.z, IN.tSpace2.z );
-				surfIN.worldRefl = -worldViewDir;
 				surfIN.internalSurfaceTtoW0 = IN.tSpace0.xyz;
 				surfIN.internalSurfaceTtoW1 = IN.tSpace1.xyz;
 				surfIN.internalSurfaceTtoW2 = IN.tSpace2.xyz;
@@ -629,18 +620,16 @@ Node;AmplifyShaderEditor.RangedFloatNode;2414;-1680,-784;Inherit;False;Property;
 Node;AmplifyShaderEditor.RangedFloatNode;2415;-1584,-720;Inherit;False;Property;_IndirLightUseMinforMax;Use Min for Max;4;1;[ToggleUI];Create;False;0;0;0;False;0;False;1;0;0;0;0;1;FLOAT;0
 Node;AmplifyShaderEditor.RangedFloatNode;2556;-1648,-656;Inherit;False;Property;_IndirectLimiterMode;Indirect Limiter Mode;5;1;[Enum];Create;True;0;2;Clamp;0;Remap;1;0;False;0;False;0;0;0;0;0;1;FLOAT;0
 Node;AmplifyShaderEditor.RangedFloatNode;1207;-1648,-592;Inherit;False;Property;_WrappedShadingValue;Wrapped Shading Value;6;0;Create;False;0;0;0;False;0;False;1;1;0;0;0;1;FLOAT;0
-Node;AmplifyShaderEditor.RangedFloatNode;2567;-1648,-144;Inherit;False;Property;_MetallicFresnelPower;Metallic Fresnel Power;10;0;Create;True;0;0;0;False;0;False;3;3;0;0;0;1;FLOAT;0
 Node;AmplifyShaderEditor.GetLocalVarNode;2589;-1584,-80;Inherit;False;26;mainTex;1;0;OBJECT;;False;1;COLOR;0
 Node;AmplifyShaderEditor.RangedFloatNode;2375;-1680,-464;Inherit;False;Property;_MinBrightness;Min Brightness;1;0;Create;False;0;0;0;False;0;False;0;0;0;1;0;1;FLOAT;0
 Node;AmplifyShaderEditor.GetLocalVarNode;2582;-1584,-400;Inherit;False;1002;normalMap;1;0;OBJECT;;False;1;FLOAT3;0
 Node;AmplifyShaderEditor.GetLocalVarNode;2583;-1616,-336;Inherit;False;755;_Smoothness;1;0;OBJECT;;False;1;FLOAT;0
-Node;AmplifyShaderEditor.RangedFloatNode;1497;-1616,-208;Inherit;False;Property;_WrapMetallicFesnelScale;Metallic Fesnel Scale;9;0;Create;False;0;0;0;False;0;False;1;1;0;0;0;1;FLOAT;0
 Node;AmplifyShaderEditor.GetLocalVarNode;2584;-1584,-272;Inherit;False;753;_Metalic;1;0;OBJECT;;False;1;FLOAT;0
 Node;AmplifyShaderEditor.RangedFloatNode;2291;-1616,-528;Inherit;False;Property;_WrapIndirScale;Indirect Light Scale;7;0;Create;False;0;0;0;False;0;False;3;3;0;0;0;1;FLOAT;0
 Node;AmplifyShaderEditor.FractNode;49;1872,-3040;Inherit;False;1;0;FLOAT;0;False;1;FLOAT;0
 Node;AmplifyShaderEditor.RoundOpNode;985;800,-3184;Inherit;False;1;0;FLOAT;0;False;1;FLOAT;0
 Node;AmplifyShaderEditor.SamplerNode;40;80,-2608;Inherit;True;Property;_AL_Mask;AudioLink Mask;16;0;Create;False;0;0;0;False;0;False;-1;None;2414abd24fe758f428a48c511a3c37d3;True;0;False;black;Auto;False;Object;-1;Auto;Texture2D;8;0;SAMPLER2D;;False;1;FLOAT2;0,0;False;2;FLOAT;0;False;3;FLOAT2;0,0;False;4;FLOAT2;0,0;False;5;FLOAT;1;False;6;FLOAT;0;False;7;SAMPLERSTATE;;False;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
-Node;AmplifyShaderEditor.FunctionNode;2634;-1328,-640;Inherit;True;VivikaShading;-1;;944;efce34b3f4a0e2b44933c4737d48061f;0;13;4;FLOAT;0;False;5;FLOAT;0;False;6;FLOAT;0;False;7;FLOAT;0;False;8;FLOAT;3;False;9;FLOAT;0;False;10;FLOAT;0;False;11;FLOAT3;0,0,0;False;12;FLOAT;0;False;13;FLOAT;0;False;16;FLOAT;0;False;17;FLOAT;0;False;18;COLOR;0,0,0,0;False;2;FLOAT3;32;COLOR;0
+Node;AmplifyShaderEditor.FunctionNode;2634;-1328,-640;Inherit;True;VivikaShading;-1;;944;efce34b3f4a0e2b44933c4737d48061f;0;11;4;FLOAT;0;False;5;FLOAT;0;False;6;FLOAT;0;False;7;FLOAT;0;False;8;FLOAT;3;False;9;FLOAT;0;False;10;FLOAT;0;False;11;FLOAT3;0,0,0;False;12;FLOAT;0;False;13;FLOAT;0;False;18;COLOR;0,0,0,0;False;2;FLOAT3;32;COLOR;0
 Node;AmplifyShaderEditor.CommentaryNode;1;32,-1120;Inherit;False;1041.734;585.5447;Comment;9;116;2620;2621;333;2505;1404;12;87;113;Rim;1,1,1,1;0;0
 Node;AmplifyShaderEditor.CommentaryNode;117;16,-2288;Inherit;False;907.3133;529.2772;Comment;5;1005;119;121;118;120;Emission;1,1,1,1;0;0
 Node;AmplifyShaderEditor.CommentaryNode;107;-1328,-2656;Inherit;False;1185.214;1096.479;Comment;11;85;2616;42;44;43;45;415;2614;995;51;75;AudioLink Emission;1,1,1,1;0;0
@@ -692,6 +681,8 @@ Node;AmplifyShaderEditor.RegisterLocalVarNode;29;592,-1536;Inherit;False;Emissio
 Node;AmplifyShaderEditor.CommentaryNode;2669;3312,-4256;Inherit;False;356;883;Comment;10;2679;2678;2677;2676;2675;2674;2673;2672;2671;2670;DPS Settings;1,1,1,1;0;0
 Node;AmplifyShaderEditor.RegisterLocalVarNode;2691;3680,-3024;Inherit;False;dps normal;-1;True;1;0;FLOAT3;0,0,0;False;1;FLOAT3;0
 Node;AmplifyShaderEditor.RegisterLocalVarNode;2690;3680,-3120;Inherit;False;dps position;-1;True;1;0;FLOAT4;0,0,0,0;False;1;FLOAT4;0
+Node;AmplifyShaderEditor.RangedFloatNode;2567;-1648,-144;Inherit;False;Property;_MetallicFresnelPower;Metallic Fresnel Power;10;0;Create;True;0;0;0;False;0;False;3;3;0;0;0;1;FLOAT;0
+Node;AmplifyShaderEditor.RangedFloatNode;1497;-1616,-208;Inherit;False;Property;_WrapMetallicFesnelScale;Metallic Fesnel Scale;9;0;Create;False;0;0;0;False;0;False;1;1;0;0;0;1;FLOAT;0
 Node;AmplifyShaderEditor.RangedFloatNode;2313;-2016,-2400;Inherit;False;Property;_DiscardUVMap;Discard UV Map;27;2;[Header];[Enum];Create;True;1;UV Tile Discarding;4;UV0;0;UV1;1;UV2;2;UV3;3;0;True;0;False;1;1;0;0;0;1;FLOAT;0
 Node;AmplifyShaderEditor.FunctionNode;2626;-1840,-2400;Inherit;False;VVGetVertexUV;-1;;1030;b2c6b9b1b245cf54ca03e50557eebb87;0;1;26;FLOAT;0;False;1;FLOAT2;0
 Node;AmplifyShaderEditor.RegisterLocalVarNode;200;-1632,-2400;Inherit;False;DiscardUV;-1;True;1;0;FLOAT2;0,0;False;1;FLOAT2;0
@@ -748,8 +739,6 @@ WireConnection;2634;10;2375;0
 WireConnection;2634;11;2582;0
 WireConnection;2634;12;2583;0
 WireConnection;2634;13;2584;0
-WireConnection;2634;16;1497;0
-WireConnection;2634;17;2567;0
 WireConnection;2634;18;2589;0
 WireConnection;991;0;985;0
 WireConnection;50;0;49;0
@@ -797,4 +786,4 @@ WireConnection;0;13;332;0
 WireConnection;0;11;2692;0
 WireConnection;0;12;2693;0
 ASEEND*/
-//CHKSM=388AAEBAC68C0F6443F88A8DD3CB68829D6B94E8
+//CHKSM=CAC2BEC64E76FE67CDA618E9348993CCCCBCF452

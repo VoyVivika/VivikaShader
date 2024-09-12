@@ -86,7 +86,6 @@ Shader "VoyVivika/VivikaShader/Vivika Shader Opaque"
 			float3 worldPos;
 			float3 worldNormal;
 			INTERNAL_DATA
-			float3 worldRefl;
 		};
 
 		struct SurfaceOutputCustomLightingCustom
@@ -395,7 +394,7 @@ Shader "VoyVivika/VivikaShader/Vivika Shader Opaque"
 			float temp_output_9_0_g891 = _RealAO;
 			float4 lerpResult5_g891 = lerp( color8_g891 , temp_output_3_0_g891 , temp_output_9_0_g891);
 			float4 mainTex26 = ( tex2D( _MainTex, uv_MainTex ) * lerpResult5_g891 * _Color );
-			float3 indirectNormal4_g1145 = normalize( WorldNormalVector( i , normalize( WorldReflectionVector( i , temp_output_11_0_g1139 ) ) ) );
+			float3 indirectNormal4_g1145 = normalize( WorldNormalVector( i , temp_output_11_0_g1139 ) );
 			float2 uv_MetallicGlossMap = i.uv_texcoord * _MetallicGlossMap_ST.xy + _MetallicGlossMap_ST.zw;
 			float4 tex2DNode1017 = tex2D( _MetallicGlossMap, uv_MetallicGlossMap );
 			float _Smoothness755 = tex2DNode1017.a;
@@ -618,7 +617,6 @@ Shader "VoyVivika/VivikaShader/Vivika Shader Opaque"
 				half3 worldViewDir = normalize( UnityWorldSpaceViewDir( worldPos ) );
 				surfIN.worldPos = worldPos;
 				surfIN.worldNormal = float3( IN.tSpace0.z, IN.tSpace1.z, IN.tSpace2.z );
-				surfIN.worldRefl = -worldViewDir;
 				surfIN.internalSurfaceTtoW0 = IN.tSpace0.xyz;
 				surfIN.internalSurfaceTtoW1 = IN.tSpace1.xyz;
 				surfIN.internalSurfaceTtoW2 = IN.tSpace2.xyz;
@@ -856,4 +854,4 @@ WireConnection;0;2;32;0
 WireConnection;0;13;332;0
 WireConnection;0;11;193;0
 ASEEND*/
-//CHKSM=AD39C1EFA4231AF2860F7008B3D4CF866E6B53C3
+//CHKSM=EA43A15289B0E2F20354C6AF8B398FA4FE730C31

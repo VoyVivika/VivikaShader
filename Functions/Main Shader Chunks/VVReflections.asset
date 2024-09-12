@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: VVReflections
   m_EditorClassIdentifier: 
   m_functionInfo: "// Made with Amplify Shader Editor v1.9.3.3\n// Available at the
-    Unity Asset Store - http://u3d.as/y3X \n/*ASEBEGIN\nVersion=19303\nNode;AmplifyShaderEditor.FunctionInput;5;-672,32;Inherit;False;Smoothness;1;2;False;1;0;FLOAT;0;False;1;FLOAT;0\nNode;AmplifyShaderEditor.FunctionInput;1;-992,48;Inherit;False;Normal
-    Map;3;0;False;1;0;FLOAT3;0,0,0;False;1;FLOAT3;0\nNode;AmplifyShaderEditor.IndirectSpecularLight;4;-480,-32;Inherit;False;Tangent;3;0;FLOAT3;0,0,1;False;1;FLOAT;0.5;False;2;FLOAT;1;False;1;FLOAT3;0\nNode;AmplifyShaderEditor.WorldReflectionVector;2;-704,-112;Inherit;False;True;1;0;FLOAT3;0,0,0;False;4;FLOAT3;0;FLOAT;1;FLOAT;2;FLOAT;3\nNode;AmplifyShaderEditor.FunctionInput;3;-240,-32;Inherit;False;Indirect
+    Unity Asset Store - http://u3d.as/y3X \n/*ASEBEGIN\nVersion=19303\nNode;AmplifyShaderEditor.FunctionInput;5;-672,32;Inherit;False;Smoothness;1;2;False;1;0;FLOAT;0;False;1;FLOAT;0\nNode;AmplifyShaderEditor.FunctionInput;3;-240,-32;Inherit;False;Indirect
     Specular Light;3;1;False;1;0;FLOAT3;0,0,0;False;1;FLOAT3;0\nNode;AmplifyShaderEditor.LerpOp;21;480,-144;Inherit;False;3;0;COLOR;0,0,0,0;False;1;COLOR;0,0,0,0;False;2;FLOAT;0;False;1;COLOR;0\nNode;AmplifyShaderEditor.FunctionInput;17;48,-128;Inherit;False;Main
     Tex;5;4;False;1;0;COLOR;0,0,0,0;False;1;COLOR;0\nNode;AmplifyShaderEditor.FunctionInput;10;240,32;Inherit;False;Metallic;1;3;False;1;0;FLOAT;0;False;1;FLOAT;0\nNode;AmplifyShaderEditor.RangedFloatNode;18;96,32;Inherit;False;Constant;_Float2;Float
-    2;0;0;Create;True;0;0;0;False;0;False;0.4;0;0;0;0;1;FLOAT;0\nNode;AmplifyShaderEditor.FunctionOutput;0;848,-16;Inherit;True;True;-1;Output;0;False;1;0;COLOR;0,0,0,0;False;1;COLOR;0\nWireConnection;4;0;2;0\nWireConnection;4;1;5;0\nWireConnection;2;0;1;0\nWireConnection;3;0;4;0\nWireConnection;21;0;17;0\nWireConnection;21;1;3;0\nWireConnection;21;2;10;0\nWireConnection;10;0;18;0\nWireConnection;0;0;21;0\nASEEND*/\n//CHKSM=7592AC2221FC50C8F6CFD570BD526A211A45A7EA"
+    2;0;0;Create;True;0;0;0;False;0;False;0.4;0;0;0;0;1;FLOAT;0\nNode;AmplifyShaderEditor.IndirectSpecularLight;4;-480,-32;Inherit;False;Tangent;3;0;FLOAT3;0,0,1;False;1;FLOAT;0.5;False;2;FLOAT;1;False;1;FLOAT3;0\nNode;AmplifyShaderEditor.FunctionInput;1;-672,-48;Inherit;False;Normal
+    Map;3;0;False;1;0;FLOAT3;0,0,0;False;1;FLOAT3;0\nNode;AmplifyShaderEditor.FunctionOutput;0;848,-16;Inherit;True;True;-1;Output;0;False;1;0;COLOR;0,0,0,0;False;1;COLOR;0\nWireConnection;3;0;4;0\nWireConnection;21;0;17;0\nWireConnection;21;1;3;0\nWireConnection;21;2;10;0\nWireConnection;10;0;18;0\nWireConnection;4;0;1;0\nWireConnection;4;1;5;0\nWireConnection;0;0;21;0\nASEEND*/\n//CHKSM=3D811494F0209245D5BE587E04619BECE88A903E"
   m_functionName: 
   m_description: 
   m_additionalIncludes:
