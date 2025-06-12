@@ -11,14 +11,18 @@ Shader "VoyVivika/VivikaShader/Vivika Shader Opaque"
 		_Emission( "Emission", 2D ) = "black" {}
 		_EmissionColor( "Emission Color", Color ) = ( 0, 0, 0, 0 )
 		_MinBrightness( "Min Brightness", Range( 0, 1 ) ) = 0
-		_IndirectDiffuseOffset( "Indirect Light Min", Range( 0, 1 ) ) = 0
+		_IndirectDiffuseOffset( "Indirect Light Min", Range( 0, 1 ) ) = 1
 		_IndirectDiffuseOffsetMax( "Indirect Light Max", Range( 0, 1 ) ) = 0
 		[ToggleUI] _IndirLightUseMinforMax( "Use Min for Max", Float ) = 1
+		[ToggleUI] _ClampRealtimeLighting( "Relative Clamp Realtime Lighting", Float ) = 0
+		_RealtimeLightMax( "Relative Real Light Max", Range( 0, 1 ) ) = 0
+		_RealtimeLightMin( "Relative Real Light Min", Range( 0, 1 ) ) = 0
 		[Enum(Clamp,0,Remap,1)] _IndirectLimiterMode( "Indirect Limiter Mode", Float ) = 0
 		_WrappedShadingValue( "Wrapped Shading Value", Float ) = 1
 		_WrapIndirScale( "Indirect Light Scale", Float ) = 3
 		[SingleLineTexture] _MetallicGlossMap( "Metallic Smoothness", 2D ) = "black" {}
 		[Enum(Alpha,0,Green,1)] _SmoothnessChannel( "Smoothness Channel", Float ) = 0
+		[ToggleUI] _MetallicReflectionMode( "Fresnel Metallics (Experimental)", Float ) = 0
 		_AmbientOcclusion( "Ambient Occlusion", 2D ) = "white" {}
 		_AOStrength( "AO Strength", Range( 0, 1 ) ) = 1
 		[ToggleUI] _RealAO( "Real AO", Float ) = 0
@@ -159,12 +163,16 @@ Shader "VoyVivika/VivikaShader/Vivika Shader Opaque"
 		uniform float _IndirectDiffuseOffset;
 		uniform float _IndirLightUseMinforMax;
 		uniform float _WrappedShadingValue;
+		uniform float _RealtimeLightMin;
+		uniform float _RealtimeLightMax;
+		uniform float _ClampRealtimeLighting;
 		uniform float _IndirectLimiterMode;
 		uniform float _WrapIndirScale;
 		uniform float _MinBrightness;
 		uniform sampler2D _MetallicGlossMap;
 		uniform float4 _MetallicGlossMap_ST;
 		uniform float _SmoothnessChannel;
+		uniform float _MetallicReflectionMode;
 
 
 		float3 HSVToRGB( float3 c )
@@ -185,13 +193,13 @@ Shader "VoyVivika/VivikaShader/Vivika Shader Opaque"
 			return float3( abs(q.z + (q.w - q.y) / (6.0 * d + e)), d / (q.x + e), q.x);
 		}
 
-		inline float AudioLinkData3_g1344( int Band, int Delay )
+		inline float AudioLinkData3_g1487( int Band, int Delay )
 		{
 			return AudioLinkData( ALPASS_AUDIOLINK + uint2( Delay, Band ) ).rrrr;
 		}
 
 
-		float IfAudioLinkv2Exists1_g1346(  )
+		float IfAudioLinkv2Exists1_g1489(  )
 		{
 			int w = 0; 
 			int h; 
@@ -204,13 +212,13 @@ Shader "VoyVivika/VivikaShader/Vivika Shader Opaque"
 		}
 
 
-		inline float AudioLinkData3_g1329( int Band, int Delay )
+		inline float AudioLinkData3_g1471( int Band, int Delay )
 		{
 			return AudioLinkData( ALPASS_AUDIOLINK + uint2( Delay, Band ) ).rrrr;
 		}
 
 
-		float IfAudioLinkv2Exists1_g1331(  )
+		float IfAudioLinkv2Exists1_g1473(  )
 		{
 			int w = 0; 
 			int h; 
@@ -223,13 +231,13 @@ Shader "VoyVivika/VivikaShader/Vivika Shader Opaque"
 		}
 
 
-		inline float AudioLinkData3_g1334( int Band, int Delay )
+		inline float AudioLinkData3_g1476( int Band, int Delay )
 		{
 			return AudioLinkData( ALPASS_AUDIOLINK + uint2( Delay, Band ) ).rrrr;
 		}
 
 
-		float IfAudioLinkv2Exists1_g1336(  )
+		float IfAudioLinkv2Exists1_g1478(  )
 		{
 			int w = 0; 
 			int h; 
@@ -242,13 +250,13 @@ Shader "VoyVivika/VivikaShader/Vivika Shader Opaque"
 		}
 
 
-		inline float AudioLinkData3_g1339( int Band, int Delay )
+		inline float AudioLinkData3_g1481( int Band, int Delay )
 		{
 			return AudioLinkData( ALPASS_AUDIOLINK + uint2( Delay, Band ) ).rrrr;
 		}
 
 
-		float IfAudioLinkv2Exists1_g1341(  )
+		float IfAudioLinkv2Exists1_g1483(  )
 		{
 			int w = 0; 
 			int h; 
@@ -261,7 +269,7 @@ Shader "VoyVivika/VivikaShader/Vivika Shader Opaque"
 		}
 
 
-		float IfAudioLinkv2Exists1_g1347(  )
+		float IfAudioLinkv2Exists1_g1484(  )
 		{
 			int w = 0; 
 			int h; 
@@ -274,7 +282,7 @@ Shader "VoyVivika/VivikaShader/Vivika Shader Opaque"
 		}
 
 
-		float3 ShadeSH97_g1306( float4 Normal )
+		float3 ShadeSH97_g1443( float4 Normal )
 		{
 			return ShadeSH9(Normal);
 		}
@@ -283,7 +291,7 @@ Shader "VoyVivika/VivikaShader/Vivika Shader Opaque"
 		void vertexDataFunc( inout appdata_full v, out Input o )
 		{
 			UNITY_INITIALIZE_OUTPUT( Input, o );
-			float2 break63_g1321 = floor( float2( 0,0 ) );
+			float2 break63_g1459 = floor( float2( 0,0 ) );
 			float temp_output_8_0_g1225 = 0.0;
 			float temp_output_26_0_g1221 = _DiscardUVMap;
 			float temp_output_7_0_g1225 = temp_output_26_0_g1221;
@@ -298,39 +306,39 @@ Shader "VoyVivika/VivikaShader/Vivika Shader Opaque"
 			float temp_output_7_0_g1224 = temp_output_26_0_g1221;
 			float2 lerpResult6_g1224 = lerp( float2( 0,0 ) , v.texcoord3.xy , ( step( temp_output_8_0_g1224 , temp_output_7_0_g1224 ) * step( temp_output_7_0_g1224 , temp_output_8_0_g1224 ) ));
 			float2 DiscardUV200 = ( lerpResult6_g1225 + lerpResult6_g1222 + lerpResult6_g1223 + lerpResult6_g1224 );
-			float2 temp_output_99_0_g1308 = DiscardUV200;
-			float2 break61_g1321 = temp_output_99_0_g1308;
-			float2 break63_g1323 = floor( float2( 0,1 ) );
-			float2 break61_g1323 = temp_output_99_0_g1308;
-			float2 break63_g1320 = floor( float2( 0,2 ) );
-			float2 break61_g1320 = temp_output_99_0_g1308;
-			float2 break63_g1324 = floor( float2( 0,3 ) );
-			float2 break61_g1324 = temp_output_99_0_g1308;
-			float2 break63_g1322 = floor( float2( 1,0 ) );
-			float2 break61_g1322 = temp_output_99_0_g1308;
-			float2 break63_g1317 = floor( float2( 1,1 ) );
-			float2 break61_g1317 = temp_output_99_0_g1308;
-			float2 break63_g1318 = floor( float2( 1,2 ) );
-			float2 break61_g1318 = temp_output_99_0_g1308;
-			float2 break63_g1319 = floor( float2( 1,3 ) );
-			float2 break61_g1319 = temp_output_99_0_g1308;
-			float2 break63_g1316 = floor( float2( 2,0 ) );
-			float2 break61_g1316 = temp_output_99_0_g1308;
-			float2 break63_g1315 = floor( float2( 2,1 ) );
-			float2 break61_g1315 = temp_output_99_0_g1308;
-			float2 break63_g1314 = floor( float2( 2,2 ) );
-			float2 break61_g1314 = temp_output_99_0_g1308;
-			float2 break63_g1313 = floor( float2( 2,3 ) );
-			float2 break61_g1313 = temp_output_99_0_g1308;
-			float2 break63_g1309 = floor( float2( 3,0 ) );
-			float2 break61_g1309 = temp_output_99_0_g1308;
-			float2 break63_g1310 = floor( float2( 3,1 ) );
-			float2 break61_g1310 = temp_output_99_0_g1308;
-			float2 break63_g1311 = floor( float2( 3,2 ) );
-			float2 break61_g1311 = temp_output_99_0_g1308;
-			float2 break63_g1312 = floor( float2( 3,3 ) );
-			float2 break61_g1312 = temp_output_99_0_g1308;
-			float UVTileDiscard192 = step( 1.0 , ( ( ( saturate( _UDIMDiscardRow0_0 ) * saturate( ( step( break63_g1321.x , break61_g1321.x ) * step( break61_g1321.x , ( break63_g1321.x + 0.9999999 ) ) * step( break63_g1321.y , break61_g1321.y ) * step( break61_g1321.y , ( break63_g1321.y + 0.9999999 ) ) ) ) ) + ( saturate( _UDIMDiscardRow0_1 ) * saturate( ( step( break63_g1323.x , break61_g1323.x ) * step( break61_g1323.x , ( break63_g1323.x + 0.9999999 ) ) * step( break63_g1323.y , break61_g1323.y ) * step( break61_g1323.y , ( break63_g1323.y + 0.9999999 ) ) ) ) ) + ( saturate( _UDIMDiscardRow0_2 ) * saturate( ( step( break63_g1320.x , break61_g1320.x ) * step( break61_g1320.x , ( break63_g1320.x + 0.9999999 ) ) * step( break63_g1320.y , break61_g1320.y ) * step( break61_g1320.y , ( break63_g1320.y + 0.9999999 ) ) ) ) ) + ( saturate( _UDIMDiscardRow0_3 ) * saturate( ( step( break63_g1324.x , break61_g1324.x ) * step( break61_g1324.x , ( break63_g1324.x + 0.9999999 ) ) * step( break63_g1324.y , break61_g1324.y ) * step( break61_g1324.y , ( break63_g1324.y + 0.9999999 ) ) ) ) ) ) + ( ( saturate( _UDIMDiscardRow1_0 ) * saturate( ( step( break63_g1322.x , break61_g1322.x ) * step( break61_g1322.x , ( break63_g1322.x + 0.9999999 ) ) * step( break63_g1322.y , break61_g1322.y ) * step( break61_g1322.y , ( break63_g1322.y + 0.9999999 ) ) ) ) ) + ( saturate( _UDIMDiscardRow1_1 ) * saturate( ( step( break63_g1317.x , break61_g1317.x ) * step( break61_g1317.x , ( break63_g1317.x + 0.9999999 ) ) * step( break63_g1317.y , break61_g1317.y ) * step( break61_g1317.y , ( break63_g1317.y + 0.9999999 ) ) ) ) ) + ( saturate( _UDIMDiscardRow1_2 ) * saturate( ( step( break63_g1318.x , break61_g1318.x ) * step( break61_g1318.x , ( break63_g1318.x + 0.9999999 ) ) * step( break63_g1318.y , break61_g1318.y ) * step( break61_g1318.y , ( break63_g1318.y + 0.9999999 ) ) ) ) ) + ( saturate( _UDIMDiscardRow1_3 ) * saturate( ( step( break63_g1319.x , break61_g1319.x ) * step( break61_g1319.x , ( break63_g1319.x + 0.9999999 ) ) * step( break63_g1319.y , break61_g1319.y ) * step( break61_g1319.y , ( break63_g1319.y + 0.9999999 ) ) ) ) ) ) + ( ( saturate( _UDIMDiscardRow2_0 ) * saturate( ( step( break63_g1316.x , break61_g1316.x ) * step( break61_g1316.x , ( break63_g1316.x + 0.9999999 ) ) * step( break63_g1316.y , break61_g1316.y ) * step( break61_g1316.y , ( break63_g1316.y + 0.9999999 ) ) ) ) ) + ( saturate( _UDIMDiscardRow2_1 ) * saturate( ( step( break63_g1315.x , break61_g1315.x ) * step( break61_g1315.x , ( break63_g1315.x + 0.9999999 ) ) * step( break63_g1315.y , break61_g1315.y ) * step( break61_g1315.y , ( break63_g1315.y + 0.9999999 ) ) ) ) ) + ( saturate( _UDIMDiscardRow2_2 ) * saturate( ( step( break63_g1314.x , break61_g1314.x ) * step( break61_g1314.x , ( break63_g1314.x + 0.9999999 ) ) * step( break63_g1314.y , break61_g1314.y ) * step( break61_g1314.y , ( break63_g1314.y + 0.9999999 ) ) ) ) ) + ( saturate( _UDIMDiscardRow2_3 ) * saturate( ( step( break63_g1313.x , break61_g1313.x ) * step( break61_g1313.x , ( break63_g1313.x + 0.9999999 ) ) * step( break63_g1313.y , break61_g1313.y ) * step( break61_g1313.y , ( break63_g1313.y + 0.9999999 ) ) ) ) ) ) + ( ( saturate( _UDIMDiscardRow3_0 ) * saturate( ( step( break63_g1309.x , break61_g1309.x ) * step( break61_g1309.x , ( break63_g1309.x + 0.9999999 ) ) * step( break63_g1309.y , break61_g1309.y ) * step( break61_g1309.y , ( break63_g1309.y + 0.9999999 ) ) ) ) ) + ( saturate( _UDIMDiscardRow3_1 ) * saturate( ( step( break63_g1310.x , break61_g1310.x ) * step( break61_g1310.x , ( break63_g1310.x + 0.9999999 ) ) * step( break63_g1310.y , break61_g1310.y ) * step( break61_g1310.y , ( break63_g1310.y + 0.9999999 ) ) ) ) ) + ( saturate( _UDIMDiscardRow3_2 ) * saturate( ( step( break63_g1311.x , break61_g1311.x ) * step( break61_g1311.x , ( break63_g1311.x + 0.9999999 ) ) * step( break63_g1311.y , break61_g1311.y ) * step( break61_g1311.y , ( break63_g1311.y + 0.9999999 ) ) ) ) ) + ( saturate( _UDIMDiscardRow3_3 ) * saturate( ( step( break63_g1312.x , break61_g1312.x ) * step( break61_g1312.x , ( break63_g1312.x + 0.9999999 ) ) * step( break63_g1312.y , break61_g1312.y ) * step( break61_g1312.y , ( break63_g1312.y + 0.9999999 ) ) ) ) ) ) ) );
+			float2 temp_output_99_0_g1446 = DiscardUV200;
+			float2 break61_g1459 = temp_output_99_0_g1446;
+			float2 break63_g1461 = floor( float2( 0,1 ) );
+			float2 break61_g1461 = temp_output_99_0_g1446;
+			float2 break63_g1458 = floor( float2( 0,2 ) );
+			float2 break61_g1458 = temp_output_99_0_g1446;
+			float2 break63_g1462 = floor( float2( 0,3 ) );
+			float2 break61_g1462 = temp_output_99_0_g1446;
+			float2 break63_g1460 = floor( float2( 1,0 ) );
+			float2 break61_g1460 = temp_output_99_0_g1446;
+			float2 break63_g1455 = floor( float2( 1,1 ) );
+			float2 break61_g1455 = temp_output_99_0_g1446;
+			float2 break63_g1456 = floor( float2( 1,2 ) );
+			float2 break61_g1456 = temp_output_99_0_g1446;
+			float2 break63_g1457 = floor( float2( 1,3 ) );
+			float2 break61_g1457 = temp_output_99_0_g1446;
+			float2 break63_g1454 = floor( float2( 2,0 ) );
+			float2 break61_g1454 = temp_output_99_0_g1446;
+			float2 break63_g1453 = floor( float2( 2,1 ) );
+			float2 break61_g1453 = temp_output_99_0_g1446;
+			float2 break63_g1452 = floor( float2( 2,2 ) );
+			float2 break61_g1452 = temp_output_99_0_g1446;
+			float2 break63_g1451 = floor( float2( 2,3 ) );
+			float2 break61_g1451 = temp_output_99_0_g1446;
+			float2 break63_g1447 = floor( float2( 3,0 ) );
+			float2 break61_g1447 = temp_output_99_0_g1446;
+			float2 break63_g1448 = floor( float2( 3,1 ) );
+			float2 break61_g1448 = temp_output_99_0_g1446;
+			float2 break63_g1449 = floor( float2( 3,2 ) );
+			float2 break61_g1449 = temp_output_99_0_g1446;
+			float2 break63_g1450 = floor( float2( 3,3 ) );
+			float2 break61_g1450 = temp_output_99_0_g1446;
+			float UVTileDiscard192 = step( 1.0 , ( ( ( saturate( _UDIMDiscardRow0_0 ) * saturate( ( step( break63_g1459.x , break61_g1459.x ) * step( break61_g1459.x , ( break63_g1459.x + 0.9999999 ) ) * step( break63_g1459.y , break61_g1459.y ) * step( break61_g1459.y , ( break63_g1459.y + 0.9999999 ) ) ) ) ) + ( saturate( _UDIMDiscardRow0_1 ) * saturate( ( step( break63_g1461.x , break61_g1461.x ) * step( break61_g1461.x , ( break63_g1461.x + 0.9999999 ) ) * step( break63_g1461.y , break61_g1461.y ) * step( break61_g1461.y , ( break63_g1461.y + 0.9999999 ) ) ) ) ) + ( saturate( _UDIMDiscardRow0_2 ) * saturate( ( step( break63_g1458.x , break61_g1458.x ) * step( break61_g1458.x , ( break63_g1458.x + 0.9999999 ) ) * step( break63_g1458.y , break61_g1458.y ) * step( break61_g1458.y , ( break63_g1458.y + 0.9999999 ) ) ) ) ) + ( saturate( _UDIMDiscardRow0_3 ) * saturate( ( step( break63_g1462.x , break61_g1462.x ) * step( break61_g1462.x , ( break63_g1462.x + 0.9999999 ) ) * step( break63_g1462.y , break61_g1462.y ) * step( break61_g1462.y , ( break63_g1462.y + 0.9999999 ) ) ) ) ) ) + ( ( saturate( _UDIMDiscardRow1_0 ) * saturate( ( step( break63_g1460.x , break61_g1460.x ) * step( break61_g1460.x , ( break63_g1460.x + 0.9999999 ) ) * step( break63_g1460.y , break61_g1460.y ) * step( break61_g1460.y , ( break63_g1460.y + 0.9999999 ) ) ) ) ) + ( saturate( _UDIMDiscardRow1_1 ) * saturate( ( step( break63_g1455.x , break61_g1455.x ) * step( break61_g1455.x , ( break63_g1455.x + 0.9999999 ) ) * step( break63_g1455.y , break61_g1455.y ) * step( break61_g1455.y , ( break63_g1455.y + 0.9999999 ) ) ) ) ) + ( saturate( _UDIMDiscardRow1_2 ) * saturate( ( step( break63_g1456.x , break61_g1456.x ) * step( break61_g1456.x , ( break63_g1456.x + 0.9999999 ) ) * step( break63_g1456.y , break61_g1456.y ) * step( break61_g1456.y , ( break63_g1456.y + 0.9999999 ) ) ) ) ) + ( saturate( _UDIMDiscardRow1_3 ) * saturate( ( step( break63_g1457.x , break61_g1457.x ) * step( break61_g1457.x , ( break63_g1457.x + 0.9999999 ) ) * step( break63_g1457.y , break61_g1457.y ) * step( break61_g1457.y , ( break63_g1457.y + 0.9999999 ) ) ) ) ) ) + ( ( saturate( _UDIMDiscardRow2_0 ) * saturate( ( step( break63_g1454.x , break61_g1454.x ) * step( break61_g1454.x , ( break63_g1454.x + 0.9999999 ) ) * step( break63_g1454.y , break61_g1454.y ) * step( break61_g1454.y , ( break63_g1454.y + 0.9999999 ) ) ) ) ) + ( saturate( _UDIMDiscardRow2_1 ) * saturate( ( step( break63_g1453.x , break61_g1453.x ) * step( break61_g1453.x , ( break63_g1453.x + 0.9999999 ) ) * step( break63_g1453.y , break61_g1453.y ) * step( break61_g1453.y , ( break63_g1453.y + 0.9999999 ) ) ) ) ) + ( saturate( _UDIMDiscardRow2_2 ) * saturate( ( step( break63_g1452.x , break61_g1452.x ) * step( break61_g1452.x , ( break63_g1452.x + 0.9999999 ) ) * step( break63_g1452.y , break61_g1452.y ) * step( break61_g1452.y , ( break63_g1452.y + 0.9999999 ) ) ) ) ) + ( saturate( _UDIMDiscardRow2_3 ) * saturate( ( step( break63_g1451.x , break61_g1451.x ) * step( break61_g1451.x , ( break63_g1451.x + 0.9999999 ) ) * step( break63_g1451.y , break61_g1451.y ) * step( break61_g1451.y , ( break63_g1451.y + 0.9999999 ) ) ) ) ) ) + ( ( saturate( _UDIMDiscardRow3_0 ) * saturate( ( step( break63_g1447.x , break61_g1447.x ) * step( break61_g1447.x , ( break63_g1447.x + 0.9999999 ) ) * step( break63_g1447.y , break61_g1447.y ) * step( break61_g1447.y , ( break63_g1447.y + 0.9999999 ) ) ) ) ) + ( saturate( _UDIMDiscardRow3_1 ) * saturate( ( step( break63_g1448.x , break61_g1448.x ) * step( break61_g1448.x , ( break63_g1448.x + 0.9999999 ) ) * step( break63_g1448.y , break61_g1448.y ) * step( break61_g1448.y , ( break63_g1448.y + 0.9999999 ) ) ) ) ) + ( saturate( _UDIMDiscardRow3_2 ) * saturate( ( step( break63_g1449.x , break61_g1449.x ) * step( break61_g1449.x , ( break63_g1449.x + 0.9999999 ) ) * step( break63_g1449.y , break61_g1449.y ) * step( break61_g1449.y , ( break63_g1449.y + 0.9999999 ) ) ) ) ) + ( saturate( _UDIMDiscardRow3_3 ) * saturate( ( step( break63_g1450.x , break61_g1450.x ) * step( break61_g1450.x , ( break63_g1450.x + 0.9999999 ) ) * step( break63_g1450.y , break61_g1450.y ) * step( break61_g1450.y , ( break63_g1450.y + 0.9999999 ) ) ) ) ) ) ) );
 			float vrc_camera2672 = _VRChatCameraMode;
 			float temp_output_8_0_g1260 = 1.0;
 			float cvr_camera2670 = CVRRenderingCam;
@@ -377,41 +385,46 @@ Shader "VoyVivika/VivikaShader/Vivika Shader Opaque"
 			#endif //aseld
 			float2 uv_BumpMap = i.uv_texcoord * _BumpMap_ST.xy + _BumpMap_ST.zw;
 			float3 normalMap1002 = UnpackNormal( tex2D( _BumpMap, uv_BumpMap ) );
-			float3 temp_output_11_0_g1301 = normalMap1002;
-			float3 temp_output_2_0_g1303 = temp_output_11_0_g1301;
-			float dotResult3_g1305 = dot( ase_lightDirWS , (WorldNormalVector( i , temp_output_2_0_g1303 )) );
-			float temp_output_5_0_g1304 = _WrappedShadingValue;
-			float temp_output_15_0_g1303 = saturate( ase_lightAtten );
-			float4 color16_g1303 = IsGammaSpace() ? float4( 0, 0, 0, 0 ) : float4( 0, 0, 0, 0 );
+			float3 temp_output_11_0_g1439 = normalMap1002;
+			float3 temp_output_2_0_g1440 = temp_output_11_0_g1439;
+			float dotResult3_g1442 = dot( ase_lightDirWS , (WorldNormalVector( i , temp_output_2_0_g1440 )) );
+			float temp_output_5_0_g1441 = _WrappedShadingValue;
+			float temp_output_15_0_g1440 = saturate( saturate( ase_lightAtten ) );
 			#if defined(LIGHTMAP_ON) && ( UNITY_VERSION < 560 || ( defined(LIGHTMAP_SHADOW_MIXING) && !defined(SHADOWS_SHADOWMASK) && defined(SHADOWS_SCREEN) ) )//aselc
 			float4 ase_lightColor = 0;
 			#else //aselc
 			float4 ase_lightColor = _LightColor0;
 			#endif //aselc
-			float4 lerpResult17_g1303 = lerp( color16_g1303 , ase_lightColor , temp_output_15_0_g1303);
-			float3 temp_output_1_0_g1306 = temp_output_2_0_g1303;
-			UnityGI gi2_g1306 = gi;
-			float3 diffNorm2_g1306 = normalize( WorldNormalVector( i , temp_output_1_0_g1306 ) );
-			gi2_g1306 = UnityGI_Base( data, 1, diffNorm2_g1306 );
-			float3 indirectDiffuse2_g1306 = gi2_g1306.indirect.diffuse + diffNorm2_g1306 * 0.0001;
-			float3 temp_output_34_0_g1306 = saturate( indirectDiffuse2_g1306 );
-			float4 appendResult6_g1306 = (float4(( temp_output_1_0_g1306 * 0.3 ) , 1.0));
-			float4 Normal7_g1306 = appendResult6_g1306;
-			float3 localShadeSH97_g1306 = ShadeSH97_g1306( Normal7_g1306 );
-			float temp_output_9_0_g1306 = _IndirectDiffuseOffset;
-			float3 temp_cast_17 = (temp_output_9_0_g1306).xxx;
-			float3 temp_output_15_0_g1306 = saturate( ( localShadeSH97_g1306 - temp_cast_17 ) );
-			float temp_output_8_0_g1307 = 1.0;
-			float temp_output_7_0_g1307 = _IndirLightUseMinforMax;
-			float lerpResult6_g1307 = lerp( _IndirectDiffuseOffsetMax , temp_output_9_0_g1306 , ( step( temp_output_8_0_g1307 , temp_output_7_0_g1307 ) * step( temp_output_7_0_g1307 , temp_output_8_0_g1307 ) ));
-			float3 temp_output_16_0_g1306 = saturate( ( localShadeSH97_g1306 + lerpResult6_g1307 ) );
-			float3 clampResult17_g1306 = clamp( temp_output_34_0_g1306 , temp_output_15_0_g1306 , temp_output_16_0_g1306 );
-			float3 lerpResult20_g1306 = lerp( clampResult17_g1306 ,  (temp_output_15_0_g1306 + ( temp_output_34_0_g1306 - float3( 0,0,0 ) ) * ( temp_output_16_0_g1306 - temp_output_15_0_g1306 ) / ( float3( 1,1,1 ) - float3( 0,0,0 ) ) ) , _IndirectLimiterMode);
-			float4 color4_g1303 = IsGammaSpace() ? float4( 1, 1, 1, 0 ) : float4( 1, 1, 1, 0 );
-			float4 temp_cast_19 = (1.0).xxxx;
-			float4 temp_cast_20 = (_MinBrightness).xxxx;
-			float4 color40_g1303 = IsGammaSpace() ? float4( 1, 1, 1, 1 ) : float4( 1, 1, 1, 1 );
-			float4 clampResult37_g1303 = clamp( saturate( ( saturate( ( saturate( exp2( ( ( dotResult3_g1305 + temp_output_5_0_g1304 ) / ( 1.0 + temp_output_5_0_g1304 ) ) ) ) + saturate( exp2( temp_output_15_0_g1303 ) ) ) ) * saturate( ( saturate( lerpResult17_g1303 ) + saturate( (saturate( ( exp2( saturate( ( float4( lerpResult20_g1306 , 0.0 ) * color4_g1303 ) ) ) - temp_cast_19 ) )*_WrapIndirScale + 0.0) ) ) ) ) ) , temp_cast_20 , color40_g1303 );
+			float4 temp_output_43_0_g1440 = saturate( ase_lightColor );
+			float4 temp_output_23_0_g1440 = saturate( ( temp_output_43_0_g1440 * temp_output_15_0_g1440 ) );
+			float4 temp_output_78_0_g1440 = saturate( temp_output_43_0_g1440 );
+			float4 temp_cast_16 = (_RealtimeLightMin).xxxx;
+			float4 clampResult66_g1440 = clamp( temp_output_23_0_g1440 , ( temp_output_78_0_g1440 - temp_cast_16 ) , ( temp_output_78_0_g1440 + _RealtimeLightMax ) );
+			float4 lerpResult72_g1440 = lerp( temp_output_23_0_g1440 , clampResult66_g1440 , _ClampRealtimeLighting);
+			float3 temp_output_1_0_g1443 = temp_output_2_0_g1440;
+			UnityGI gi2_g1443 = gi;
+			float3 diffNorm2_g1443 = normalize( WorldNormalVector( i , temp_output_1_0_g1443 ) );
+			gi2_g1443 = UnityGI_Base( data, 1, diffNorm2_g1443 );
+			float3 indirectDiffuse2_g1443 = gi2_g1443.indirect.diffuse + diffNorm2_g1443 * 0.0001;
+			float3 temp_output_34_0_g1443 = saturate( indirectDiffuse2_g1443 );
+			float4 appendResult6_g1443 = (float4(( temp_output_1_0_g1443 * 0.3 ) , 1.0));
+			float4 Normal7_g1443 = appendResult6_g1443;
+			float3 localShadeSH97_g1443 = ShadeSH97_g1443( Normal7_g1443 );
+			float temp_output_9_0_g1443 = _IndirectDiffuseOffset;
+			float3 temp_cast_18 = (temp_output_9_0_g1443).xxx;
+			float3 temp_output_15_0_g1443 = saturate( ( localShadeSH97_g1443 - temp_cast_18 ) );
+			float temp_output_8_0_g1444 = 1.0;
+			float temp_output_7_0_g1444 = _IndirLightUseMinforMax;
+			float lerpResult6_g1444 = lerp( _IndirectDiffuseOffsetMax , temp_output_9_0_g1443 , ( step( temp_output_8_0_g1444 , temp_output_7_0_g1444 ) * step( temp_output_7_0_g1444 , temp_output_8_0_g1444 ) ));
+			float temp_output_8_0_g1443 = lerpResult6_g1444;
+			float3 temp_output_16_0_g1443 = saturate( ( localShadeSH97_g1443 + temp_output_8_0_g1443 ) );
+			float3 clampResult17_g1443 = clamp( temp_output_34_0_g1443 , temp_output_15_0_g1443 , temp_output_16_0_g1443 );
+			float3 lerpResult20_g1443 = lerp( clampResult17_g1443 ,  (temp_output_15_0_g1443 + ( temp_output_34_0_g1443 - float3( 0,0,0 ) ) * ( temp_output_16_0_g1443 - temp_output_15_0_g1443 ) / ( float3( 1,1,1 ) - float3( 0,0,0 ) ) ) , _IndirectLimiterMode);
+			float4 color4_g1440 = IsGammaSpace() ? float4( 1, 1, 1, 0 ) : float4( 1, 1, 1, 0 );
+			float4 temp_cast_20 = (1.0).xxxx;
+			float4 temp_cast_21 = (_MinBrightness).xxxx;
+			float4 color40_g1440 = IsGammaSpace() ? float4( 1, 1, 1, 1 ) : float4( 1, 1, 1, 1 );
+			float4 clampResult37_g1440 = clamp( saturate( ( saturate( ( saturate( exp2( ( ( dotResult3_g1442 + temp_output_5_0_g1441 ) / ( 1.0 + temp_output_5_0_g1441 ) ) ) ) + saturate( exp2( temp_output_15_0_g1440 ) ) ) ) * saturate( ( lerpResult72_g1440 + saturate( (saturate( ( exp2( saturate( ( float4( lerpResult20_g1443 , 0.0 ) * color4_g1440 ) ) ) - temp_cast_20 ) )*_WrapIndirScale + 0.0) ) ) ) ) ) , temp_cast_21 , color40_g1440 );
 			float2 uv_MainTex = i.uv_texcoord * _MainTex_ST.xy + _MainTex_ST.zw;
 			float4 color8_g891 = IsGammaSpace() ? float4( 1, 1, 1, 1 ) : float4( 1, 1, 1, 1 );
 			float2 uv_AmbientOcclusion = i.uv_texcoord * _AmbientOcclusion_ST.xy + _AmbientOcclusion_ST.zw;
@@ -419,16 +432,25 @@ Shader "VoyVivika/VivikaShader/Vivika Shader Opaque"
 			float temp_output_9_0_g891 = _RealAO;
 			float4 lerpResult5_g891 = lerp( color8_g891 , temp_output_3_0_g891 , temp_output_9_0_g891);
 			float4 mainTex26 = ( tex2D( _MainTex, uv_MainTex ) * lerpResult5_g891 * _Color );
-			float3 indirectNormal4_g1302 = normalize( WorldNormalVector( i , temp_output_11_0_g1301 ) );
+			float3 indirectNormal4_g1445 = normalize( WorldNormalVector( i , temp_output_11_0_g1439 ) );
 			float2 uv_MetallicGlossMap = i.uv_texcoord * _MetallicGlossMap_ST.xy + _MetallicGlossMap_ST.zw;
 			float4 tex2DNode1017 = tex2D( _MetallicGlossMap, uv_MetallicGlossMap );
 			float lerpResult2713 = lerp( tex2DNode1017.a , tex2DNode1017.g , _SmoothnessChannel);
 			float _Smoothness2711 = lerpResult2713;
-			Unity_GlossyEnvironmentData g4_g1302 = UnityGlossyEnvironmentSetup( _Smoothness2711, data.worldViewDir, indirectNormal4_g1302, float3(0,0,0));
-			float3 indirectSpecular4_g1302 = UnityGI_IndirectSpecular( data, 1.0, indirectNormal4_g1302, g4_g1302 );
+			float temp_output_5_0_g1445 = _Smoothness2711;
+			Unity_GlossyEnvironmentData g4_g1445 = UnityGlossyEnvironmentSetup( temp_output_5_0_g1445, data.worldViewDir, indirectNormal4_g1445, float3(0,0,0));
+			float3 indirectSpecular4_g1445 = UnityGI_IndirectSpecular( data, 1.0, indirectNormal4_g1445, g4_g1445 );
 			float _Metalic2710 = tex2DNode1017.r;
-			float4 lerpResult21_g1302 = lerp( mainTex26 , float4( indirectSpecular4_g1302 , 0.0 ) , _Metalic2710);
-			float4 Lighting_Wrapped1144 = ( clampResult37_g1303 * lerpResult21_g1302 );
+			float temp_output_10_0_g1445 = _Metalic2710;
+			float3 ase_viewVectorWS = ( _WorldSpaceCameraPos.xyz - ase_positionWS );
+			float3 ase_viewDirWS = normalize( ase_viewVectorWS );
+			float3 ase_normalWS = WorldNormalVector( i, float3( 0, 0, 1 ) );
+			float3 ase_normalWSNorm = normalize( ase_normalWS );
+			float fresnelNdotV22_g1445 = dot( ase_normalWSNorm, ase_viewDirWS );
+			float fresnelNode22_g1445 = ( temp_output_10_0_g1445 + ( temp_output_5_0_g1445 * 1.0 ) * pow( max( 1.0 - fresnelNdotV22_g1445 , 0.0001 ), 1.0 ) );
+			float lerpResult35_g1445 = lerp( temp_output_10_0_g1445 , ( temp_output_5_0_g1445 * saturate( fresnelNode22_g1445 ) ) , _MetallicReflectionMode);
+			float4 lerpResult21_g1445 = lerp( mainTex26 , float4( indirectSpecular4_g1445 , 0.0 ) , lerpResult35_g1445);
+			float4 Lighting_Wrapped1144 = ( clampResult37_g1440 * lerpResult21_g1445 );
 			c.rgb = Lighting_Wrapped1144.rgb;
 			c.a = 1;
 			return c;
@@ -453,15 +475,15 @@ Shader "VoyVivika/VivikaShader/Vivika Shader Opaque"
 			o.Albedo = mainTex26.rgb;
 			float2 uv_AL_Mask = i.uv_texcoord * _AL_Mask_ST.xy + _AL_Mask_ST.zw;
 			float4 ALMask39 = tex2D( _AL_Mask, uv_AL_Mask );
-			float4 temp_output_51_0_g1326 = ALMask39;
+			float4 temp_output_51_0_g1468 = ALMask39;
 			float4 color42 = IsGammaSpace() ? float4( 1, 0, 0, 1 ) : float4( 1, 0, 0, 1 );
-			float3 hsvTorgb4_g1343 = RGBToHSV( color42.rgb );
+			float3 hsvTorgb4_g1486 = RGBToHSV( color42.rgb );
 			float mulTime48 = _Time.y * _ALTimeScale;
 			float Time50 = frac( mulTime48 );
-			float temp_output_54_0_g1326 = Time50;
-			float3 hsvTorgb8_g1343 = HSVToRGB( float3(( hsvTorgb4_g1343.x + temp_output_54_0_g1326 ),( hsvTorgb4_g1343.y + 0.0 ),( hsvTorgb4_g1343.z + 0.0 )) );
-			float3 temp_output_5_0_g1342 = saturate( hsvTorgb8_g1343 );
-			int Band3_g1344 = 0;
+			float temp_output_54_0_g1468 = Time50;
+			float3 hsvTorgb8_g1486 = HSVToRGB( float3(( hsvTorgb4_g1486.x + temp_output_54_0_g1468 ),( hsvTorgb4_g1486.y + 0.0 ),( hsvTorgb4_g1486.z + 0.0 )) );
+			float3 temp_output_5_0_g1485 = saturate( hsvTorgb8_g1486 );
+			int Band3_g1487 = 0;
 			float temp_output_8_0_g888 = 0.0;
 			float temp_output_32_0_g885 = _ALDelayUVMap;
 			float temp_output_7_0_g888 = temp_output_32_0_g885;
@@ -486,48 +508,48 @@ Shader "VoyVivika/VivikaShader/Vivika Shader Opaque"
 			float3 hsvTorgb2458 = RGBToHSV( tex2D( _ALDelayMap, DelayUV2355 ).rgb );
 			float clampResult987 = clamp(  (0.0 + ( hsvTorgb2458.z - 0.0 ) * ( _ALUVDelayMaxDelay - 0.0 ) / ( 1.0 - 0.0 ) ) , 0.0 , 127.0 );
 			float in_ALDelay991 = round( clampResult987 );
-			int temp_output_55_0_g1326 = (int)in_ALDelay991;
-			int Delay3_g1344 = temp_output_55_0_g1326;
-			float localAudioLinkData3_g1344 = AudioLinkData3_g1344( Band3_g1344 , Delay3_g1344 );
-			float temp_output_8_0_g1345 = 1.0;
-			float localIfAudioLinkv2Exists1_g1346 = IfAudioLinkv2Exists1_g1346();
-			float temp_output_7_0_g1345 = saturate( ( localIfAudioLinkv2Exists1_g1346 + 1.0 ) );
-			float3 lerpResult6_g1345 = lerp( temp_output_5_0_g1342 , ( temp_output_5_0_g1342 * localAudioLinkData3_g1344 ) , ( step( temp_output_8_0_g1345 , temp_output_7_0_g1345 ) * step( temp_output_7_0_g1345 , temp_output_8_0_g1345 ) ));
+			int temp_output_55_0_g1468 = (int)in_ALDelay991;
+			int Delay3_g1487 = temp_output_55_0_g1468;
+			float localAudioLinkData3_g1487 = AudioLinkData3_g1487( Band3_g1487 , Delay3_g1487 );
+			float temp_output_8_0_g1488 = 1.0;
+			float localIfAudioLinkv2Exists1_g1489 = IfAudioLinkv2Exists1_g1489();
+			float temp_output_7_0_g1488 = saturate( ( localIfAudioLinkv2Exists1_g1489 + 1.0 ) );
+			float3 lerpResult6_g1488 = lerp( temp_output_5_0_g1485 , ( temp_output_5_0_g1485 * localAudioLinkData3_g1487 ) , ( step( temp_output_8_0_g1488 , temp_output_7_0_g1488 ) * step( temp_output_7_0_g1488 , temp_output_8_0_g1488 ) ));
 			float4 color44 = IsGammaSpace() ? float4( 0, 0.8196079, 0, 1 ) : float4( 0, 0.637597, 0, 1 );
-			float3 hsvTorgb4_g1328 = RGBToHSV( color44.rgb );
-			float3 hsvTorgb8_g1328 = HSVToRGB( float3(( hsvTorgb4_g1328.x + temp_output_54_0_g1326 ),( hsvTorgb4_g1328.y + 0.0 ),( hsvTorgb4_g1328.z + 0.0 )) );
-			float3 temp_output_5_0_g1327 = saturate( hsvTorgb8_g1328 );
-			int Band3_g1329 = 2;
-			int Delay3_g1329 = temp_output_55_0_g1326;
-			float localAudioLinkData3_g1329 = AudioLinkData3_g1329( Band3_g1329 , Delay3_g1329 );
-			float temp_output_8_0_g1330 = 1.0;
-			float localIfAudioLinkv2Exists1_g1331 = IfAudioLinkv2Exists1_g1331();
-			float temp_output_7_0_g1330 = saturate( ( localIfAudioLinkv2Exists1_g1331 + 0.0 ) );
-			float3 lerpResult6_g1330 = lerp( temp_output_5_0_g1327 , ( temp_output_5_0_g1327 * localAudioLinkData3_g1329 ) , ( step( temp_output_8_0_g1330 , temp_output_7_0_g1330 ) * step( temp_output_7_0_g1330 , temp_output_8_0_g1330 ) ));
+			float3 hsvTorgb4_g1470 = RGBToHSV( color44.rgb );
+			float3 hsvTorgb8_g1470 = HSVToRGB( float3(( hsvTorgb4_g1470.x + temp_output_54_0_g1468 ),( hsvTorgb4_g1470.y + 0.0 ),( hsvTorgb4_g1470.z + 0.0 )) );
+			float3 temp_output_5_0_g1469 = saturate( hsvTorgb8_g1470 );
+			int Band3_g1471 = 2;
+			int Delay3_g1471 = temp_output_55_0_g1468;
+			float localAudioLinkData3_g1471 = AudioLinkData3_g1471( Band3_g1471 , Delay3_g1471 );
+			float temp_output_8_0_g1472 = 1.0;
+			float localIfAudioLinkv2Exists1_g1473 = IfAudioLinkv2Exists1_g1473();
+			float temp_output_7_0_g1472 = saturate( ( localIfAudioLinkv2Exists1_g1473 + 0.0 ) );
+			float3 lerpResult6_g1472 = lerp( temp_output_5_0_g1469 , ( temp_output_5_0_g1469 * localAudioLinkData3_g1471 ) , ( step( temp_output_8_0_g1472 , temp_output_7_0_g1472 ) * step( temp_output_7_0_g1472 , temp_output_8_0_g1472 ) ));
 			float4 color43 = IsGammaSpace() ? float4( 1, 0.9294118, 0, 1 ) : float4( 1, 0.8468735, 0, 1 );
-			float3 hsvTorgb4_g1333 = RGBToHSV( color43.rgb );
-			float3 hsvTorgb8_g1333 = HSVToRGB( float3(( hsvTorgb4_g1333.x + temp_output_54_0_g1326 ),( hsvTorgb4_g1333.y + 0.0 ),( hsvTorgb4_g1333.z + 0.0 )) );
-			float3 temp_output_5_0_g1332 = saturate( hsvTorgb8_g1333 );
-			int Band3_g1334 = 1;
-			int Delay3_g1334 = temp_output_55_0_g1326;
-			float localAudioLinkData3_g1334 = AudioLinkData3_g1334( Band3_g1334 , Delay3_g1334 );
-			float temp_output_8_0_g1335 = 1.0;
-			float localIfAudioLinkv2Exists1_g1336 = IfAudioLinkv2Exists1_g1336();
-			float temp_output_7_0_g1335 = saturate( ( localIfAudioLinkv2Exists1_g1336 + 0.0 ) );
-			float3 lerpResult6_g1335 = lerp( temp_output_5_0_g1332 , ( temp_output_5_0_g1332 * localAudioLinkData3_g1334 ) , ( step( temp_output_8_0_g1335 , temp_output_7_0_g1335 ) * step( temp_output_7_0_g1335 , temp_output_8_0_g1335 ) ));
+			float3 hsvTorgb4_g1475 = RGBToHSV( color43.rgb );
+			float3 hsvTorgb8_g1475 = HSVToRGB( float3(( hsvTorgb4_g1475.x + temp_output_54_0_g1468 ),( hsvTorgb4_g1475.y + 0.0 ),( hsvTorgb4_g1475.z + 0.0 )) );
+			float3 temp_output_5_0_g1474 = saturate( hsvTorgb8_g1475 );
+			int Band3_g1476 = 1;
+			int Delay3_g1476 = temp_output_55_0_g1468;
+			float localAudioLinkData3_g1476 = AudioLinkData3_g1476( Band3_g1476 , Delay3_g1476 );
+			float temp_output_8_0_g1477 = 1.0;
+			float localIfAudioLinkv2Exists1_g1478 = IfAudioLinkv2Exists1_g1478();
+			float temp_output_7_0_g1477 = saturate( ( localIfAudioLinkv2Exists1_g1478 + 0.0 ) );
+			float3 lerpResult6_g1477 = lerp( temp_output_5_0_g1474 , ( temp_output_5_0_g1474 * localAudioLinkData3_g1476 ) , ( step( temp_output_8_0_g1477 , temp_output_7_0_g1477 ) * step( temp_output_7_0_g1477 , temp_output_8_0_g1477 ) ));
 			float4 color45 = IsGammaSpace() ? float4( 0, 0, 1, 1 ) : float4( 0, 0, 1, 1 );
-			float3 hsvTorgb4_g1338 = RGBToHSV( color45.rgb );
-			float3 hsvTorgb8_g1338 = HSVToRGB( float3(( hsvTorgb4_g1338.x + temp_output_54_0_g1326 ),( hsvTorgb4_g1338.y + 0.0 ),( hsvTorgb4_g1338.z + 0.0 )) );
-			float3 temp_output_5_0_g1337 = saturate( hsvTorgb8_g1338 );
-			int Band3_g1339 = 3;
-			int Delay3_g1339 = temp_output_55_0_g1326;
-			float localAudioLinkData3_g1339 = AudioLinkData3_g1339( Band3_g1339 , Delay3_g1339 );
-			float temp_output_8_0_g1340 = 1.0;
-			float localIfAudioLinkv2Exists1_g1341 = IfAudioLinkv2Exists1_g1341();
-			float temp_output_7_0_g1340 = saturate( ( localIfAudioLinkv2Exists1_g1341 + 0.0 ) );
-			float3 lerpResult6_g1340 = lerp( temp_output_5_0_g1337 , ( temp_output_5_0_g1337 * localAudioLinkData3_g1339 ) , ( step( temp_output_8_0_g1340 , temp_output_7_0_g1340 ) * step( temp_output_7_0_g1340 , temp_output_8_0_g1340 ) ));
-			float localIfAudioLinkv2Exists1_g1347 = IfAudioLinkv2Exists1_g1347();
-			float4 AL_Final85 = ( ( _EnableAudioLink * ( ( temp_output_51_0_g1326 * float4( lerpResult6_g1345 , 0.0 ) ) + ( temp_output_51_0_g1326 * float4( lerpResult6_g1330 , 0.0 ) ) + ( temp_output_51_0_g1326 * float4( lerpResult6_g1335 , 0.0 ) ) + ( temp_output_51_0_g1326 * float4( lerpResult6_g1340 , 0.0 ) ) ) ) * saturate( ( localIfAudioLinkv2Exists1_g1347 + _ALEmitifInactive ) ) );
+			float3 hsvTorgb4_g1480 = RGBToHSV( color45.rgb );
+			float3 hsvTorgb8_g1480 = HSVToRGB( float3(( hsvTorgb4_g1480.x + temp_output_54_0_g1468 ),( hsvTorgb4_g1480.y + 0.0 ),( hsvTorgb4_g1480.z + 0.0 )) );
+			float3 temp_output_5_0_g1479 = saturate( hsvTorgb8_g1480 );
+			int Band3_g1481 = 3;
+			int Delay3_g1481 = temp_output_55_0_g1468;
+			float localAudioLinkData3_g1481 = AudioLinkData3_g1481( Band3_g1481 , Delay3_g1481 );
+			float temp_output_8_0_g1482 = 1.0;
+			float localIfAudioLinkv2Exists1_g1483 = IfAudioLinkv2Exists1_g1483();
+			float temp_output_7_0_g1482 = saturate( ( localIfAudioLinkv2Exists1_g1483 + 0.0 ) );
+			float3 lerpResult6_g1482 = lerp( temp_output_5_0_g1479 , ( temp_output_5_0_g1479 * localAudioLinkData3_g1481 ) , ( step( temp_output_8_0_g1482 , temp_output_7_0_g1482 ) * step( temp_output_7_0_g1482 , temp_output_8_0_g1482 ) ));
+			float localIfAudioLinkv2Exists1_g1484 = IfAudioLinkv2Exists1_g1484();
+			float4 AL_Final85 = ( ( _EnableAudioLink * ( ( temp_output_51_0_g1468 * float4( lerpResult6_g1488 , 0.0 ) ) + ( temp_output_51_0_g1468 * float4( lerpResult6_g1472 , 0.0 ) ) + ( temp_output_51_0_g1468 * float4( lerpResult6_g1477 , 0.0 ) ) + ( temp_output_51_0_g1468 * float4( lerpResult6_g1482 , 0.0 ) ) ) ) * saturate( ( localIfAudioLinkv2Exists1_g1484 + _ALEmitifInactive ) ) );
 			float2 uv_Emission = i.uv_texcoord * _Emission_ST.xy + _Emission_ST.zw;
 			float4 Emission119 = ( tex2D( _Emission, uv_Emission ) * _EmissionColor );
 			float3 ase_positionWS = i.worldPos;
@@ -535,29 +557,30 @@ Shader "VoyVivika/VivikaShader/Vivika Shader Opaque"
 			float3 ase_viewDirWS = normalize( ase_viewVectorWS );
 			float2 uv_BumpMap = i.uv_texcoord * _BumpMap_ST.xy + _BumpMap_ST.zw;
 			float3 normalMap1002 = UnpackNormal( tex2D( _BumpMap, uv_BumpMap ) );
-			float fresnelNdotV9_g1325 = dot( (WorldNormalVector( i , normalMap1002 )), ase_viewDirWS );
-			float fresnelNode9_g1325 = ( 0.0 + 1.0 * pow( 1.0 - fresnelNdotV9_g1325, _RimPower ) );
-			float4 lerpResult14_g1325 = lerp( float4( 1,1,1,0 ) , mainTex26 , _RimBaseColorStrength);
+			float fresnelNdotV9_g1463 = dot( (WorldNormalVector( i , normalMap1002 )), ase_viewDirWS );
+			float fresnelNode9_g1463 = ( 0.0 + 1.0 * pow( 1.0 - fresnelNdotV9_g1463, _RimPower ) );
+			float4 lerpResult14_g1463 = lerp( float4( 1,1,1,0 ) , mainTex26 , _RimBaseColorStrength);
 			#if defined(LIGHTMAP_ON) && ( UNITY_VERSION < 560 || ( defined(LIGHTMAP_SHADOW_MIXING) && !defined(SHADOWS_SHADOWMASK) && defined(SHADOWS_SCREEN) ) )//aselc
 			float4 ase_lightColor = 0;
 			#else //aselc
 			float4 ase_lightColor = _LightColor0;
 			#endif //aselc
-			float3 hsvTorgb3_g1325 = RGBToHSV( ase_lightColor.rgb );
-			float3 temp_output_11_0_g1301 = normalMap1002;
-			float3 temp_output_2_0_g1303 = temp_output_11_0_g1301;
-			float3 temp_output_1_0_g1306 = temp_output_2_0_g1303;
-			float4 appendResult6_g1306 = (float4(( temp_output_1_0_g1306 * 0.3 ) , 1.0));
-			float4 Normal7_g1306 = appendResult6_g1306;
-			float3 localShadeSH97_g1306 = ShadeSH97_g1306( Normal7_g1306 );
-			float temp_output_9_0_g1306 = _IndirectDiffuseOffset;
-			float temp_output_8_0_g1307 = 1.0;
-			float temp_output_7_0_g1307 = _IndirLightUseMinforMax;
-			float lerpResult6_g1307 = lerp( _IndirectDiffuseOffsetMax , temp_output_9_0_g1306 , ( step( temp_output_8_0_g1307 , temp_output_7_0_g1307 ) * step( temp_output_7_0_g1307 , temp_output_8_0_g1307 ) ));
-			float3 temp_output_16_0_g1306 = saturate( ( localShadeSH97_g1306 + lerpResult6_g1307 ) );
-			float3 maxIndirLight2618 = temp_output_16_0_g1306;
-			float3 hsvTorgb24_g1325 = RGBToHSV( maxIndirLight2618 );
-			float4 Rim116 = ( _EnableRimLighting * ( ( ( fresnelNode9_g1325 * _RimEnergy ) * lerpResult14_g1325 ) * max( ( 0.0 * saturate( ( exp( hsvTorgb3_g1325.z ) - 1.0 ) ) ) , hsvTorgb24_g1325.z ) ) );
+			float3 hsvTorgb3_g1463 = RGBToHSV( ase_lightColor.rgb );
+			float3 temp_output_11_0_g1439 = normalMap1002;
+			float3 temp_output_2_0_g1440 = temp_output_11_0_g1439;
+			float3 temp_output_1_0_g1443 = temp_output_2_0_g1440;
+			float4 appendResult6_g1443 = (float4(( temp_output_1_0_g1443 * 0.3 ) , 1.0));
+			float4 Normal7_g1443 = appendResult6_g1443;
+			float3 localShadeSH97_g1443 = ShadeSH97_g1443( Normal7_g1443 );
+			float temp_output_9_0_g1443 = _IndirectDiffuseOffset;
+			float temp_output_8_0_g1444 = 1.0;
+			float temp_output_7_0_g1444 = _IndirLightUseMinforMax;
+			float lerpResult6_g1444 = lerp( _IndirectDiffuseOffsetMax , temp_output_9_0_g1443 , ( step( temp_output_8_0_g1444 , temp_output_7_0_g1444 ) * step( temp_output_7_0_g1444 , temp_output_8_0_g1444 ) ));
+			float temp_output_8_0_g1443 = lerpResult6_g1444;
+			float3 temp_output_16_0_g1443 = saturate( ( localShadeSH97_g1443 + temp_output_8_0_g1443 ) );
+			float3 maxIndirLight2618 = temp_output_16_0_g1443;
+			float3 hsvTorgb24_g1463 = RGBToHSV( maxIndirLight2618 );
+			float4 Rim116 = ( _EnableRimLighting * ( ( ( fresnelNode9_g1463 * _RimEnergy ) * lerpResult14_g1463 ) * max( ( 0.0 * saturate( ( exp( hsvTorgb3_g1463.z ) - 1.0 ) ) ) , hsvTorgb24_g1463.z ) ) );
 			float4 EmissionFinal29 = saturate( ( AL_Final85 + Emission119 + Rim116 ) );
 			o.Emission = EmissionFinal29.rgb;
 		}
@@ -665,30 +688,30 @@ Shader "VoyVivika/VivikaShader/Vivika Shader Opaque"
 /*ASEBEGIN
 Version=19900
 Node;AmplifyShaderEditor.CommentaryNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;2333;-2064,-2752;Inherit;False;673.8176;177.324;Selection of UV Maps to Use for UV Tile Discarding;3;2355;2627;2357;Audio Link Delay UV;1,1,1,1;0;0
-Node;AmplifyShaderEditor.RangedFloatNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;2357;-2032,-2688;Inherit;False;Property;_ALDelayUVMap;AL Delay UV Map;22;2;[Header];[Enum];Create;True;0;5;UV0;0;UV1;1;UV2;2;UV3;3;Screen Space;8;0;True;0;False;2;2;0;0;0;1;FLOAT;0
+Node;AmplifyShaderEditor.RangedFloatNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;2357;-2032,-2688;Inherit;False;Property;_ALDelayUVMap;AL Delay UV Map;26;2;[Header];[Enum];Create;True;0;5;UV0;0;UV1;1;UV2;2;UV3;3;Screen Space;8;0;True;0;False;2;2;0;0;0;1;FLOAT;0
 Node;AmplifyShaderEditor.FunctionNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;2627;-1824,-2688;Inherit;False;VVGetTextureUV;-1;;885;c300954d56021714fb5c622c8f34ec06;0;1;32;FLOAT;0;False;1;FLOAT2;0
 Node;AmplifyShaderEditor.CommentaryNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;27;-2064,-3536;Inherit;False;1084.464;673.0301;Comment;11;2630;2546;2307;26;1003;2629;25;2552;2540;2542;1047;MainTex;1,1,1,1;0;0
 Node;AmplifyShaderEditor.CommentaryNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;977;-272,-3248;Inherit;False;1452.845;376.6802;Comment;8;991;985;987;979;993;2458;2457;2363;AudioLink Delay Settings;1,1,1,1;0;0
 Node;AmplifyShaderEditor.RegisterLocalVarNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;2355;-1616,-2688;Inherit;False;DelayUV;-1;True;1;0;FLOAT2;0,0;False;1;FLOAT2;0
 Node;AmplifyShaderEditor.CommentaryNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;37;-1072,-1328;Inherit;False;859.9141;343.3768;Comment;3;34;1002;1006;Normal Map;1,1,1,1;0;0
 Node;AmplifyShaderEditor.GetLocalVarNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;2363;-240,-3152;Inherit;False;2355;DelayUV;1;0;OBJECT;;False;1;FLOAT2;0
-Node;AmplifyShaderEditor.RangedFloatNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;2542;-2000,-3280;Inherit;False;Property;_AOStrength;AO Strength;16;0;Create;True;0;0;0;False;0;False;1;0.5;0;1;0;1;FLOAT;0
-Node;AmplifyShaderEditor.SamplerNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;2540;-2032,-3216;Inherit;True;Property;_AmbientOcclusion;Ambient Occlusion;15;0;Create;True;0;0;0;False;0;False;-1;None;None;True;0;False;white;Auto;False;Object;-1;Auto;Texture2D;8;0;SAMPLER2D;;False;1;FLOAT2;0,0;False;2;FLOAT;0;False;3;FLOAT2;0,0;False;4;FLOAT2;0,0;False;5;FLOAT;1;False;6;FLOAT;0;False;7;SAMPLERSTATE;;False;6;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4;FLOAT3;5
-Node;AmplifyShaderEditor.RangedFloatNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;2552;-1872,-3040;Inherit;False;Property;_RealAO;Real AO;17;1;[ToggleUI];Create;True;0;0;0;False;0;False;0;0;0;0;0;1;FLOAT;0
+Node;AmplifyShaderEditor.RangedFloatNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;2542;-2000,-3280;Inherit;False;Property;_AOStrength;AO Strength;20;0;Create;True;0;0;0;False;0;False;1;0.5;0;1;0;1;FLOAT;0
+Node;AmplifyShaderEditor.SamplerNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;2540;-2032,-3216;Inherit;True;Property;_AmbientOcclusion;Ambient Occlusion;19;0;Create;True;0;0;0;False;0;False;-1;None;None;True;0;False;white;Auto;False;Object;-1;Auto;Texture2D;8;0;SAMPLER2D;;False;1;FLOAT2;0,0;False;2;FLOAT;0;False;3;FLOAT2;0,0;False;4;FLOAT2;0,0;False;5;FLOAT;1;False;6;FLOAT;0;False;7;SAMPLERSTATE;;False;6;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4;FLOAT3;5
+Node;AmplifyShaderEditor.RangedFloatNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;2552;-1872,-3040;Inherit;False;Property;_RealAO;Real AO;21;1;[ToggleUI];Create;True;0;0;0;False;0;False;0;0;0;0;0;1;FLOAT;0
 Node;AmplifyShaderEditor.TexturePropertyNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;1003;-2000,-3472;Inherit;True;Property;_MainTex;Albedo;1;1;[SingleLineTexture];Create;False;1;Standard Fallbacks;0;0;True;0;False;None;None;False;white;Auto;Texture2D;-1;0;2;SAMPLER2D;0;SAMPLERSTATE;1
 Node;AmplifyShaderEditor.CommentaryNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;2679;3296,1920;Inherit;False;564.665;432.8813;Comment;6;2672;2670;2671;2668;2706;2707;Camera Globals;1,1,1,1;0;0
 Node;AmplifyShaderEditor.CommentaryNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;2709;-2883.804,-2011.94;Inherit;False;859.9478;416.3767;Comment;5;2714;2713;2711;2710;1017;Metallic and Smoothness;1,1,1,1;0;0
-Node;AmplifyShaderEditor.SamplerNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;2457;-32,-3168;Inherit;True;Property;_ALDelayMap;AudioLink Delay Tex Map;21;1;[SingleLineTexture];Create;False;0;0;0;False;0;False;-1;None;None;True;0;False;black;Auto;False;Object;-1;Auto;Texture2D;8;0;SAMPLER2D;;False;1;FLOAT2;0,0;False;2;FLOAT;0;False;3;FLOAT2;0,0;False;4;FLOAT2;0,0;False;5;FLOAT;1;False;6;FLOAT;0;False;7;SAMPLERSTATE;;False;6;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4;FLOAT3;5
+Node;AmplifyShaderEditor.SamplerNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;2457;-32,-3168;Inherit;True;Property;_ALDelayMap;AudioLink Delay Tex Map;25;1;[SingleLineTexture];Create;False;0;0;0;False;0;False;-1;None;None;True;0;False;black;Auto;False;Object;-1;Auto;Texture2D;8;0;SAMPLER2D;;False;1;FLOAT2;0,0;False;2;FLOAT;0;False;3;FLOAT2;0,0;False;4;FLOAT2;0,0;False;5;FLOAT;1;False;6;FLOAT;0;False;7;SAMPLERSTATE;;False;6;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4;FLOAT3;5
 Node;AmplifyShaderEditor.SamplerNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;25;-1712,-3472;Inherit;True;Property;_AlbedoSample;Albedo Sample;3;0;Create;True;0;0;0;False;0;False;-1;None;None;True;0;False;black;Auto;False;Object;-1;Auto;Texture2D;8;0;SAMPLER2D;;False;1;FLOAT2;0,0;False;2;FLOAT;0;False;3;FLOAT2;0,0;False;4;FLOAT2;0,0;False;5;FLOAT;1;False;6;FLOAT;0;False;7;SAMPLERSTATE;;False;6;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4;FLOAT3;5
 Node;AmplifyShaderEditor.TexturePropertyNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;1006;-1008,-1216;Inherit;True;Property;_BumpMap;Normal Map;3;1;[SingleLineTexture];Create;False;0;0;0;True;0;False;None;None;True;bump;Auto;Texture2D;-1;0;2;SAMPLER2D;0;SAMPLERSTATE;1
 Node;AmplifyShaderEditor.ColorNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;2307;-1616,-3056;Inherit;False;Property;_Color;Color;2;0;Create;False;0;0;0;True;0;False;1,1,1,0;1,1,1,1;True;True;0;6;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4;FLOAT3;5
 Node;AmplifyShaderEditor.FunctionNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;2630;-1728,-3200;Inherit;False;VVAmbientOcclusion;-1;;891;9931be4718b157b4ebb46a99812bfe31;0;3;6;FLOAT;0;False;7;COLOR;0,0,0,0;False;9;FLOAT;0;False;2;COLOR;11;COLOR;0
 Node;AmplifyShaderEditor.RangedFloatNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;2668;3344,1984;Inherit;False;Global;CVRRenderingCam;CVRRenderingCam;46;0;Create;True;0;0;0;False;0;False;0;0;0;0;0;1;FLOAT;0
-Node;AmplifyShaderEditor.RangedFloatNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;2714;-2819.804,-1723.94;Inherit;False;Property;_SmoothnessChannel;Smoothness Channel;14;1;[Enum];Create;False;0;2;Alpha;0;Green;1;0;False;0;False;0;0;0;0;0;1;FLOAT;0
-Node;AmplifyShaderEditor.SamplerNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;1017;-2832,-1936;Inherit;True;Property;_MetallicGlossMap;Metallic Smoothness;13;1;[SingleLineTexture];Create;False;0;0;0;False;0;False;-1;None;None;True;0;False;black;Auto;False;Object;-1;Auto;Texture2D;8;0;SAMPLER2D;;False;1;FLOAT2;0,0;False;2;FLOAT;0;False;3;FLOAT2;0,0;False;4;FLOAT2;0,0;False;5;FLOAT;1;False;6;FLOAT;0;False;7;SAMPLERSTATE;;False;6;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4;FLOAT3;5
+Node;AmplifyShaderEditor.RangedFloatNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;2714;-2819.804,-1723.94;Inherit;False;Property;_SmoothnessChannel;Smoothness Channel;17;1;[Enum];Create;False;0;2;Alpha;0;Green;1;0;False;0;False;0;0;0;0;0;1;FLOAT;0
+Node;AmplifyShaderEditor.SamplerNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;1017;-2832,-1936;Inherit;True;Property;_MetallicGlossMap;Metallic Smoothness;16;1;[SingleLineTexture];Create;False;0;0;0;False;0;False;-1;None;None;True;0;False;black;Auto;False;Object;-1;Auto;Texture2D;8;0;SAMPLER2D;;False;1;FLOAT2;0,0;False;2;FLOAT;0;False;3;FLOAT2;0,0;False;4;FLOAT2;0,0;False;5;FLOAT;1;False;6;FLOAT;0;False;7;SAMPLERSTATE;;False;6;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4;FLOAT3;5
 Node;AmplifyShaderEditor.SamplerNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;34;-736,-1216;Inherit;True;Property;_NMSample;NM Sample;4;0;Create;True;0;0;0;False;0;False;-1;None;None;True;0;True;bump;Auto;True;Object;-1;Auto;Texture2D;8;0;SAMPLER2D;;False;1;FLOAT2;0,0;False;2;FLOAT;0;False;3;FLOAT2;0,0;False;4;FLOAT2;0,0;False;5;FLOAT;1;False;6;FLOAT;0;False;7;SAMPLERSTATE;;False;6;FLOAT3;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4;FLOAT3;5
 Node;AmplifyShaderEditor.CommentaryNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;72;1440,-3088;Inherit;False;765.7347;170.1592;Comment;4;243;50;49;48;Time;1,1,1,1;0;0
-Node;AmplifyShaderEditor.RangedFloatNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;979;160,-2976;Inherit;False;Property;_ALUVDelayMaxDelay;AL UV Delay Max Delay;23;0;Create;True;0;0;0;False;0;False;0;127;0;127;0;1;FLOAT;0
+Node;AmplifyShaderEditor.RangedFloatNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;979;160,-2976;Inherit;False;Property;_ALUVDelayMaxDelay;AL UV Delay Max Delay;27;0;Create;True;0;0;0;False;0;False;0;127;0;127;0;1;FLOAT;0
 Node;AmplifyShaderEditor.RGBToHSVNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;2458;256,-3168;Inherit;False;1;0;FLOAT3;0,0,0;False;4;FLOAT3;0;FLOAT;1;FLOAT;2;FLOAT;3
 Node;AmplifyShaderEditor.SimpleMultiplyOpNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;2629;-1360,-3312;Inherit;False;3;3;0;COLOR;0,0,0,0;False;1;COLOR;0,0,0,0;False;2;COLOR;0,0,0,0;False;1;COLOR;0
 Node;AmplifyShaderEditor.CommentaryNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;2685;3312,736;Inherit;False;1222.874;463.641;Comment;11;2669;2686;2678;2676;2677;2675;2673;2682;2684;2683;2674;Disable Rendering in Social VR Cameras;1,1,1,1;0;0
@@ -700,10 +723,10 @@ Node;AmplifyShaderEditor.RangedFloatNode, AmplifyShaderEditor, Version=0.0.0.0, 
 Node;AmplifyShaderEditor.LerpOp, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;2713;-2483.804,-1819.94;Inherit;False;3;0;FLOAT;0;False;1;FLOAT;0;False;2;FLOAT;0;False;1;FLOAT;0
 Node;AmplifyShaderEditor.RegisterLocalVarNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;1002;-416,-1200;Inherit;False;normalMap;-1;True;1;0;FLOAT3;0,0,0;False;1;FLOAT3;0
 Node;AmplifyShaderEditor.TFHCRemapNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;993;496,-3184;Inherit;False;5;0;FLOAT;0;False;1;FLOAT;0;False;2;FLOAT;1;False;3;FLOAT;0;False;4;FLOAT;127;False;1;FLOAT;0
-Node;AmplifyShaderEditor.RangedFloatNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;243;1472,-3040;Inherit;False;Property;_ALTimeScale;AL HueShift Time Scale;24;0;Create;False;0;0;0;False;0;False;0;0.25;0;0;0;1;FLOAT;0
-Node;AmplifyShaderEditor.CommentaryNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;2602;-1728,-896;Inherit;False;1076;931;Comment;13;2392;2414;2415;2556;1207;2589;2375;2582;2583;2584;2291;1144;2618;Shading;1,1,1,1;0;0
+Node;AmplifyShaderEditor.RangedFloatNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;243;1472,-3040;Inherit;False;Property;_ALTimeScale;AL HueShift Time Scale;28;0;Create;False;0;0;0;False;0;False;0;0.25;0;0;0;1;FLOAT;0
+Node;AmplifyShaderEditor.CommentaryNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;2602;-1992.124,-896;Inherit;False;1348.986;1094.277;Comment;17;2723;2727;2726;2556;2584;2583;2589;2291;2582;2375;1207;2415;2414;2392;1144;2618;2732;Shading;1,1,1,1;0;0
 Node;AmplifyShaderEditor.RegisterLocalVarNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;26;-1200,-3312;Inherit;False;mainTex;-1;True;1;0;COLOR;0,0,0,0;False;1;COLOR;0
-Node;AmplifyShaderEditor.RangedFloatNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;2313;-2016,-2400;Inherit;False;Property;_DiscardUVMap;Discard UV Map;29;2;[Header];[Enum];Create;True;1;UV Tile Discarding;4;UV0;0;UV1;1;UV2;2;UV3;3;0;True;0;False;1;3;0;0;0;1;FLOAT;0
+Node;AmplifyShaderEditor.RangedFloatNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;2313;-2016,-2400;Inherit;False;Property;_DiscardUVMap;Discard UV Map;33;2;[Header];[Enum];Create;True;1;UV Tile Discarding;4;UV0;0;UV1;1;UV2;2;UV3;3;0;True;0;False;1;3;0;0;0;1;FLOAT;0
 Node;AmplifyShaderEditor.GetLocalVarNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;2674;3360,880;Inherit;False;2670;cvr camera;1;0;OBJECT;;False;1;FLOAT;0
 Node;AmplifyShaderEditor.RangedFloatNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;2683;3360,960;Inherit;False;Constant;_Float14;Float 14;47;0;Create;True;0;0;0;False;0;False;1;0;0;0;0;1;FLOAT;0
 Node;AmplifyShaderEditor.RangedFloatNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;2684;3360,1040;Inherit;False;Constant;_Float15;Float 15;47;0;Create;True;0;0;0;False;0;False;0;0;0;0;0;1;FLOAT;0
@@ -718,32 +741,36 @@ Node;AmplifyShaderEditor.RegisterLocalVarNode, AmplifyShaderEditor, Version=0.0.
 Node;AmplifyShaderEditor.CommentaryNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;38;16,-2656;Inherit;False;604.8932;280;Comment;2;40;39;AL Emission Mask;1,1,1,1;0;0
 Node;AmplifyShaderEditor.ClampOpNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;987;672,-3184;Inherit;False;3;0;FLOAT;0;False;1;FLOAT;0;False;2;FLOAT;127;False;1;FLOAT;0
 Node;AmplifyShaderEditor.SimpleTimeNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;48;1712,-3040;Inherit;False;1;0;FLOAT;0.1;False;1;FLOAT;0
-Node;AmplifyShaderEditor.RangedFloatNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;2392;-1680,-848;Inherit;False;Property;_IndirectDiffuseOffset;Indirect Light Min;7;0;Create;False;0;0;0;False;0;False;0;0.04;0;1;0;1;FLOAT;0
-Node;AmplifyShaderEditor.RangedFloatNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;2414;-1680,-784;Inherit;False;Property;_IndirectDiffuseOffsetMax;Indirect Light Max;8;0;Create;False;0;0;0;False;0;False;0;0.1;0;1;0;1;FLOAT;0
-Node;AmplifyShaderEditor.RangedFloatNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;2415;-1584,-720;Inherit;False;Property;_IndirLightUseMinforMax;Use Min for Max;9;1;[ToggleUI];Create;False;0;0;0;False;0;False;1;0;0;0;0;1;FLOAT;0
-Node;AmplifyShaderEditor.RangedFloatNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;2556;-1648,-656;Inherit;False;Property;_IndirectLimiterMode;Indirect Limiter Mode;10;1;[Enum];Create;True;0;2;Clamp;0;Remap;1;0;False;0;False;0;0;0;0;0;1;FLOAT;0
-Node;AmplifyShaderEditor.RangedFloatNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;1207;-1648,-592;Inherit;False;Property;_WrappedShadingValue;Wrapped Shading Value;11;0;Create;False;0;0;0;False;0;False;1;1;0;0;0;1;FLOAT;0
-Node;AmplifyShaderEditor.RangedFloatNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;2375;-1680,-464;Inherit;False;Property;_MinBrightness;Min Brightness;6;0;Create;False;0;0;0;False;0;False;0;0;0;1;0;1;FLOAT;0
-Node;AmplifyShaderEditor.GetLocalVarNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;2582;-1584,-400;Inherit;False;1002;normalMap;1;0;OBJECT;;False;1;FLOAT3;0
-Node;AmplifyShaderEditor.RangedFloatNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;2291;-1616,-528;Inherit;False;Property;_WrapIndirScale;Indirect Light Scale;12;0;Create;False;0;0;0;False;0;False;3;3;0;0;0;1;FLOAT;0
-Node;AmplifyShaderEditor.GetLocalVarNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;2589;-1584,-208;Inherit;False;26;mainTex;1;0;OBJECT;;False;1;COLOR;0
 Node;AmplifyShaderEditor.FunctionNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;2626;-1840,-2400;Inherit;False;VVGetVertexUV;-1;;1221;b2c6b9b1b245cf54ca03e50557eebb87;0;1;26;FLOAT;0;False;1;FLOAT2;0
 Node;AmplifyShaderEditor.FunctionNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;2682;3552,944;Inherit;False;If Float Equal;-1;;1260;bdca1c28487c8a1418e72579bec63589;0;4;7;FLOAT;0;False;8;FLOAT;0;False;9;FLOAT;0;False;10;FLOAT;0;False;1;FLOAT;0
 Node;AmplifyShaderEditor.GetLocalVarNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;2673;3568,848;Inherit;False;2672;vrc camera;1;0;OBJECT;;False;1;FLOAT;0
 Node;AmplifyShaderEditor.FunctionNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;2697;3552,1536;Inherit;False;If Float Equal;-1;;1300;bdca1c28487c8a1418e72579bec63589;0;4;7;FLOAT;0;False;8;FLOAT;0;False;9;FLOAT;0;False;10;FLOAT;0;False;1;FLOAT;0
 Node;AmplifyShaderEditor.GetLocalVarNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;2698;3568,1440;Inherit;False;2707;vrc mirror;1;0;OBJECT;;False;1;FLOAT;0
-Node;AmplifyShaderEditor.GetLocalVarNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;2583;-1616,-336;Inherit;False;2711;_Smoothness;1;0;OBJECT;;False;1;FLOAT;0
-Node;AmplifyShaderEditor.GetLocalVarNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;2584;-1584,-272;Inherit;False;2710;_Metalic;1;0;OBJECT;;False;1;FLOAT;0
+Node;AmplifyShaderEditor.RangedFloatNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;2392;-1872,-544;Inherit;False;Property;_IndirectDiffuseOffset;Indirect Light Min;7;0;Create;False;0;0;0;False;0;False;1;0.04;0;1;0;1;FLOAT;0
+Node;AmplifyShaderEditor.RangedFloatNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;2414;-1872,-480;Inherit;False;Property;_IndirectDiffuseOffsetMax;Indirect Light Max;8;0;Create;False;0;0;0;False;0;False;0;0.1;0;1;0;1;FLOAT;0
+Node;AmplifyShaderEditor.RangedFloatNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;2415;-1776,-416;Inherit;False;Property;_IndirLightUseMinforMax;Use Min for Max;9;1;[ToggleUI];Create;False;0;0;0;False;0;False;1;0;0;0;0;1;FLOAT;0
+Node;AmplifyShaderEditor.RangedFloatNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;1207;-1840,-288;Inherit;False;Property;_WrappedShadingValue;Wrapped Shading Value;14;0;Create;False;0;0;0;False;0;False;1;1;0;0;0;1;FLOAT;0
+Node;AmplifyShaderEditor.RangedFloatNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;2375;-1872,-160;Inherit;False;Property;_MinBrightness;Min Brightness;6;0;Create;False;0;0;0;False;0;False;0;0;0;1;0;1;FLOAT;0
+Node;AmplifyShaderEditor.GetLocalVarNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;2582;-1776,-96;Inherit;False;1002;normalMap;1;0;OBJECT;;False;1;FLOAT3;0
+Node;AmplifyShaderEditor.RangedFloatNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;2291;-1808,-224;Inherit;False;Property;_WrapIndirScale;Indirect Light Scale;15;0;Create;False;0;0;0;False;0;False;3;3;0;0;0;1;FLOAT;0
+Node;AmplifyShaderEditor.GetLocalVarNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;2589;-1776,96;Inherit;False;26;mainTex;1;0;OBJECT;;False;1;COLOR;0
+Node;AmplifyShaderEditor.GetLocalVarNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;2583;-1808,-32;Inherit;False;2711;_Smoothness;1;0;OBJECT;;False;1;FLOAT;0
+Node;AmplifyShaderEditor.GetLocalVarNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;2584;-1776,32;Inherit;False;2710;_Metalic;1;0;OBJECT;;False;1;FLOAT;0
+Node;AmplifyShaderEditor.RangedFloatNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;2556;-1840,-352;Inherit;False;Property;_IndirectLimiterMode;Indirect Limiter Mode;13;1;[Enum];Create;True;0;2;Clamp;0;Remap;1;0;False;0;False;0;0;0;0;0;1;FLOAT;0
+Node;AmplifyShaderEditor.RangedFloatNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;2726;-1872,-736;Inherit;False;Property;_RealtimeLightMin;Relative Real Light Min;12;0;Create;False;0;0;0;False;0;False;0;0;0;1;0;1;FLOAT;0
+Node;AmplifyShaderEditor.RangedFloatNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;2727;-1872,-672;Inherit;False;Property;_RealtimeLightMax;Relative Real Light Max;11;0;Create;False;0;0;0;False;0;False;0;0;0;1;0;1;FLOAT;0
+Node;AmplifyShaderEditor.RangedFloatNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;2723;-1904,-608;Inherit;False;Property;_ClampRealtimeLighting;Relative Clamp Realtime Lighting;10;1;[ToggleUI];Create;False;0;0;0;False;0;False;0;0;0;0;0;1;FLOAT;0
+Node;AmplifyShaderEditor.RangedFloatNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;2732;-1904,-800;Inherit;False;Property;_MetallicReflectionMode;Fresnel Metallics (Experimental);18;1;[ToggleUI];Create;False;0;0;0;False;0;False;0;0;0;0;0;1;FLOAT;0
 Node;AmplifyShaderEditor.FractNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;49;1872,-3040;Inherit;False;1;0;FLOAT;0;False;1;FLOAT;0
 Node;AmplifyShaderEditor.RoundOpNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;985;800,-3184;Inherit;False;1;0;FLOAT;0;False;1;FLOAT;0
-Node;AmplifyShaderEditor.SamplerNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;40;80,-2608;Inherit;True;Property;_AL_Mask;AudioLink Mask;20;0;Create;False;0;0;0;False;0;False;-1;None;None;True;0;False;black;Auto;False;Object;-1;Auto;Texture2D;8;0;SAMPLER2D;;False;1;FLOAT2;0,0;False;2;FLOAT;0;False;3;FLOAT2;0,0;False;4;FLOAT2;0,0;False;5;FLOAT;1;False;6;FLOAT;0;False;7;SAMPLERSTATE;;False;6;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4;FLOAT3;5
-Node;AmplifyShaderEditor.FunctionNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;2650;-1328,-640;Inherit;True;VivikaShading;-1;;1301;efce34b3f4a0e2b44933c4737d48061f;0;11;4;FLOAT;0;False;5;FLOAT;0;False;6;FLOAT;0;False;7;FLOAT;0;False;8;FLOAT;3;False;9;FLOAT;0;False;10;FLOAT;0;False;11;FLOAT3;0,0,0;False;12;FLOAT;0;False;13;FLOAT;0;False;18;COLOR;0,0,0,0;False;2;FLOAT3;32;COLOR;0
+Node;AmplifyShaderEditor.SamplerNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;40;80,-2608;Inherit;True;Property;_AL_Mask;AudioLink Mask;24;0;Create;False;0;0;0;False;0;False;-1;None;None;True;0;False;black;Auto;False;Object;-1;Auto;Texture2D;8;0;SAMPLER2D;;False;1;FLOAT2;0,0;False;2;FLOAT;0;False;3;FLOAT2;0,0;False;4;FLOAT2;0,0;False;5;FLOAT;1;False;6;FLOAT;0;False;7;SAMPLERSTATE;;False;6;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4;FLOAT3;5
 Node;AmplifyShaderEditor.CommentaryNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;138;1744,-1136;Inherit;False;1050.305;1191.881;Comment;19;192;198;774;775;776;777;773;772;771;770;768;767;766;765;764;763;762;270;2692;UV Tile Discard;1,1,1,1;0;0
 Node;AmplifyShaderEditor.RegisterLocalVarNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;200;-1632,-2400;Inherit;False;DiscardUV;-1;True;1;0;FLOAT2;0,0;False;1;FLOAT2;0
 Node;AmplifyShaderEditor.SimpleAddOpNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;2675;3744,880;Inherit;False;2;2;0;FLOAT;0;False;1;FLOAT;0;False;1;FLOAT;0
 Node;AmplifyShaderEditor.RangedFloatNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;2677;3744,784;Inherit;False;Constant;_Float12;Float 12;47;0;Create;True;0;0;0;False;0;False;1;0;0;0;0;1;FLOAT;0
 Node;AmplifyShaderEditor.SimpleAddOpNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;2699;3744,1472;Inherit;False;2;2;0;FLOAT;0;False;1;FLOAT;0;False;1;FLOAT;0
 Node;AmplifyShaderEditor.RangedFloatNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;2700;3744,1376;Inherit;False;Constant;_Float20;Float 12;47;0;Create;True;0;0;0;False;0;False;1;0;0;0;0;1;FLOAT;0
+Node;AmplifyShaderEditor.FunctionNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;2819;-1328,-640;Inherit;True;VivikaShading;-1;;1439;efce34b3f4a0e2b44933c4737d48061f;0;15;54;FLOAT;0;False;51;FLOAT;0;False;52;FLOAT;0;False;48;FLOAT;0;False;4;FLOAT;0;False;5;FLOAT;0;False;6;FLOAT;0;False;7;FLOAT;0;False;8;FLOAT;3;False;9;FLOAT;0;False;10;FLOAT;0;False;11;FLOAT3;0,0,0;False;12;FLOAT;0;False;13;FLOAT;0;False;18;COLOR;0,0,0,0;False;2;FLOAT3;32;COLOR;0
 Node;AmplifyShaderEditor.CommentaryNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;1;32,-1120;Inherit;False;1041.734;585.5447;Comment;9;116;2620;2621;333;2505;1404;12;87;113;Rim;1,1,1,1;0;0
 Node;AmplifyShaderEditor.CommentaryNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;117;16,-2288;Inherit;False;907.3133;529.2772;Comment;4;1005;119;121;118;Emission;1,1,1,1;0;0
 Node;AmplifyShaderEditor.CommentaryNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;107;-1328,-2656;Inherit;False;1185.214;1096.479;Comment;10;85;42;44;43;45;415;2614;995;51;75;AudioLink Emission;1,1,1,1;0;0
@@ -752,64 +779,64 @@ Node;AmplifyShaderEditor.RegisterLocalVarNode, AmplifyShaderEditor, Version=0.0.
 Node;AmplifyShaderEditor.RegisterLocalVarNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;39;400,-2608;Inherit;False;ALMask;-1;True;1;0;COLOR;0,0,0,0;False;1;COLOR;0
 Node;AmplifyShaderEditor.RegisterLocalVarNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;2618;-896,-688;Inherit;False;maxIndirLight;-1;True;1;0;FLOAT3;0,0,0;False;1;FLOAT3;0
 Node;AmplifyShaderEditor.StepOpNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;2676;3904,832;Inherit;False;2;0;FLOAT;0;False;1;FLOAT;0;False;1;FLOAT;0
-Node;AmplifyShaderEditor.RangedFloatNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;2669;3552,1104;Inherit;False;Property;_DontRenderInSocialVRCameras;Don't Render in Social VR Cameras;48;1;[ToggleUI];Create;False;0;0;0;False;0;False;0;0;0;0;0;1;FLOAT;0
+Node;AmplifyShaderEditor.RangedFloatNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;2669;3552,1104;Inherit;False;Property;_DontRenderInSocialVRCameras;Don't Render in Social VR Cameras;52;1;[ToggleUI];Create;False;0;0;0;False;0;False;0;0;0;0;0;1;FLOAT;0
 Node;AmplifyShaderEditor.StepOpNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;2701;3904,1424;Inherit;False;2;0;FLOAT;0;False;1;FLOAT;0;False;1;FLOAT;0
-Node;AmplifyShaderEditor.RangedFloatNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;2702;3552,1696;Inherit;False;Property;_DontRenderinSocialVRMirrors;Don't Render in Social VR Mirrors;49;1;[ToggleUI];Create;False;0;0;0;False;0;False;0;0;0;0;0;1;FLOAT;0
+Node;AmplifyShaderEditor.RangedFloatNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;2702;3552,1696;Inherit;False;Property;_DontRenderinSocialVRMirrors;Don't Render in Social VR Mirrors;53;1;[ToggleUI];Create;False;0;0;0;False;0;False;0;0;0;0;0;1;FLOAT;0
 Node;AmplifyShaderEditor.GetLocalVarNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;198;1872,-64;Inherit;False;200;DiscardUV;1;0;OBJECT;;False;1;FLOAT2;0
-Node;AmplifyShaderEditor.RangedFloatNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;270;1776,-1088;Inherit;False;Property;_UDIMDiscardRow0_0;Discard UV Tile 0,0;30;1;[ToggleUI];Create;False;1;UV Tile Discard;0;0;False;0;False;0;0;0;1;0;1;FLOAT;0
-Node;AmplifyShaderEditor.RangedFloatNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;762;1776,-1024;Inherit;False;Property;_UDIMDiscardRow0_1;Discard UV Tile 0,1;31;1;[ToggleUI];Create;False;0;0;0;False;0;False;0;0;0;1;0;1;FLOAT;0
-Node;AmplifyShaderEditor.RangedFloatNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;763;1776,-960;Inherit;False;Property;_UDIMDiscardRow0_2;Discard UV Tile 0,2;32;1;[ToggleUI];Create;False;0;0;0;False;0;False;0;0;0;1;0;1;FLOAT;0
-Node;AmplifyShaderEditor.RangedFloatNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;764;1776,-896;Inherit;False;Property;_UDIMDiscardRow0_3;Discard UV Tile 0,3;33;1;[ToggleUI];Create;False;0;0;0;False;0;False;0;0;0;1;0;1;FLOAT;0
-Node;AmplifyShaderEditor.RangedFloatNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;765;1776,-832;Inherit;False;Property;_UDIMDiscardRow1_0;Discard UV Tile 1,0;34;1;[ToggleUI];Create;False;1;UV Tile Discard;0;0;False;0;False;0;0;0;1;0;1;FLOAT;0
-Node;AmplifyShaderEditor.RangedFloatNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;766;1776,-768;Inherit;False;Property;_UDIMDiscardRow1_1;Discard UV Tile 1,1;35;1;[ToggleUI];Create;False;1;UV Tile Discard;0;0;False;0;False;0;0;0;1;0;1;FLOAT;0
-Node;AmplifyShaderEditor.RangedFloatNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;767;1776,-704;Inherit;False;Property;_UDIMDiscardRow1_2;Discard UV Tile 1,2;36;1;[ToggleUI];Create;False;1;UV Tile Discard;0;0;False;0;False;0;0;0;1;0;1;FLOAT;0
-Node;AmplifyShaderEditor.RangedFloatNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;768;1776,-640;Inherit;False;Property;_UDIMDiscardRow1_3;Discard UV Tile 1,3;37;1;[ToggleUI];Create;False;1;UV Tile Discard;0;0;False;0;False;0;0;0;1;0;1;FLOAT;0
-Node;AmplifyShaderEditor.RangedFloatNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;770;1776,-576;Inherit;False;Property;_UDIMDiscardRow2_0;Discard UV Tile 2,0;38;1;[ToggleUI];Create;False;1;UV Tile Discard;0;0;False;0;False;0;0;0;1;0;1;FLOAT;0
-Node;AmplifyShaderEditor.RangedFloatNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;771;1776,-512;Inherit;False;Property;_UDIMDiscardRow2_1;Discard UV Tile 2,1;39;1;[ToggleUI];Create;False;1;UV Tile Discard;0;0;False;0;False;0;0;0;1;0;1;FLOAT;0
-Node;AmplifyShaderEditor.RangedFloatNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;772;1776,-448;Inherit;False;Property;_UDIMDiscardRow2_2;Discard UV Tile 2,2;40;1;[ToggleUI];Create;False;1;UV Tile Discard;0;0;False;0;False;0;0;0;1;0;1;FLOAT;0
-Node;AmplifyShaderEditor.RangedFloatNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;773;1776,-384;Inherit;False;Property;_UDIMDiscardRow2_3;Discard UV Tile 2,3;41;1;[ToggleUI];Create;False;1;UV Tile Discard;0;0;False;0;False;0;0;0;1;0;1;FLOAT;0
-Node;AmplifyShaderEditor.RangedFloatNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;774;1776,-320;Inherit;False;Property;_UDIMDiscardRow3_0;Discard UV Tile 3,0;43;1;[ToggleUI];Create;False;1;UV Tile Discard;0;0;False;0;False;0;0;0;1;0;1;FLOAT;0
-Node;AmplifyShaderEditor.RangedFloatNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;775;1776,-256;Inherit;False;Property;_UDIMDiscardRow3_1;Discard UV Tile 3,1;42;1;[ToggleUI];Create;False;1;UV Tile Discard;0;0;False;0;False;0;0;0;1;0;1;FLOAT;0
-Node;AmplifyShaderEditor.RangedFloatNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;776;1776,-192;Inherit;False;Property;_UDIMDiscardRow3_2;Discard UV Tile 3,2;44;1;[ToggleUI];Create;False;1;UV Tile Discard;0;0;False;0;False;0;0;0;1;0;1;FLOAT;0
-Node;AmplifyShaderEditor.RangedFloatNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;777;1776,-128;Inherit;False;Property;_UDIMDiscardRow3_3;Discard UV Tile 3,3;45;1;[ToggleUI];Create;False;1;UV Tile Discard;0;0;False;0;False;0;0;0;1;0;1;FLOAT;0
+Node;AmplifyShaderEditor.RangedFloatNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;270;1776,-1088;Inherit;False;Property;_UDIMDiscardRow0_0;Discard UV Tile 0,0;34;1;[ToggleUI];Create;False;1;UV Tile Discard;0;0;False;0;False;0;0;0;1;0;1;FLOAT;0
+Node;AmplifyShaderEditor.RangedFloatNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;762;1776,-1024;Inherit;False;Property;_UDIMDiscardRow0_1;Discard UV Tile 0,1;35;1;[ToggleUI];Create;False;0;0;0;False;0;False;0;0;0;1;0;1;FLOAT;0
+Node;AmplifyShaderEditor.RangedFloatNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;763;1776,-960;Inherit;False;Property;_UDIMDiscardRow0_2;Discard UV Tile 0,2;36;1;[ToggleUI];Create;False;0;0;0;False;0;False;0;0;0;1;0;1;FLOAT;0
+Node;AmplifyShaderEditor.RangedFloatNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;764;1776,-896;Inherit;False;Property;_UDIMDiscardRow0_3;Discard UV Tile 0,3;37;1;[ToggleUI];Create;False;0;0;0;False;0;False;0;0;0;1;0;1;FLOAT;0
+Node;AmplifyShaderEditor.RangedFloatNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;765;1776,-832;Inherit;False;Property;_UDIMDiscardRow1_0;Discard UV Tile 1,0;38;1;[ToggleUI];Create;False;1;UV Tile Discard;0;0;False;0;False;0;0;0;1;0;1;FLOAT;0
+Node;AmplifyShaderEditor.RangedFloatNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;766;1776,-768;Inherit;False;Property;_UDIMDiscardRow1_1;Discard UV Tile 1,1;39;1;[ToggleUI];Create;False;1;UV Tile Discard;0;0;False;0;False;0;0;0;1;0;1;FLOAT;0
+Node;AmplifyShaderEditor.RangedFloatNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;767;1776,-704;Inherit;False;Property;_UDIMDiscardRow1_2;Discard UV Tile 1,2;40;1;[ToggleUI];Create;False;1;UV Tile Discard;0;0;False;0;False;0;0;0;1;0;1;FLOAT;0
+Node;AmplifyShaderEditor.RangedFloatNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;768;1776,-640;Inherit;False;Property;_UDIMDiscardRow1_3;Discard UV Tile 1,3;41;1;[ToggleUI];Create;False;1;UV Tile Discard;0;0;False;0;False;0;0;0;1;0;1;FLOAT;0
+Node;AmplifyShaderEditor.RangedFloatNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;770;1776,-576;Inherit;False;Property;_UDIMDiscardRow2_0;Discard UV Tile 2,0;42;1;[ToggleUI];Create;False;1;UV Tile Discard;0;0;False;0;False;0;0;0;1;0;1;FLOAT;0
+Node;AmplifyShaderEditor.RangedFloatNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;771;1776,-512;Inherit;False;Property;_UDIMDiscardRow2_1;Discard UV Tile 2,1;43;1;[ToggleUI];Create;False;1;UV Tile Discard;0;0;False;0;False;0;0;0;1;0;1;FLOAT;0
+Node;AmplifyShaderEditor.RangedFloatNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;772;1776,-448;Inherit;False;Property;_UDIMDiscardRow2_2;Discard UV Tile 2,2;44;1;[ToggleUI];Create;False;1;UV Tile Discard;0;0;False;0;False;0;0;0;1;0;1;FLOAT;0
+Node;AmplifyShaderEditor.RangedFloatNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;773;1776,-384;Inherit;False;Property;_UDIMDiscardRow2_3;Discard UV Tile 2,3;45;1;[ToggleUI];Create;False;1;UV Tile Discard;0;0;False;0;False;0;0;0;1;0;1;FLOAT;0
+Node;AmplifyShaderEditor.RangedFloatNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;774;1776,-320;Inherit;False;Property;_UDIMDiscardRow3_0;Discard UV Tile 3,0;47;1;[ToggleUI];Create;False;1;UV Tile Discard;0;0;False;0;False;0;0;0;1;0;1;FLOAT;0
+Node;AmplifyShaderEditor.RangedFloatNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;775;1776,-256;Inherit;False;Property;_UDIMDiscardRow3_1;Discard UV Tile 3,1;46;1;[ToggleUI];Create;False;1;UV Tile Discard;0;0;False;0;False;0;0;0;1;0;1;FLOAT;0
+Node;AmplifyShaderEditor.RangedFloatNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;776;1776,-192;Inherit;False;Property;_UDIMDiscardRow3_2;Discard UV Tile 3,2;48;1;[ToggleUI];Create;False;1;UV Tile Discard;0;0;False;0;False;0;0;0;1;0;1;FLOAT;0
+Node;AmplifyShaderEditor.RangedFloatNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;777;1776,-128;Inherit;False;Property;_UDIMDiscardRow3_3;Discard UV Tile 3,3;49;1;[ToggleUI];Create;False;1;UV Tile Discard;0;0;False;0;False;0;0;0;1;0;1;FLOAT;0
 Node;AmplifyShaderEditor.GetLocalVarNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;75;-944,-1920;Inherit;False;39;ALMask;1;0;OBJECT;;False;1;COLOR;0
 Node;AmplifyShaderEditor.GetLocalVarNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;51;-1168,-1936;Inherit;False;50;Time;1;0;OBJECT;;False;1;FLOAT;0
 Node;AmplifyShaderEditor.GetLocalVarNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;995;-1168,-1872;Inherit;False;991;in_ALDelay;1;0;OBJECT;;False;1;FLOAT;0
-Node;AmplifyShaderEditor.RangedFloatNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;2614;-1200,-1744;Inherit;False;Property;_ALEmitifInactive;AL Emit if Inactive;19;1;[ToggleUI];Create;False;0;0;0;False;0;False;0;1;0;0;0;1;FLOAT;0
-Node;AmplifyShaderEditor.RangedFloatNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;415;-1264,-1808;Half;False;Property;_EnableAudioLink;Enable AudioLink;18;2;[Header];[ToggleUI];Create;True;1;AudioLink;0;0;False;0;False;0;1;0;1;0;1;FLOAT;0
+Node;AmplifyShaderEditor.RangedFloatNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;2614;-1200,-1744;Inherit;False;Property;_ALEmitifInactive;AL Emit if Inactive;23;1;[ToggleUI];Create;False;0;0;0;False;0;False;0;1;0;0;0;1;FLOAT;0
+Node;AmplifyShaderEditor.RangedFloatNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;415;-1264,-1808;Half;False;Property;_EnableAudioLink;Enable AudioLink;22;2;[Header];[ToggleUI];Create;True;1;AudioLink;0;0;False;0;False;0;1;0;1;0;1;FLOAT;0
 Node;AmplifyShaderEditor.ColorNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;45;-1200,-2096;Inherit;False;Constant;_AL_Treble;AL_Treble;6;0;Create;True;0;0;0;False;0;False;0,0,1,1;0,0,0,0;True;True;0;6;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4;FLOAT3;5
 Node;AmplifyShaderEditor.ColorNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;43;-1200,-2256;Inherit;False;Constant;_AL_LowMid;AL_LowMid;6;0;Create;True;0;0;0;False;0;False;1,0.9294118,0,1;0,0,0,0;True;True;0;6;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4;FLOAT3;5
 Node;AmplifyShaderEditor.ColorNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;44;-1200,-2416;Inherit;False;Constant;_AL_HighMid;AL_HighMid;6;0;Create;True;0;0;0;False;0;False;0,0.8196079,0,1;0,0,0,0;True;True;0;6;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4;FLOAT3;5
-Node;AmplifyShaderEditor.RangedFloatNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;113;96,-848;Inherit;False;Property;_RimBaseColorStrength;Rim Base Color Strength;28;0;Create;True;0;0;0;False;0;False;1;1;0;1;0;1;FLOAT;0
-Node;AmplifyShaderEditor.RangedFloatNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;87;96,-912;Inherit;False;Property;_RimEnergy;Rim Energy;27;0;Create;True;0;0;0;False;0;False;0.345;1;0;1;0;1;FLOAT;0
-Node;AmplifyShaderEditor.RangedFloatNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;12;96,-976;Float;False;Property;_RimPower;Rim Power;26;0;Create;True;0;0;0;False;0;False;2.07;1.86;0;10;0;1;FLOAT;0
+Node;AmplifyShaderEditor.RangedFloatNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;113;96,-848;Inherit;False;Property;_RimBaseColorStrength;Rim Base Color Strength;32;0;Create;True;0;0;0;False;0;False;1;1;0;1;0;1;FLOAT;0
+Node;AmplifyShaderEditor.RangedFloatNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;87;96,-912;Inherit;False;Property;_RimEnergy;Rim Energy;31;0;Create;True;0;0;0;False;0;False;0.345;1;0;1;0;1;FLOAT;0
+Node;AmplifyShaderEditor.RangedFloatNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;12;96,-976;Float;False;Property;_RimPower;Rim Power;30;0;Create;True;0;0;0;False;0;False;2.07;1.86;0;10;0;1;FLOAT;0
 Node;AmplifyShaderEditor.GetLocalVarNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;1404;192,-784;Inherit;False;1002;normalMap;1;0;OBJECT;;False;1;FLOAT3;0
 Node;AmplifyShaderEditor.GetLocalVarNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;2505;160,-720;Inherit;False;2618;maxIndirLight;1;0;OBJECT;;False;1;FLOAT3;0
-Node;AmplifyShaderEditor.RangedFloatNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;333;96,-1040;Half;False;Property;_EnableRimLighting;Enable Rim Lighting;25;1;[ToggleUI];Create;True;0;0;0;False;0;False;1;0;0;1;0;1;FLOAT;0
+Node;AmplifyShaderEditor.RangedFloatNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;333;96,-1040;Half;False;Property;_EnableRimLighting;Enable Rim Lighting;29;1;[ToggleUI];Create;True;0;0;0;False;0;False;1;0;0;1;0;1;FLOAT;0
 Node;AmplifyShaderEditor.GetLocalVarNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;2621;192,-656;Inherit;False;26;mainTex;1;0;OBJECT;;False;1;COLOR;0
 Node;AmplifyShaderEditor.ColorNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;1005;128,-1952;Inherit;False;Property;_EmissionColor;Emission Color;5;0;Create;False;0;0;0;True;0;False;0,0,0,0;0,1,0.9604408,0;True;True;0;6;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4;FLOAT3;5
 Node;AmplifyShaderEditor.ColorNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;42;-1200,-2576;Inherit;False;Constant;_AL_Bass;AL_Bass;6;0;Create;True;0;0;0;False;0;False;1,0,0,1;0,0,0,0;True;True;0;6;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4;FLOAT3;5
 Node;AmplifyShaderEditor.SimpleMultiplyOpNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;2678;4016,880;Inherit;False;2;2;0;FLOAT;0;False;1;FLOAT;0;False;1;FLOAT;0
 Node;AmplifyShaderEditor.SimpleMultiplyOpNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;2703;4016,1472;Inherit;False;2;2;0;FLOAT;0;False;1;FLOAT;0;False;1;FLOAT;0
 Node;AmplifyShaderEditor.SamplerNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;118;80,-2224;Inherit;True;Property;_Emission;Emission;4;0;Create;True;0;0;0;False;0;False;-1;None;None;True;0;False;black;Auto;False;Object;-1;Auto;Texture2D;8;0;SAMPLER2D;;False;1;FLOAT2;0,0;False;2;FLOAT;0;False;3;FLOAT2;0,0;False;4;FLOAT2;0,0;False;5;FLOAT;1;False;6;FLOAT;0;False;7;SAMPLERSTATE;;False;6;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4;FLOAT3;5
-Node;AmplifyShaderEditor.FunctionNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;2692;2256,-736;Inherit;False;VVUVTileDiscardFull;-1;;1308;37cd3007c1dbdac4b9341609f3fa3a5a;0;17;100;FLOAT;0;False;101;FLOAT;0;False;102;FLOAT;0;False;103;FLOAT;0;False;104;FLOAT;0;False;105;FLOAT;0;False;106;FLOAT;0;False;107;FLOAT;0;False;108;FLOAT;0;False;109;FLOAT;0;False;110;FLOAT;0;False;111;FLOAT;0;False;112;FLOAT;0;False;113;FLOAT;0;False;114;FLOAT;0;False;115;FLOAT;0;False;99;FLOAT2;0,0;False;1;FLOAT;116
+Node;AmplifyShaderEditor.FunctionNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;2692;2256,-736;Inherit;False;VVUVTileDiscardFull;-1;;1446;37cd3007c1dbdac4b9341609f3fa3a5a;0;17;100;FLOAT;0;False;101;FLOAT;0;False;102;FLOAT;0;False;103;FLOAT;0;False;104;FLOAT;0;False;105;FLOAT;0;False;106;FLOAT;0;False;107;FLOAT;0;False;108;FLOAT;0;False;109;FLOAT;0;False;110;FLOAT;0;False;111;FLOAT;0;False;112;FLOAT;0;False;113;FLOAT;0;False;114;FLOAT;0;False;115;FLOAT;0;False;99;FLOAT2;0,0;False;1;FLOAT;116
 Node;AmplifyShaderEditor.SimpleMultiplyOpNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;121;432,-2144;Inherit;False;2;2;0;COLOR;0,0,0,0;False;1;COLOR;0,0,0,0;False;1;COLOR;0
-Node;AmplifyShaderEditor.FunctionNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;2620;496,-912;Inherit;False;Rim;-1;;1325;652e8c2aadb4b694999944f1079d1366;0;7;29;FLOAT;0;False;30;FLOAT;0;False;31;FLOAT;0;False;32;FLOAT;0;False;26;FLOAT3;0,0,0;False;27;FLOAT3;0,0,0;False;28;FLOAT4;0,0,0,0;False;1;FLOAT4;0
-Node;AmplifyShaderEditor.FunctionNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;2688;-720,-2336;Inherit;False;VVALCombine;-1;;1326;bceeba5c9c06c59459d6b7e4bf2084da;0;9;54;FLOAT;0;False;55;INT;0;False;25;COLOR;1,0,0,1;False;27;COLOR;1,0.9294118,0,1;False;26;COLOR;0,0.8196079,0,1;False;28;COLOR;0,0,1,1;False;51;COLOR;0,0,0,0;False;52;FLOAT;0;False;53;FLOAT;0;False;1;COLOR;0
+Node;AmplifyShaderEditor.FunctionNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;2620;496,-912;Inherit;False;Rim;-1;;1463;652e8c2aadb4b694999944f1079d1366;0;7;29;FLOAT;0;False;30;FLOAT;0;False;31;FLOAT;0;False;32;FLOAT;0;False;26;FLOAT3;0,0,0;False;27;FLOAT3;0,0,0;False;28;FLOAT4;0,0,0,0;False;1;FLOAT4;0
 Node;AmplifyShaderEditor.CommentaryNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;2665;3328,-416;Inherit;False;468;235;Comment;2;2663;2691;Vertex Position Results;1,1,1,1;0;0
 Node;AmplifyShaderEditor.CommentaryNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;2666;3296,32;Inherit;False;1616.048;535.0431;Comment;12;2687;2654;2655;2661;2660;2658;2662;2657;2689;2708;2715;2716;Discard UV;1,1,1,1;0;0
 Node;AmplifyShaderEditor.RegisterLocalVarNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;2686;4160,848;Inherit;False;Dont Render in Social VR Camera Result;-1;True;1;0;FLOAT;0;False;1;FLOAT;0
 Node;AmplifyShaderEditor.RegisterLocalVarNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;2704;4176,1440;Inherit;False;Dont Render in Social VR Mirror Result;-1;True;1;0;FLOAT;0;False;1;FLOAT;0
 Node;AmplifyShaderEditor.RegisterLocalVarNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;192;2576,-720;Inherit;False;UVTileDiscard;-1;True;1;0;FLOAT;0;False;1;FLOAT;0
+Node;AmplifyShaderEditor.FunctionNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;2821;-720,-2336;Inherit;False;VVALCombine;-1;;1468;bceeba5c9c06c59459d6b7e4bf2084da;0;9;54;FLOAT;0;False;55;INT;0;False;25;COLOR;1,0,0,1;False;27;COLOR;1,0.9294118,0,1;False;26;COLOR;0,0.8196079,0,1;False;28;COLOR;0,0,1,1;False;51;COLOR;0,0,0,0;False;52;FLOAT;0;False;53;FLOAT;0;False;1;COLOR;0
 Node;AmplifyShaderEditor.CommentaryNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;31;16,-1680;Inherit;False;798.6848;366.049;Comment;6;29;2539;30;86;28;122;Emission Combination;1,1,1,1;0;0
 Node;AmplifyShaderEditor.RegisterLocalVarNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;119;592,-2224;Inherit;False;Emission;-1;True;1;0;COLOR;0,0,0,0;False;1;COLOR;0
-Node;AmplifyShaderEditor.RegisterLocalVarNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;85;-400,-2288;Inherit;False;AL_Final;-1;True;1;0;COLOR;0,0,0,0;False;1;COLOR;0
 Node;AmplifyShaderEditor.RegisterLocalVarNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;116;848,-912;Float;False;Rim;-1;True;1;0;FLOAT4;0,0,0,0;False;1;FLOAT4;0
 Node;AmplifyShaderEditor.PosVertexDataNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;2691;3360,-352;Inherit;False;0;0;5;FLOAT3;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
 Node;AmplifyShaderEditor.GetLocalVarNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;2687;3344,176;Inherit;False;2686;Dont Render in Social VR Camera Result;1;0;OBJECT;;False;1;FLOAT;0
 Node;AmplifyShaderEditor.GetLocalVarNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;2654;3472,96;Inherit;False;192;UVTileDiscard;1;0;OBJECT;;False;1;FLOAT;0
 Node;AmplifyShaderEditor.GetLocalVarNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;2708;3344,256;Inherit;False;2704;Dont Render in Social VR Mirror Result;1;0;OBJECT;;False;1;FLOAT;0
-Node;AmplifyShaderEditor.RangedFloatNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;2715;3456,384;Inherit;False;Property;_UDIMDiscardAll;Discard All;46;1;[ToggleUI];Create;False;1;The Following Setting Completely Disables Rendering whatever is using this material. This works similarly to UV Tile Discarding.;0;0;False;0;False;0;0;0;0;0;1;FLOAT;0
+Node;AmplifyShaderEditor.RangedFloatNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;2715;3456,384;Inherit;False;Property;_UDIMDiscardAll;Discard All;50;1;[ToggleUI];Create;False;1;The Following Setting Completely Disables Rendering whatever is using this material. This works similarly to UV Tile Discarding.;0;0;False;0;False;0;0;0;0;0;1;FLOAT;0
+Node;AmplifyShaderEditor.RegisterLocalVarNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;85;-400,-2288;Inherit;False;AL_Final;-1;True;1;0;COLOR;0,0,0,0;False;1;COLOR;0
 Node;AmplifyShaderEditor.GetLocalVarNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;122;48,-1520;Inherit;False;119;Emission;1;0;OBJECT;;False;1;COLOR;0
 Node;AmplifyShaderEditor.GetLocalVarNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;28;32,-1440;Inherit;False;116;Rim;1;0;OBJECT;;False;1;FLOAT4;0
 Node;AmplifyShaderEditor.GetLocalVarNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;86;32,-1616;Inherit;False;85;AL_Final;1;0;OBJECT;;False;1;COLOR;0
@@ -825,19 +852,19 @@ Node;AmplifyShaderEditor.SaturateNode, AmplifyShaderEditor, Version=0.0.0.0, Cul
 Node;AmplifyShaderEditor.Compare, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;2657;4160,176;Inherit;False;0;4;0;FLOAT;0;False;1;FLOAT;0;False;2;FLOAT;0;False;3;FLOAT3;0,0,0;False;1;FLOAT3;0
 Node;AmplifyShaderEditor.CommentaryNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;220;1248,-2688;Inherit;False;962.8354;715.8684;Comment;5;0;33;32;193;332;Output;1,1,1,1;0;0
 Node;AmplifyShaderEditor.CommentaryNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;217;1840,-1792;Inherit;False;420.8079;185;Comment;2;219;218;Declare NaN;1,1,1,1;0;0
-Node;AmplifyShaderEditor.RegisterLocalVarNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;1144;-896,-576;Inherit;False;Lighting Wrapped;-1;True;1;0;COLOR;0,0,0,0;False;1;COLOR;0
 Node;AmplifyShaderEditor.RegisterLocalVarNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;29;592,-1536;Inherit;False;EmissionFinal;-1;True;1;0;COLOR;0,0,0,0;False;1;COLOR;0
 Node;AmplifyShaderEditor.CommentaryNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;2641;-688.6962,-4043.483;Inherit;False;324;355;Comment;1;2642;Fallbacks;1,1,1,1;0;0
 Node;AmplifyShaderEditor.RegisterLocalVarNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;2662;4448,224;Inherit;False;Discard Vertex;-1;True;1;0;FLOAT3;0,0,0;False;1;FLOAT3;0
+Node;AmplifyShaderEditor.RegisterLocalVarNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;1144;-896,-576;Inherit;False;Lighting Wrapped;-1;True;1;0;COLOR;0,0,0,0;False;1;COLOR;0
 Node;AmplifyShaderEditor.GetLocalVarNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;33;1488,-2640;Inherit;False;26;mainTex;1;0;OBJECT;;False;1;COLOR;0
 Node;AmplifyShaderEditor.SimpleDivideOpNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;218;1888,-1744;Inherit;False;2;0;FLOAT;0;False;1;FLOAT;0;False;1;FLOAT;0
 Node;AmplifyShaderEditor.RegisterLocalVarNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;219;2048,-1744;Inherit;False;NaN;-1;True;1;0;FLOAT;0;False;1;FLOAT;0
 Node;AmplifyShaderEditor.GetLocalVarNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;32;1504,-2464;Inherit;False;29;EmissionFinal;1;0;OBJECT;;False;1;COLOR;0
 Node;AmplifyShaderEditor.RegisterLocalVarNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;2546;-1312,-3088;Inherit;False;ao_times_strength;-1;True;1;0;COLOR;0,0,0,0;False;1;COLOR;0
 Node;AmplifyShaderEditor.RangedFloatNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;1047;-1232,-3456;Inherit;False;Property;_CullMode;Cull Mode;0;1;[Enum];Create;True;0;3;Off;0;Front;1;Back;2;0;True;0;False;0;2;0;0;0;1;FLOAT;0
-Node;AmplifyShaderEditor.TexturePropertyNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;2642;-640.6962,-3979.483;Inherit;True;Property;_EmissionMap;Fallback Emission Map;47;1;[SingleLineTexture];Create;False;0;0;0;True;0;False;None;None;False;white;Auto;Texture2D;-1;0;2;SAMPLER2D;0;SAMPLERSTATE;1
-Node;AmplifyShaderEditor.GetLocalVarNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;332;1728,-2304;Inherit;False;1144;Lighting Wrapped;1;0;OBJECT;;False;1;COLOR;0
+Node;AmplifyShaderEditor.TexturePropertyNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;2642;-640.6962,-3979.483;Inherit;True;Property;_EmissionMap;Fallback Emission Map;51;1;[SingleLineTexture];Create;False;0;0;0;True;0;False;None;None;False;white;Auto;Texture2D;-1;0;2;SAMPLER2D;0;SAMPLERSTATE;1
 Node;AmplifyShaderEditor.GetLocalVarNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;193;1552,-2176;Inherit;False;2662;Discard Vertex;1;0;OBJECT;;False;1;FLOAT3;0
+Node;AmplifyShaderEditor.GetLocalVarNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;332;1728,-2304;Inherit;False;1144;Lighting Wrapped;1;0;OBJECT;;False;1;COLOR;0
 Node;AmplifyShaderEditor.StandardSurfaceOutputNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;0;1968,-2528;Float;False;True;-1;2;AmplifyShaderEditor.MaterialInspector;0;0;CustomLighting;VoyVivika/VivikaShader/Vivika Shader Opaque;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;Off;0;False;;0;False;;False;0;False;;0;False;;False;0;Opaque;0.5;True;True;0;False;Opaque;;Geometry;ForwardOnly;12;all;True;True;True;True;0;False;;False;0;False;;255;False;;255;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;False;2;15;10;25;False;0.5;True;0;5;False;;10;False;;0;0;False;;0;False;;0;False;;0;False;;0;False;0;0,0,0,0;VertexOffset;True;False;Cylindrical;False;True;Absolute;0;Standard;-1;-1;-1;-1;1;VRCFallback=DoubleSided;False;0;0;True;_CullMode;-1;0;False;;1;Include;..\Libs\AudioLink\AudioLink.cginc;False;;Custom;False;0;0;;0;0;False;0.1;False;;0;False;;False;16;0;FLOAT3;0,0,0;False;1;FLOAT3;0,0,0;False;2;FLOAT3;0,0,0;False;3;FLOAT3;0,0,0;False;4;FLOAT;0;False;6;FLOAT3;0,0,0;False;7;FLOAT3;0,0,0;False;8;FLOAT;0;False;9;FLOAT;0;False;10;FLOAT;0;False;13;FLOAT3;0,0,0;False;11;FLOAT3;0,0,0;False;12;FLOAT3;0,0,0;False;16;FLOAT4;0,0,0,0;False;14;FLOAT4;0,0,0,0;False;15;FLOAT3;0,0,0;False;0
 WireConnection;2627;32;2357;0
 WireConnection;2355;0;2627;0
@@ -876,26 +903,30 @@ WireConnection;2697;9;2695;0
 WireConnection;2697;10;2696;0
 WireConnection;49;0;48;0
 WireConnection;985;0;987;0
-WireConnection;2650;4;2392;0
-WireConnection;2650;5;2414;0
-WireConnection;2650;6;2415;0
-WireConnection;2650;7;2556;0
-WireConnection;2650;8;1207;0
-WireConnection;2650;9;2291;0
-WireConnection;2650;10;2375;0
-WireConnection;2650;11;2582;0
-WireConnection;2650;12;2583;0
-WireConnection;2650;13;2584;0
-WireConnection;2650;18;2589;0
 WireConnection;200;0;2626;0
 WireConnection;2675;0;2673;0
 WireConnection;2675;1;2682;0
 WireConnection;2699;0;2698;0
 WireConnection;2699;1;2697;0
+WireConnection;2819;54;2732;0
+WireConnection;2819;51;2726;0
+WireConnection;2819;52;2727;0
+WireConnection;2819;48;2723;0
+WireConnection;2819;4;2392;0
+WireConnection;2819;5;2414;0
+WireConnection;2819;6;2415;0
+WireConnection;2819;7;2556;0
+WireConnection;2819;8;1207;0
+WireConnection;2819;9;2291;0
+WireConnection;2819;10;2375;0
+WireConnection;2819;11;2582;0
+WireConnection;2819;12;2583;0
+WireConnection;2819;13;2584;0
+WireConnection;2819;18;2589;0
 WireConnection;991;0;985;0
 WireConnection;50;0;49;0
 WireConnection;39;0;40;0
-WireConnection;2618;0;2650;32
+WireConnection;2618;0;2819;32
 WireConnection;2676;0;2677;0
 WireConnection;2676;1;2675;0
 WireConnection;2701;0;2700;0
@@ -930,21 +961,21 @@ WireConnection;2620;32;113;0
 WireConnection;2620;26;1404;0
 WireConnection;2620;27;2505;0
 WireConnection;2620;28;2621;0
-WireConnection;2688;54;51;0
-WireConnection;2688;55;995;0
-WireConnection;2688;25;42;0
-WireConnection;2688;27;43;0
-WireConnection;2688;26;44;0
-WireConnection;2688;28;45;0
-WireConnection;2688;51;75;0
-WireConnection;2688;52;415;0
-WireConnection;2688;53;2614;0
 WireConnection;2686;0;2678;0
 WireConnection;2704;0;2703;0
 WireConnection;192;0;2692;116
+WireConnection;2821;54;51;0
+WireConnection;2821;55;995;0
+WireConnection;2821;25;42;0
+WireConnection;2821;27;43;0
+WireConnection;2821;26;44;0
+WireConnection;2821;28;45;0
+WireConnection;2821;51;75;0
+WireConnection;2821;52;415;0
+WireConnection;2821;53;2614;0
 WireConnection;119;0;121;0
-WireConnection;85;0;2688;0
 WireConnection;116;0;2620;0
+WireConnection;85;0;2821;0
 WireConnection;2655;0;2654;0
 WireConnection;2655;1;2687;0
 WireConnection;2655;2;2708;0
@@ -961,9 +992,9 @@ WireConnection;2657;0;2716;0
 WireConnection;2657;1;2658;0
 WireConnection;2657;2;2660;0
 WireConnection;2657;3;2689;0
-WireConnection;1144;0;2650;0
 WireConnection;29;0;2539;0
 WireConnection;2662;0;2657;0
+WireConnection;1144;0;2819;0
 WireConnection;219;0;218;0
 WireConnection;2546;0;2630;0
 WireConnection;0;0;33;0
@@ -971,4 +1002,4 @@ WireConnection;0;2;32;0
 WireConnection;0;13;332;0
 WireConnection;0;11;193;0
 ASEEND*/
-//CHKSM=59B5EA410CFEB21E5968D5EE31D28AF4D66FA34D
+//CHKSM=BC2860FD60B540473C8401D6D27BA59C03EE61F2
