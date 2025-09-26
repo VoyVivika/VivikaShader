@@ -2,7 +2,8 @@ fileFormatVersion: 2
 guid: 2c34f933a49b5b4449f35c50a3f1b35a
 ShaderImporter:
   externalObjects: {}
-  defaultTextures: []
+  defaultTextures:
+  - _FallbackReflection: {fileID: 8900000, guid: d4a1e20cc62b8e7449d3fd72491a6d2b, type: 3}
   nonModifiableTextures: []
   preprocessorOverride: 0
   userData: 

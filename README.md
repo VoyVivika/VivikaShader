@@ -24,6 +24,8 @@ This Shader only officially supports the Unity Built-in Render Pipeline, it does
 		- Delay done using Grayscale Texture (Black = No Delay, White = Maximum Delay)
 			- Recommended to Disable SRGB on Texture, Leave Mipmaps on!!!
 		- Setting to Increase Maximum Delay (0 - 127)
+- VRC/PVR/REDSIM Light Volumes Support
+	- WIP
 - Vertex UV Tile Discard
 	- Discards Verticies within Certain UV Coordinates
 	- This Treats UV Coordinates like Tiles (U 1.0 to 2.0, V 1.0 to 2.0 is considered Tile 1, 1)
