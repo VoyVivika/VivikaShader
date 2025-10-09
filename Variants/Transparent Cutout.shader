@@ -1,4 +1,4 @@
-// Made with Amplify Shader Editor v1.9.3.3
+// Made with Amplify Shader Editor v1.9.3.2
 // Available at the Unity Asset Store - http://u3d.as/y3X 
 Shader "VoyVivika/VivikaShader/Vivika Shader Transparent Cutout"
 {
@@ -396,7 +396,7 @@ Shader "VoyVivika/VivikaShader/Vivika Shader Transparent Cutout"
 			float3 ase_vertex3Pos = v.vertex.xyz;
 			float3 Vertex_Position2646 = ase_vertex3Pos;
 			float3 Discard_Vertex2687 = ( saturate( ( UVTileDiscard2691 + Dont_Render_in_Social_VR_Camera_Result2674 + Dont_Render_in_Social_VR_Mirror_Result2675 + _UDIMDiscardAll ) ) == 1.0 ? temp_cast_0 : Vertex_Position2646 );
-			v.vertex.xyz += Discard_Vertex2687;
+			v.vertex.xyz = Discard_Vertex2687;
 			v.vertex.w = 1;
 			float4 ase_screenPos = ComputeScreenPos( UnityObjectToClipPos( v.vertex ) );
 			o.screenPosition = ase_screenPos;
@@ -771,14 +771,14 @@ Shader "VoyVivika/VivikaShader/Vivika Shader Transparent Cutout"
 	CustomEditor "AmplifyShaderEditor.MaterialInspector"
 }
 /*ASEBEGIN
-Version=19303
+Version=19302
 Node;AmplifyShaderEditor.CommentaryNode;2714;-2438.8,-1440;Inherit;False;1218.748;448.8767;Comment;7;2716;2715;2718;1017;2719;2776;2777;Metallic and Smoothness;1,1,1,1;0;0
 Node;AmplifyShaderEditor.CommentaryNode;2761;-2980.195,815.7027;Inherit;False;2134.878;650.9312;This is here instead of inside the Amplify Function because ASE will not let me use a Texture Object for this. Quite Annoyed;12;2773;2772;2771;2770;2769;2768;2767;2766;2765;2764;2763;2762;Fallback Reflections;1,1,1,1;0;0
 Node;AmplifyShaderEditor.RangedFloatNode;2719;-2416,-1136;Inherit;False;Property;_SmoothnessChannel;Smoothness Channel;21;1;[Enum];Create;False;0;2;Alpha;0;Green;1;0;False;0;False;0;0;0;0;0;1;FLOAT;0
 Node;AmplifyShaderEditor.SamplerNode;1017;-2400,-1360;Inherit;True;Property;_MetallicGlossMap;Metallic Smoothness;20;1;[SingleLineTexture];Create;False;0;0;0;False;0;False;-1;None;None;True;0;False;black;Auto;False;Object;-1;Auto;Texture2D;8;0;SAMPLER2D;;False;1;FLOAT2;0,0;False;2;FLOAT;0;False;3;FLOAT2;0,0;False;4;FLOAT2;0,0;False;5;FLOAT;1;False;6;FLOAT;0;False;7;SAMPLERSTATE;;False;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
 Node;AmplifyShaderEditor.CommentaryNode;2333;-2064,-2752;Inherit;False;673.8176;177.324;Selection of UV Maps to Use for UV Tile Discarding;3;2355;2627;2357;Audio Link Delay UV;1,1,1,1;0;0
 Node;AmplifyShaderEditor.CommentaryNode;37;-1072,-1328;Inherit;False;859.9141;343.3768;Comment;3;34;1002;1006;Normal Map;1,1,1,1;0;0
-Node;AmplifyShaderEditor.TexturePropertyNode;2762;-2756.195,895.7027;Inherit;True;Property;_FallbackReflection;Fallback Reflection;25;1;[SingleLineTexture];Create;True;0;0;0;False;0;False;d4a1e20cc62b8e7449d3fd72491a6d2b;d4a1e20cc62b8e7449d3fd72491a6d2b;False;black;LockedToCube;Cube;-1;0;2;SAMPLERCUBE;0;SAMPLERSTATE;1
+Node;AmplifyShaderEditor.TexturePropertyNode;2762;-2756.195,895.7027;Inherit;True;Property;_FallbackReflection;Fallback Reflection;25;1;[SingleLineTexture];Create;True;0;0;0;False;0;False;None;None;False;black;LockedToCube;Cube;-1;0;2;SAMPLERCUBE;0;SAMPLERSTATE;1
 Node;AmplifyShaderEditor.LerpOp;2718;-2080,-1232;Inherit;False;3;0;FLOAT;0;False;1;FLOAT;0;False;2;FLOAT;0;False;1;FLOAT;0
 Node;AmplifyShaderEditor.RangedFloatNode;2777;-2000,-1088;Inherit;False;Property;_SmoothnessStrength;Smoothness Strength;23;0;Create;True;0;0;0;False;0;False;1;0;0;1;0;1;FLOAT;0
 Node;AmplifyShaderEditor.RangedFloatNode;2357;-2032,-2688;Inherit;False;Property;_ALDelayUVMap;AL Delay UV Map;36;2;[Header];[Enum];Create;True;0;5;UV0;0;UV1;1;UV2;2;UV3;3;Screen Space;8;0;True;0;False;2;2;0;0;0;1;FLOAT;0
@@ -822,7 +822,7 @@ Node;AmplifyShaderEditor.RangedFloatNode;2648;3009.226,122.2388;Inherit;False;Gl
 Node;AmplifyShaderEditor.RegisterLocalVarNode;2649;3217.226,26.23877;Inherit;False;cvr camera;-1;True;1;0;FLOAT;0;False;1;FLOAT;0
 Node;AmplifyShaderEditor.RangedFloatNode;2650;3009.226,218.2388;Inherit;False;Global;_VRChatMirrorMode;_VRChatMirrorMode;46;0;Create;True;0;0;0;False;0;False;0;0;0;0;0;1;FLOAT;0
 Node;AmplifyShaderEditor.CommentaryNode;201;-2064,-2464;Inherit;False;668.8916;177.8153;Selection of UV Maps to Use for UV Tile Discarding;3;2313;200;2626;Discard UV;1,1,1,1;0;0
-Node;AmplifyShaderEditor.SamplerNode;2772;-1492.195,1087.703;Inherit;True;Property;_FallbackReflectionA;Fallback ReflectionA;23;1;[SingleLineTexture];Create;True;0;0;0;False;0;False;-1;74d77ebd39499c3419c52d85e0715da0;74d77ebd39499c3419c52d85e0715da0;True;0;False;black;LockedToCube;False;Object;-1;MipLevel;Cube;8;0;SAMPLERCUBE;;False;1;FLOAT3;0,0,0;False;2;FLOAT;0;False;3;FLOAT3;0,0,0;False;4;FLOAT3;0,0,0;False;5;FLOAT;1;False;6;FLOAT;0;False;7;SAMPLERSTATE;;False;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
+Node;AmplifyShaderEditor.SamplerNode;2772;-1492.195,1087.703;Inherit;True;Property;_FallbackReflectionA;Fallback ReflectionA;23;1;[SingleLineTexture];Create;True;0;0;0;False;0;False;-1;None;None;True;0;False;black;LockedToCube;False;Object;-1;MipLevel;Cube;8;0;SAMPLERCUBE;;False;1;FLOAT3;0,0,0;False;2;FLOAT;0;False;3;FLOAT3;0,0,0;False;4;FLOAT3;0,0,0;False;5;FLOAT;1;False;6;FLOAT;0;False;7;SAMPLERSTATE;;False;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
 Node;AmplifyShaderEditor.SimpleMultiplyOpNode;2774;-1637.847,-1347.132;Inherit;False;2;2;0;FLOAT;0;False;1;FLOAT;0;False;1;FLOAT;0
 Node;AmplifyShaderEditor.TFHCRemapNode;993;496,-3184;Inherit;False;5;0;FLOAT;0;False;1;FLOAT;0;False;2;FLOAT;1;False;3;FLOAT;0;False;4;FLOAT;127;False;1;FLOAT;0
 Node;AmplifyShaderEditor.RangedFloatNode;243;1472,-3040;Inherit;False;Property;_ALTimeScale;AL HueShift Time Scale;38;0;Create;False;0;0;0;False;0;False;0;0.25;0;0;0;1;FLOAT;0
@@ -974,7 +974,7 @@ Node;AmplifyShaderEditor.TexturePropertyNode;2639;-444.3212,-4063.505;Inherit;Tr
 Node;AmplifyShaderEditor.GetLocalVarNode;193;1552,-2112;Inherit;False;2687;Discard Vertex;1;0;OBJECT;;False;1;FLOAT3;0
 Node;AmplifyShaderEditor.RangedFloatNode;2567;-1840,224;Inherit;False;Property;_MetallicFresnelPower;Metallic Fresnel Power;28;0;Create;True;0;0;0;False;0;False;3;3;0;0;0;1;FLOAT;0
 Node;AmplifyShaderEditor.RangedFloatNode;1497;-1808,160;Inherit;False;Property;_WrapMetallicFesnelScale;Metallic Fesnel Scale;27;0;Create;False;0;0;0;False;0;False;1;1;0;0;0;1;FLOAT;0
-Node;AmplifyShaderEditor.StandardSurfaceOutputNode;0;1968,-2528;Float;False;True;-1;2;AmplifyShaderEditor.MaterialInspector;0;0;CustomLighting;VoyVivika/VivikaShader/Vivika Shader Transparent Cutout;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;False;False;False;False;False;False;Off;0;False;;0;False;;False;0;False;;0;False;;False;0;Masked;0.5;True;True;0;False;TransparentCutout;;AlphaTest;ForwardOnly;12;all;True;True;True;True;0;False;;False;0;False;;255;False;;255;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;False;2;15;10;25;False;0.5;True;0;5;False;;10;False;;0;0;False;;0;False;;0;False;;0;False;;0;False;0;0,0,0,0;VertexOffset;True;False;Cylindrical;False;True;Relative;0;Standard;3;-1;-1;-1;1;VRCFallback=DoubleSided;False;0;0;True;_CullMode;-1;0;False;;1;Include;..\Libs\AudioLink\AudioLink.cginc;False;;Custom;False;0;0;;0;0;False;0.1;False;;0;False;;False;16;0;FLOAT3;0,0,0;False;1;FLOAT3;0,0,0;False;2;FLOAT3;0,0,0;False;3;FLOAT3;0,0,0;False;4;FLOAT;0;False;6;FLOAT3;0,0,0;False;7;FLOAT3;0,0,0;False;8;FLOAT;0;False;9;FLOAT;0;False;10;FLOAT;0;False;13;FLOAT3;0,0,0;False;11;FLOAT3;0,0,0;False;12;FLOAT3;0,0,0;False;16;FLOAT4;0,0,0,0;False;14;FLOAT4;0,0,0,0;False;15;FLOAT3;0,0,0;False;0
+Node;AmplifyShaderEditor.StandardSurfaceOutputNode;0;1968,-2528;Float;False;True;-1;2;AmplifyShaderEditor.MaterialInspector;0;0;CustomLighting;VoyVivika/VivikaShader/Vivika Shader Transparent Cutout;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;False;False;False;False;False;False;Off;0;False;;0;False;;False;0;False;;0;False;;False;0;Masked;0.5;True;True;0;False;TransparentCutout;;AlphaTest;ForwardOnly;12;all;True;True;True;True;0;False;;False;0;False;;255;False;;255;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;False;2;15;10;25;False;0.5;True;0;5;False;;10;False;;0;0;False;;0;False;;0;False;;0;False;;0;False;0;0,0,0,0;VertexOffset;True;False;Cylindrical;False;True;Absolute;0;Standard;3;-1;-1;-1;1;VRCFallback=DoubleSided;False;0;0;True;_CullMode;-1;0;False;;1;Include;..\Libs\AudioLink\AudioLink.cginc;False;;Custom;False;0;0;;0;0;False;0.1;False;;0;False;;False;16;0;FLOAT3;0,0,0;False;1;FLOAT3;0,0,0;False;2;FLOAT3;0,0,0;False;3;FLOAT3;0,0,0;False;4;FLOAT;0;False;6;FLOAT3;0,0,0;False;7;FLOAT3;0,0,0;False;8;FLOAT;0;False;9;FLOAT;0;False;10;FLOAT;0;False;13;FLOAT3;0,0,0;False;11;FLOAT3;0,0,0;False;12;FLOAT3;0,0,0;False;16;FLOAT4;0,0,0,0;False;14;FLOAT4;0,0,0,0;False;15;FLOAT3;0,0,0;False;0
 WireConnection;2718;0;1017;4
 WireConnection;2718;1;1017;2
 WireConnection;2718;2;2719;0
@@ -1133,4 +1133,4 @@ WireConnection;0;10;2637;0
 WireConnection;0;13;332;0
 WireConnection;0;11;193;0
 ASEEND*/
-//CHKSM=2AF4EA1E242BCCBB7DC91807E68A4FEBA1A0171F
+//CHKSM=64D1BF07E755FC090731A4C602FA44771A36C498
