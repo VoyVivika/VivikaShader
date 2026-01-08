@@ -8,13 +8,13 @@ Preview GIF is Outdated
 The Vivika Shader is a Shader created by VoyVivika in Unity3D with the Amplify Shader Editor. I made these for my Personal ChilloutVR Avatars with some in-game encouragement from N3X15, ended up being a fun project for experimenting with Amplify Shaders.
 
 # Please Note:
-This Shader only officially supports the Unity Built-in Render Pipeline, it does not support LWRP, URP, or HDRP at this time.
+This Shader only officially supports the Unity Built-in Render Pipeline, it does not support LWRP, URP, or HDRP. This means it will not work in Hypernex or most Projects Based on the Basis Framework.
 
 ## Features
 - Single-Pass Stereo Instancing Compatible
 	- Rendering Mode used in Unity 2020+ by Default for VR/XR Enabled Projects.
 		- This Rendering Mode is not Required by VRChat, as their version of Unity is Customized to retain Backwards Compatibility for Older Shaders.
-		- This Rendering Mode is Required by ChilloutVR, as they use SPS-I.
+		- This Rendering Mode is Required by ChilloutVR & PoligonVR, as they use SPS-I.
 - AudioLink Support
 	- AudioLink.cginc Included along with the Amplify Functions as permitted by the AudioLink License.
 		- Using the [ChilloutVR Specific Fork by DomNomNom](https://github.com/DomNomNomVR/cvr-audio-link)
