@@ -61,11 +61,16 @@ This Repo contains some Amplify Shader Editor Functions useful for Shader Creato
 		- In older versions of this shader package there is an ASE Function called "UV Tile Check" which is functionally similar but is less optimized.
 		- Basically, Remember to use "UV Tile Checker" and not "UV Tile Check" if upgrading from older versions.
 - Decal
-	- A Function to assist in the creation of Decals (Textures that get added on top of the existing Albedo map)
-	- A variant also exists to create a variant that does not include rotation
+	- A Function to assist in the creation of Decals (Arbitrarily Positionable, Scalable, and Rotatable Textures)
 - If Float Equals
-	- Optimized way to check if Two Values are Equal, if yes the input of true is returned, if no the input of false is returned.
+	- Optimized (as it turns out, this is wrong) way to check if Two Values are Equal, if yes the input of true is returned, if no the input of false is returned.
 		- Uses Step Functions to check if Equal and Lerp Function to return either based on the result of the step functions.
+- Branchless Conditionals
+   - Implementation based on https://gist.github.com/stash/892f0655e0a83be803f30018d94087b3 
+   - Greater Than (float)
+   - Less Than (float)
+   - Greater or Equal (float)
+   - Less or Equal (float)
 # Third-Party Licenses
 Please Note if these links are incorrect they will be corrected in a later commit after the mistake is corrected.
 - Hue Shift - https://github.com/VoyVivika/VivikaShader/blob/main/Functions/ThirdParty/HueShift/LICENSE.txt
