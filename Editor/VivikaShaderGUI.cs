@@ -20,6 +20,7 @@ namespace Voy.VivikaShader
 
         public static readonly string[] AudioLinkNames =
         {
+            "_AudioLinkToggle",
             "_ALEmitifInactive",
             "_ALDelayMap",
             "_ALUVDelayMaxDelay",
@@ -44,6 +45,7 @@ namespace Voy.VivikaShader
 
         public static readonly string[] RimLightingNames =
         {
+            "_RimToggle",
             "_RimPower",
             "_RimEnergy",
             "_RimBaseColorStrength"
