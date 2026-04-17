@@ -12,14 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78b2425a2284af743826c689403a4924, type: 3}
   m_Name: DPS Penetrator
   m_EditorClassIdentifier: 
-  m_functionInfo: "// Made with Amplify Shader Editor v1.9.3.3\n// Available at the
-    Unity Asset Store - http://u3d.as/y3X \n/*ASEBEGIN\nVersion=19303\nNode;AmplifyShaderEditor.FunctionInput;7;-608,16;Inherit;False;Vertex
-    Normal;3;1;False;1;0;FLOAT3;0,0,0;False;1;FLOAT3;0\nNode;AmplifyShaderEditor.FunctionInput;4;-608,-64;Inherit;False;Vertex
-    Position;4;0;False;1;0;FLOAT4;0,0,0,0;False;1;FLOAT4;0\nNode;AmplifyShaderEditor.CustomExpressionNode;1;-384,-64;Inherit;False;PenetratorReshape(vertexPos,
-    vertexNormal)@$$;7;Call;2;True;vertexPos;FLOAT4;0,0,0,0;InOut;;Inherit;False;True;vertexNormal;FLOAT3;0,0,0;InOut;;Inherit;False;Call
-    Penetrator Reshape Function;False;False;0;;False;3;0;FLOAT;0;False;1;FLOAT4;0,0,0,0;False;2;FLOAT3;0,0,0;False;3;FLOAT;0;FLOAT4;2;FLOAT3;3\nNode;AmplifyShaderEditor.FunctionOutput;8;0,48;Inherit;False;False;-1;Vertex
-    Normal;1;False;1;0;FLOAT3;0,0,0;False;1;FLOAT3;0\nNode;AmplifyShaderEditor.FunctionOutput;0;0,-64;Inherit;False;True;-1;Vertex
-    Position;0;True;1;0;FLOAT4;0,0,0,0;False;1;FLOAT4;0\nWireConnection;1;1;4;0\nWireConnection;1;2;7;0\nWireConnection;8;0;1;3\nWireConnection;0;0;1;2\nASEEND*/\n//CHKSM=2D41F655828911846FA38C53BF17F2C8A086A6DF"
+  m_functionInfo: "// Made with Amplify Shader Editor v1.9.9.7\n// Available at the
+    Unity Asset Store - http://u3d.as/y3X \n/*ASEBEGIN\nVersion=19907\nNode;AmplifyShaderEditor.FunctionInput,
+    AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;7;-608,16;Inherit;False;Vertex
+    Normal;3;1;False;1;0;FLOAT3;0,0,0;False;1;FLOAT3;0\nNode;AmplifyShaderEditor.FunctionInput,
+    AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;4;-608,-64;Inherit;False;Vertex
+    Position;4;0;False;1;0;FLOAT4;0,0,0,0;False;1;FLOAT4;0\nNode;AmplifyShaderEditor.CustomExpressionNode,
+    AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;1;-384,-64;Inherit;False;PenetratorReshape(vertexPos,
+    vertexNormal)@$$;8;Call;2;True;vertexPos;FLOAT4;0,0,0,0;InOut;;Inherit;False;True;vertexNormal;FLOAT3;0,0,0;InOut;;Inherit;False;Call
+    Penetrator Reshape Function;False;False;0;;False;3;0;FLOAT;0;False;1;FLOAT4;0,0,0,0;False;2;FLOAT3;0,0,0;False;3;FLOAT;0;FLOAT4;2;FLOAT3;3\nNode;AmplifyShaderEditor.FunctionOutput,
+    AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;0;160,-128;Inherit;False;True;-1;Vertex
+    Position;0;True;1;0;FLOAT4;0,0,0,0;False;1;FLOAT4;0\nNode;AmplifyShaderEditor.FunctionOutput,
+    AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;8;160,64;Inherit;False;False;-1;Vertex
+    Normal;1;False;1;0;FLOAT3;0,0,0;False;1;FLOAT3;0\nWireConnection;1;1;4;0\nWireConnection;1;2;7;0\nWireConnection;0;0;1;2\nWireConnection;8;0;1;3\nASEEND*/\n//CHKSM=8B67F54011192BF846B356C263BB1B8AB80FFD2E"
   m_functionName: 
   m_description: 
   m_additionalIncludes:
