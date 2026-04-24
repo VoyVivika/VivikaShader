@@ -54,12 +54,17 @@ namespace Voy.VivikaShader
 
         public override void OnGUI(MaterialEditor materialEditor, MaterialProperty[] properties)
         {
+            /*foreach (MaterialProperty prop in ParseProperties(properties, materialEditor))
+            {
+                materialEditor.ShaderProperty(prop, prop.displayName);
+            }*/
             base.OnGUI(materialEditor, ParseProperties(properties, materialEditor));
         }
 
         public MaterialProperty[] ParseProperties(MaterialProperty[] properties, MaterialEditor materialEditor)
         {
             bool multiTarget = materialEditor.targets.Length > 1;
+            Material material = materialEditor.target as Material;
             
             bool isCutout = false;
             bool isTransparent = false;
@@ -67,7 +72,7 @@ namespace Voy.VivikaShader
             bool AlphaMap = false;
             bool VertexDiscard = false;
             bool RimLighting = false;
-            Material material = materialEditor.target as Material;
+            bool hasDPS = material.HasProperty("_Squeeze");
             
             List<MaterialProperty> newProperties = new List<MaterialProperty>();
 
@@ -117,7 +122,11 @@ namespace Voy.VivikaShader
                                     success = true;
                                     break;
                             }
-                            if (success) currentMode = prop.floatValue;
+                            if (success)
+                            {
+                                currentMode = prop.floatValue;
+                                if (hasDPS) material.renderQueue = (int)UnityEngine.Rendering.RenderQueue.Transparent;
+                            }
                         }
 
                     }
