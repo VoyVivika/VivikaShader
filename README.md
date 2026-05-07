@@ -1,14 +1,8 @@
 # VoyVivika's Personal Shader
-Preview GIF is Outdated
-
-![Shader Preview](https://github.com/VoyVivika/VivikaShader/blob/main/README%20ASSETS/Unity_Xwahnfhmvv.gif?raw=true)
-
-[3D  Model Showcased is my Personal Edit of Murdoc the Rat by Skully Hellfire](https://skullyhellfire.gumroad.com/l/skullysmurdoc)
-
 The Vivika Shader is a Shader created by VoyVivika in Unity3D with the Amplify Shader Editor. I made these for my Personal ChilloutVR Avatars with some in-game encouragement from N3X15, ended up being a fun project for experimenting with Amplify Shaders.
 
 # Please Note:
-This Shader only officially supports the Unity Built-in Render Pipeline, it does not support LWRP, URP, or HDRP. This means it will not work in Hypernex or most Projects Based on the Basis Framework.
+This Shader only officially supports the Unity Built-in Render Pipeline, it does not support LWRP, URP, or HDRP. This means it will not work in Projects based on the Basis Framework nor will it work on Hypernex, it is possible to port but not 1:1.
 
 ## Features
 - Single-Pass Stereo Instancing Compatible
@@ -31,7 +25,7 @@ This Shader only officially supports the Unity Built-in Render Pipeline, it does
 	- This Treats UV Coordinates like Tiles (U 1.0 to 2.0, V 1.0 to 2.0 is considered Tile 1, 1)
 - Rim Lighting
 - Toon Style Lighting
-- Support for [Raliv's Dynamic Penetration System](https://raliv.gumroad.com/l/lwthuB)
+- Support for [Raliv's Dynamic Penetration System](https://raliv.booth.pm/items/2825903)
 	- This is supported via a Custom Variant of the Vivika Shader which looks for the DPS .cginc files.
 	- This Variant of the Vivika Shader Requires DPS to be present in your Unity Project.
 ## Legacy (Deprecated/Removed Features)
