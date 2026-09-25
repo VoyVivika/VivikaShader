@@ -12,22 +12,50 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78b2425a2284af743826c689403a4924, type: 3}
   m_Name: VVGetVertexUV
   m_EditorClassIdentifier: 
-  m_functionInfo: "// Made with Amplify Shader Editor v1.9.3.3\n// Available at the
-    Unity Asset Store - http://u3d.as/y3X \n/*ASEBEGIN\nVersion=19303\nNode;AmplifyShaderEditor.CommentaryNode;1;-2097.045,-768;Inherit;False;1713.606;1779.543;Selection
-    of UV Maps to Use for UV Tile Discarding;19;26;25;23;22;21;20;19;17;16;15;14;13;11;10;9;7;6;4;0;Discard
-    UV;1,1,1,1;0;0\nNode;AmplifyShaderEditor.FunctionNode;19;-1200,-192;Inherit;False;If
-    Float Equal;-1;;535;bdca1c28487c8a1418e72579bec63589;0;4;7;FLOAT;0;False;8;FLOAT;0;False;9;FLOAT2;0,0;False;10;FLOAT2;0,0;False;1;FLOAT2;0\nNode;AmplifyShaderEditor.FunctionNode;20;-1200,208;Inherit;False;If
-    Float Equal;-1;;536;bdca1c28487c8a1418e72579bec63589;0;4;7;FLOAT;0;False;8;FLOAT;0;False;9;FLOAT2;0,0;False;10;FLOAT2;0,0;False;1;FLOAT2;0\nNode;AmplifyShaderEditor.FunctionNode;21;-1136,608;Inherit;False;If
-    Float Equal;-1;;537;bdca1c28487c8a1418e72579bec63589;0;4;7;FLOAT;0;False;8;FLOAT;0;False;9;FLOAT2;0,0;False;10;FLOAT2;0,0;False;1;FLOAT2;0\nNode;AmplifyShaderEditor.FunctionNode;22;-1184,-624;Inherit;False;If
-    Float Equal;-1;;538;bdca1c28487c8a1418e72579bec63589;0;4;7;FLOAT;0;False;8;FLOAT;0;False;9;FLOAT2;0,0;False;10;FLOAT2;0,0;False;1;FLOAT2;0\nNode;AmplifyShaderEditor.SimpleAddOpNode;23;-768,80;Inherit;False;4;4;0;FLOAT2;0,0;False;1;FLOAT2;0,0;False;2;FLOAT2;0,0;False;3;FLOAT2;0,0;False;1;FLOAT2;0\nNode;AmplifyShaderEditor.FunctionInput;26;-1808,-704;Inherit;False;Input;1;0;False;1;0;FLOAT;0;False;1;FLOAT;0\nNode;AmplifyShaderEditor.TexCoordVertexDataNode;4;-1872,-528;Inherit;False;0;2;0;5;FLOAT2;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4\nNode;AmplifyShaderEditor.RangedFloatNode;6;-1808,-592;Inherit;False;Constant;_Float2;Float
-    2;54;0;Create;True;0;0;0;False;0;False;0;0;0;0;0;1;FLOAT;0\nNode;AmplifyShaderEditor.TexCoordVertexDataNode;10;-1872,-128;Inherit;False;1;2;0;5;FLOAT2;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4\nNode;AmplifyShaderEditor.RangedFloatNode;9;-1808,-192;Inherit;False;Constant;_Float3;Float
-    2;54;0;Create;True;0;0;0;False;0;False;1;0;0;0;0;1;FLOAT;0\nNode;AmplifyShaderEditor.Vector2Node;11;-1808,-16;Inherit;False;Constant;_Vector17;Vector
-    16;54;0;Create;True;0;0;0;False;0;False;0,0;0,0;0;3;FLOAT2;0;FLOAT;1;FLOAT;2\nNode;AmplifyShaderEditor.Vector2Node;7;-1808,-416;Inherit;False;Constant;_Vector16;Vector
-    16;54;0;Create;True;0;0;0;False;0;False;0,0;0,0;0;3;FLOAT2;0;FLOAT;1;FLOAT;2\nNode;AmplifyShaderEditor.Vector2Node;16;-1824,816;Inherit;False;Constant;_Vector19;Vector
-    16;54;0;Create;True;0;0;0;False;0;False;0,0;0,0;0;3;FLOAT2;0;FLOAT;1;FLOAT;2\nNode;AmplifyShaderEditor.TexCoordVertexDataNode;25;-1888,704;Inherit;False;3;2;0;5;FLOAT2;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4\nNode;AmplifyShaderEditor.RangedFloatNode;17;-1824,640;Inherit;False;Constant;_Float6;Float
-    2;54;0;Create;True;0;0;0;False;0;False;3;0;0;0;0;1;FLOAT;0\nNode;AmplifyShaderEditor.Vector2Node;14;-1808,368;Inherit;False;Constant;_Vector18;Vector
-    16;54;0;Create;True;0;0;0;False;0;False;0,0;0,0;0;3;FLOAT2;0;FLOAT;1;FLOAT;2\nNode;AmplifyShaderEditor.TexCoordVertexDataNode;15;-1872,256;Inherit;False;2;2;0;5;FLOAT2;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4\nNode;AmplifyShaderEditor.RangedFloatNode;13;-1808,192;Inherit;False;Constant;_Float4;Float
-    2;54;0;Create;True;0;0;0;False;0;False;2;0;0;0;0;1;FLOAT;0\nNode;AmplifyShaderEditor.FunctionOutput;0;-640,80;Inherit;False;True;-1;Output;0;False;1;0;FLOAT2;0,0;False;1;FLOAT2;0\nWireConnection;19;7;26;0\nWireConnection;19;8;9;0\nWireConnection;19;9;10;0\nWireConnection;19;10;11;0\nWireConnection;20;7;26;0\nWireConnection;20;8;13;0\nWireConnection;20;9;15;0\nWireConnection;20;10;14;0\nWireConnection;21;7;26;0\nWireConnection;21;8;17;0\nWireConnection;21;9;25;0\nWireConnection;21;10;16;0\nWireConnection;22;7;26;0\nWireConnection;22;8;6;0\nWireConnection;22;9;4;0\nWireConnection;22;10;7;0\nWireConnection;23;0;22;0\nWireConnection;23;1;19;0\nWireConnection;23;2;20;0\nWireConnection;23;3;21;0\nWireConnection;0;0;23;0\nASEEND*/\n//CHKSM=E8522C14578B7033AB01696FD8108B284920C74B"
+  m_functionInfo: "// Made with Amplify Shader Editor v1.9.9.7\n// Available at the
+    Unity Asset Store - http://u3d.as/y3X \n/*ASEBEGIN\nVersion=19907\nNode;AmplifyShaderEditor.CommentaryNode,
+    AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;1;-2097.045,-768;Inherit;False;1750.379;2278.602;Selection
+    of UV Maps to Use for UV Tile Discarding;24;0;13;15;14;17;25;16;7;11;9;10;6;4;26;23;31;32;33;35;36;37;38;39;40;Discard
+    UV;1,1,1,1;0;0\nNode;AmplifyShaderEditor.SimpleAddOpNode, AmplifyShaderEditor,
+    Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;23;-768,80;Inherit;False;2;2;0;FLOAT2;0,0;False;1;FLOAT2;0,0;False;1;FLOAT2;0\nNode;AmplifyShaderEditor.FunctionInput,
+    AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;26;-1808,-704;Inherit;False;Input;1;0;False;1;0;FLOAT;0;False;1;FLOAT;0\nNode;AmplifyShaderEditor.TexCoordVertexDataNode,
+    AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;4;-1872,-528;Inherit;False;0;2;0;5;FLOAT2;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4\nNode;AmplifyShaderEditor.RangedFloatNode,
+    AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;6;-1808,-592;Inherit;False;Constant;_Float2;Float
+    2;54;0;Create;True;0;0;0;False;0;False;0;0;0;0;0;1;FLOAT;0\nNode;AmplifyShaderEditor.TexCoordVertexDataNode,
+    AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;10;-1872,-128;Inherit;False;1;2;0;5;FLOAT2;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4\nNode;AmplifyShaderEditor.RangedFloatNode,
+    AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;9;-1808,-192;Inherit;False;Constant;_Float3;Float
+    2;54;0;Create;True;0;0;0;False;0;False;1;0;0;0;0;1;FLOAT;0\nNode;AmplifyShaderEditor.Vector2Node,
+    AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;11;-1808,-16;Inherit;False;Constant;_Vector17;Vector
+    16;54;0;Create;True;0;0;0;False;0;False;0,0;0,0;0;3;FLOAT2;0;FLOAT;1;FLOAT;2\nNode;AmplifyShaderEditor.Vector2Node,
+    AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;7;-1808,-416;Inherit;False;Constant;_Vector16;Vector
+    16;54;0;Create;True;0;0;0;False;0;False;0,0;0,0;0;3;FLOAT2;0;FLOAT;1;FLOAT;2\nNode;AmplifyShaderEditor.Vector2Node,
+    AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;16;-1824,816;Inherit;False;Constant;_Vector19;Vector
+    16;54;0;Create;True;0;0;0;False;0;False;0,0;0,0;0;3;FLOAT2;0;FLOAT;1;FLOAT;2\nNode;AmplifyShaderEditor.RangedFloatNode,
+    AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;17;-1824,640;Inherit;False;Constant;_Float6;Float
+    2;54;0;Create;True;0;0;0;False;0;False;3;0;0;0;0;1;FLOAT;0\nNode;AmplifyShaderEditor.Vector2Node,
+    AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;14;-1808,368;Inherit;False;Constant;_Vector18;Vector
+    16;54;0;Create;True;0;0;0;False;0;False;0,0;0,0;0;3;FLOAT2;0;FLOAT;1;FLOAT;2\nNode;AmplifyShaderEditor.TexCoordVertexDataNode,
+    AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;15;-1872,256;Inherit;False;2;2;0;5;FLOAT2;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4\nNode;AmplifyShaderEditor.RangedFloatNode,
+    AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;13;-1808,192;Inherit;False;Constant;_Float4;Float
+    2;54;0;Create;True;0;0;0;False;0;False;2;0;0;0;0;1;FLOAT;0\nNode;AmplifyShaderEditor.RangedFloatNode,
+    AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;31;-1824,1056;Inherit;False;Constant;_Float16;Float
+    2;54;0;Create;True;0;0;0;False;0;False;8;0;0;0;0;1;FLOAT;0\nNode;AmplifyShaderEditor.DynamicAppendNode,
+    AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;32;-1824,1120;Inherit;False;FLOAT2;4;0;FLOAT;0;False;1;FLOAT;0;False;2;FLOAT;0;False;3;FLOAT;0;False;1;FLOAT2;0\nNode;AmplifyShaderEditor.ScreenPosInputsNode,
+    AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;35;-2064,1040;Float;False;0;False;0;5;FLOAT4;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4\nNode;AmplifyShaderEditor.Vector2Node,
+    AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;33;-1824,1248;Inherit;False;Constant;_Vector28;Vector
+    16;54;0;Create;True;0;0;0;False;0;False;0,0;0,0;0;3;FLOAT2;0;FLOAT;1;FLOAT;2\nNode;AmplifyShaderEditor.TexCoordVertexDataNode,
+    AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;25;-1888,704;Inherit;False;3;2;0;5;FLOAT2;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4\nNode;AmplifyShaderEditor.FunctionNode,
+    AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;36;-1200,-576;Inherit;False;If
+    Less or Equal (Float);-1;;551;682c4ee0cdb9795c28b33f472ab386ef;0;4;1;FLOAT;0;False;2;FLOAT;0;False;5;FLOAT2;0,0;False;6;FLOAT2;0,0;False;1;FLOAT2;0\nNode;AmplifyShaderEditor.FunctionNode,
+    AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;37;-1200,-192;Inherit;False;If
+    Less or Equal (Float);-1;;554;682c4ee0cdb9795c28b33f472ab386ef;0;4;1;FLOAT;0;False;2;FLOAT;0;False;5;FLOAT2;0,0;False;6;FLOAT2;0,0;False;1;FLOAT2;0\nNode;AmplifyShaderEditor.FunctionNode,
+    AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;38;-1184,192;Inherit;False;If
+    Less or Equal (Float);-1;;557;682c4ee0cdb9795c28b33f472ab386ef;0;4;1;FLOAT;0;False;2;FLOAT;0;False;5;FLOAT2;0,0;False;6;FLOAT2;0,0;False;1;FLOAT2;0\nNode;AmplifyShaderEditor.FunctionNode,
+    AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;39;-1184,640;Inherit;False;If
+    Less or Equal (Float);-1;;560;682c4ee0cdb9795c28b33f472ab386ef;0;4;1;FLOAT;0;False;2;FLOAT;0;False;5;FLOAT2;0,0;False;6;FLOAT2;0,0;False;1;FLOAT2;0\nNode;AmplifyShaderEditor.FunctionNode,
+    AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;40;-1184,1136;Inherit;False;If
+    Less or Equal (Float);-1;;563;682c4ee0cdb9795c28b33f472ab386ef;0;4;1;FLOAT;0;False;2;FLOAT;0;False;5;FLOAT2;0,0;False;6;FLOAT2;0,0;False;1;FLOAT2;0\nNode;AmplifyShaderEditor.FunctionOutput,
+    AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;0;-640,80;Inherit;False;True;-1;Output;0;False;1;0;FLOAT2;0,0;False;1;FLOAT2;0\nWireConnection;32;0;35;1\nWireConnection;32;1;35;2\nWireConnection;36;1;26;0\nWireConnection;36;2;6;0\nWireConnection;36;5;4;0\nWireConnection;36;6;37;0\nWireConnection;37;1;26;0\nWireConnection;37;2;9;0\nWireConnection;37;5;10;0\nWireConnection;37;6;38;0\nWireConnection;38;1;26;0\nWireConnection;38;2;13;0\nWireConnection;38;5;15;0\nWireConnection;38;6;39;0\nWireConnection;39;1;26;0\nWireConnection;39;2;17;0\nWireConnection;39;5;25;0\nWireConnection;39;6;40;0\nWireConnection;40;1;26;0\nWireConnection;40;2;31;0\nWireConnection;40;5;32;0\nWireConnection;40;6;4;0\nWireConnection;0;0;36;0\nASEEND*/\n//CHKSM=6BE2824A797B0FDB6187B6DBA45EDDD0E26DCD40"
   m_functionName: 
   m_description: 
   m_additionalIncludes:

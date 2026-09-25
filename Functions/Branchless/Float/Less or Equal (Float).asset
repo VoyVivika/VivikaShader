@@ -10,12 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 78b2425a2284af743826c689403a4924, type: 3}
-  m_Name: Less Than
+  m_Name: Less or Equal (Float)
   m_EditorClassIdentifier: 
   m_functionInfo: "// Made with Amplify Shader Editor v1.9.3.3\n// Available at the
-    Unity Asset Store - http://u3d.as/y3X \n/*ASEBEGIN\nVersion=19303\nNode;AmplifyShaderEditor.SimpleSubtractOpNode;5;-528,-16;Inherit;False;2;0;FLOAT;0;False;1;FLOAT;0;False;1;FLOAT;0\nNode;AmplifyShaderEditor.SignOpNode;4;-352,-32;Inherit;False;1;0;FLOAT;0;False;1;FLOAT;0\nNode;AmplifyShaderEditor.SimpleMaxOpNode;3;-224,-16;Inherit;False;2;0;FLOAT;0;False;1;FLOAT;0;False;1;FLOAT;0\nNode;AmplifyShaderEditor.FunctionInput;1;-720,-144;Inherit;False;X;1;0;False;1;0;FLOAT;0;False;1;FLOAT;0\nNode;AmplifyShaderEditor.FunctionInput;2;-720,-48;Inherit;False;Y;1;1;False;1;0;FLOAT;0;False;1;FLOAT;0\nNode;AmplifyShaderEditor.FunctionOutput;0;-48,-16;Inherit;False;True;-1;Output;0;False;1;0;FLOAT;0;False;1;FLOAT;0\nWireConnection;5;0;2;0\nWireConnection;5;1;1;0\nWireConnection;4;0;5;0\nWireConnection;3;0;4;0\nWireConnection;0;0;3;0\nASEEND*/\n//CHKSM=98E145E1E1AD87B4D27B101C8B8DFC91E23AB2CA"
+    Unity Asset Store - http://u3d.as/y3X \n/*ASEBEGIN\nVersion=19303\nNode;AmplifyShaderEditor.FunctionInput;2;-672,-64;Inherit;False;Y;1;1;False;1;0;FLOAT;0;False;1;FLOAT;0\nNode;AmplifyShaderEditor.FunctionInput;1;-672,-176;Inherit;False;X;1;0;False;1;0;FLOAT;0;False;1;FLOAT;0\nNode;AmplifyShaderEditor.SimpleSubtractOpNode;4;-256,-96;Inherit;False;2;0;FLOAT;0;False;1;FLOAT;1;False;1;FLOAT;0\nNode;AmplifyShaderEditor.FunctionNode;10;-480,-112;Inherit;False;Greater
+    Than;-1;;6;940a7254890808f4db24b27966345c11;0;2;1;FLOAT;0;False;2;FLOAT;0;False;1;FLOAT;0\nNode;AmplifyShaderEditor.FunctionOutput;0;-64,-112;Inherit;False;True;-1;Output;0;False;1;0;FLOAT;0;False;1;FLOAT;0\nWireConnection;4;0;10;0\nWireConnection;10;1;1;0\nWireConnection;10;2;2;0\nWireConnection;0;0;4;0\nASEEND*/\n//CHKSM=152109C1D4FDD7AEB1DCF674CE7A9FD8878028C1"
   m_functionName: 
-  m_description: Returns 1 if X is Less Than Y, otherwise returns 0
+  m_description: Returns 1 if X is Less or Equal to Y, otherwise returns 0
   m_additionalIncludes:
     m_additionalIncludes: []
     m_outsideIncludes: []

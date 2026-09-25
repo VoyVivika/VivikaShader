@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEditor;
+using UnityEngine.Rendering;
 
 namespace Voy.VivikaShader
 {
@@ -15,7 +16,8 @@ namespace Voy.VivikaShader
         {
             "_SrcBlend",
             "_DstBlend",
-            "_ZWrite"
+            "_ZWrite",
+            "_AlphaOn"
         };
 
         public static readonly string[] AudioLinkNames =
@@ -26,7 +28,24 @@ namespace Voy.VivikaShader
             "_ALUVDelayMaxDelay",
             "_ALTimeScale",
             "_AL_Mask",
-            "_ALDelayUVMap"
+            "_ALDelayUVMap",
+            "_ALBassMask",
+            "_ALHighMidMask",
+            "_ALLowMidMask",
+            "_ALTrebleMask",
+            "_ALBassDelay",
+            "_ALHighMidDelay",
+            "_ALLowMidDelay",
+            "_ALTrebleDelay",
+            "_ALPreviewBass",
+            "_ALPreviewLowMid",
+            "_ALPreviewHighMid",
+            "_ALPreviewTreble",
+            "_ALAltColorMixing",
+            "_AL_Bass",
+            "_AL_HighMid",
+            "_AL_LowMid",
+            "_AL_Treble"
         };
 
         public static readonly string[] AlphaMapNames =
@@ -65,6 +84,8 @@ namespace Voy.VivikaShader
         {
             bool multiTarget = materialEditor.targets.Length > 1;
             Material material = materialEditor.target as Material;
+            LocalKeyword alphaEnabled = new LocalKeyword(material.shader, "_AlphaIsInUse");
+            LocalKeyword doDither = new LocalKeyword(material.shader, "_DoDither");
             
             bool isCutout = false;
             bool isTransparent = false;
@@ -86,38 +107,51 @@ namespace Voy.VivikaShader
                         if (prop.floatValue > 0) isTransparent = true;
                         if (prop.floatValue != currentMode)
                         {
+                            Debug.Log("Mode Value is " + prop.floatValue.ToString());
                             bool success = false;
                             switch (prop.floatValue)
                             {
                                 case 0: // Opaque
+                                    Debug.Log("Vivika Shader is Opaque");
                                     material.SetFloat("_SrcBlend", (float)UnityEngine.Rendering.BlendMode.One);
                                     material.SetFloat("_DstBlend", (float)UnityEngine.Rendering.BlendMode.Zero);
                                     material.SetFloat("_ZWrite", 1.0f);
-                                    material.SetFloat("_Cutoff", 0.5f);
+                                    material.SetFloat("_Cutoff", 1.0f);
+                                    material.SetKeyword(alphaEnabled, false);
+                                    material.SetKeyword(doDither, false);
                                     material.renderQueue = (int)UnityEngine.Rendering.RenderQueue.Geometry;
                                     success = true;
                                     break;
                                 case 1: // Cutout
+                                    Debug.Log("Vivika Shader is Cutout");
                                     material.SetFloat("_SrcBlend", (float)UnityEngine.Rendering.BlendMode.One);
                                     material.SetFloat("_DstBlend", (float)UnityEngine.Rendering.BlendMode.Zero);
                                     material.SetFloat("_ZWrite", 1.0f);
                                     material.SetFloat("_Cutoff", 0.5f);
+                                    material.SetKeyword(alphaEnabled, true);
+                                    material.SetKeyword(doDither, false);
                                     material.renderQueue = (int)UnityEngine.Rendering.RenderQueue.AlphaTest;
                                     success = true;
                                     break;
                                 case 2: // Transparent Cutout
+                                    Debug.Log("Vivika Shader is Transparent Cutout");
                                     material.SetFloat("_SrcBlend", (float)UnityEngine.Rendering.BlendMode.One);
                                     material.SetFloat("_DstBlend", (float)UnityEngine.Rendering.BlendMode.Zero);
                                     material.SetFloat("_ZWrite", 1.0f);
                                     material.SetFloat("_Cutoff", 0.5f);
+                                    material.SetKeyword(alphaEnabled, true);
+                                    material.SetKeyword(doDither, true);
                                     material.renderQueue = (int)UnityEngine.Rendering.RenderQueue.AlphaTest;
                                     success = true;
                                     break;
                                 case 3: // Transparent
+                                    Debug.Log("Vivika Shader is Transparent");
                                     material.SetFloat("_SrcBlend", (float)UnityEngine.Rendering.BlendMode.One);
                                     material.SetFloat("_DstBlend", (float)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
                                     material.SetFloat("_ZWrite", 0.0f);
                                     material.SetFloat("_Cutoff", 0.0f);
+                                    material.SetKeyword(alphaEnabled, true);
+                                    material.SetKeyword(doDither, false);
                                     material.renderQueue = (int)UnityEngine.Rendering.RenderQueue.Transparent;
                                     success = true;
                                     break;
