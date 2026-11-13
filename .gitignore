@@ -72,3 +72,4 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 Basis.mat
 Basis.mat.meta
+/Testing/DontIncludeInGithub
